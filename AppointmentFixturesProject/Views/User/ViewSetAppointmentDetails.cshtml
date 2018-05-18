@@ -1,0 +1,75 @@
+﻿@model IEnumerable<BO.BOVipViewModel>
+
+@{
+    ViewBag.Title = "ViewSetAppointmentDetails";
+    Layout = "~/Views/Shared/_UserSharedView.cshtml";
+}
+
+<br />
+<br />
+<table class="table" >
+    <tr class="success">
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FromTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ToTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsCanceled)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DepartmentId)
+        </th>
+        
+        <th>
+            @Html.DisplayNameFor(model => model.AppointmentTo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Details)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.status)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FromTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ToTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsCanceled)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DepartmentId)
+        </td>
+       
+        <td>
+            @Html.DisplayFor(modelItem => item.AppointmentTo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Details)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.status)
+        </td>
+        <td>
+            @*@Html.ActionLink("Edit", "EditUserAppointment", new { id=item.Id },new { @class = "btn btn-info" }) 
+       
+            @Html.ActionLink("Delete", "DeleteUserAppointment", new { id=item.Id },new { @class = "btn btn-danger" })*@
+        </td>
+    </tr>
+}
+
+</table>

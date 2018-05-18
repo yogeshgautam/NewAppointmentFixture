@@ -1,0 +1,82 @@
+﻿@model IEnumerable<BO.BOVipViewModel>
+
+@{
+    ViewBag.Title = "AppointmentCancelorNot";
+    Layout = "~/Views/Shared/_VIPSharedView.cshtml";
+}
+
+<h2>AppointmentCancelorNot</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FromTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ToTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsCanceled)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DepartmentId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AppointmentFrom)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AppointmentTo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Details)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.status)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FromTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ToTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsCanceled)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DepartmentId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AppointmentFrom)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AppointmentTo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Details)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.status)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

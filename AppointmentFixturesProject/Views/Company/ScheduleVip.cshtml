@@ -1,0 +1,66 @@
+﻿@model IEnumerable<BO.BOAvailableTiming>
+
+@{
+    ViewBag.Title = "ViewAppointment";
+    Layout = "~/Views/Shared/_CompanySharedView.cshtml";
+}
+<div class="container">
+
+    <h2>View Appointment</h2>
+    <hr />
+    <div class="container">
+        <table class="table table-bordered table-hover ">
+            <tr class="success">
+                <th>
+                    @Html.DisplayNameFor(model => model.Date)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.StartTime)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EndTime)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IsAvailable)
+                </th>
+
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Date)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StartTime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EndTime)
+                    </td>
+                    <td>
+                        @if (item.IsAvailable == true)
+                        {
+                            <text>Yes</text>
+                        }
+                        else
+                        {
+                            <text>No</text>
+                        }
+
+                    </td>
+
+                    <td>
+                        @Html.ActionLink("Edit", "EditAppointmentTiming", new { id = item.Id }, new { @class = "btn btn-warning" })
+
+                        @Html.ActionLink("Delete", "DeleteAppointmentTiming", new { id = item.Id }, new { @class = "btn btn-danger" })
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+</div>
+
+

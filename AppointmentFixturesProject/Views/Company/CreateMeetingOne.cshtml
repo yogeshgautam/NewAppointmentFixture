@@ -1,0 +1,68 @@
+﻿@model BO.BOMeetingFirst
+
+@{
+    ViewBag.Title = "CreateMeetingOne";
+    Layout = "~/Views/Shared/_CompanySharedView.cshtml";
+}
+
+<h2>Create Meeting</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+     
+        <hr />
+        @Html.ValidationSummary(true)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.VIPuser, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.VIPuser, new SelectList(ViewBag.Company, "Id", "FullName"), new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.VIPuser)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Users, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Users, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Users)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.StartTime, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.StartTime, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.StartTime)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.EndTime, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.EndTime, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.EndTime)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Date, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Date, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Date)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @ViewBag.Message
+</div>

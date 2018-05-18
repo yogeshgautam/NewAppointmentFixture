@@ -1,0 +1,243 @@
+﻿@{
+    ViewBag.Title = "FixAppointment";
+    Layout = "~/Views/Shared/_UserSharedView.cshtml";
+}
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js">
+</script>
+
+<br />
+<br />
+<script>
+    var setTime = 15;
+    debugger
+    $(document).ready(function () {
+        $('#dropdownCompany').on('change', function () {
+            var Id = $('#dropdownCompany option:selected').val();
+            $.ajax({
+                type: 'GET',
+                data: { Id: Id },
+                url: '@Url.Action("loadDepartment","User")',
+                success: function (result) {
+                    //alert(result);
+                    var s = '<option value="-1">Please select Department</option>';
+                    for (var i = 0; i < result.length; i++) {
+                        s += '<option value="' + result[i].Id + ' ">' + result[i].Name + '</option>';
+                    }
+                    $('#dropdownDepartment').html(s);
+                }
+            });
+        });
+
+        $('#dropdownDepartment').on('change', function () {
+            var Id = $('#dropdownDepartment option:selected').val();
+            $.ajax({
+                type: 'GET',
+                data: { Id: Id },
+                url: '@Url.Action("loadVIP","User")',
+                success: function (result) {
+                    //alert(result);
+                    var s = '<option value="-1">Please select VIP</option>';
+                    for (var i = 0; i < result.length; i++) {
+                        s += '<option value="' + result[i].Id + ' ">' + result[i].FullName + '</option>';
+                    }
+                    $('#dropdownVIP').html(s);
+                }
+            });
+        });
+
+        $('#dropdownVIP').on('change', function () {
+            var Id = $('#dropdownVIP option:selected').val();
+            $.ajax({
+                type: 'GET',
+                data: { Id: Id },
+                url: '@Url.Action("loadDate","User")',
+                success: function (result) {
+                    //alert(result + "diwas");
+                    var s = '<option value="-1">Please Select Date</option>';
+                    for (var i = 0; i < result.length; i++) {
+                        s += '<option value="' + result[i].Id + ' ">' + result[i].Date + '</option>';
+                    }
+                    $('#dropdownDate').html(s);
+                }
+            });
+        });
+
+
+        $('#dropdownDate').on('change', function () {
+            var Id = $('#dropdownDate option:selected').val();
+            $.ajax({
+                type: 'GET',
+                data: { Id: Id },
+                url: '@Url.Action("loadTime","User")',
+                success: function (result) {
+                    var s = '<option value="-1">Please Select Date</option>';
+                    for (var i = 0; i < result.length; i++) {
+                        s += '<option value="' + result[i].Id + ' ">' + result[i].StartTime + '--- ' + result[i].EndTime + '</option>';
+                    }
+                    $('#dropdownTime').html(s);
+                }
+            });
+        });
+
+        $('#dropdownTime').on('change', function () {
+            var Id = $('#dropdownTime option:selected').val();
+            //debugger;
+            $.ajax({
+                type: 'GET',
+                data: { Id: Id },
+                url: '@Url.Action("loadFixedTime","User")',
+                success: function (result) {
+                    var a = result.StartTime;
+                    var b = result.EndTime;
+                    var result = intervals(a, b);
+                    for (var i = 0; i < result.length; i++) {
+                        var s = '<option value="-1">Please Select Interval</option>';
+                        for (var i = 0; i < result.length; i++) {
+                            if (typeof result[i + 1] == 'undefined') {
+
+                                s += '<option value="' + result[i] + ' ">' + result[i] + '   to   ' + b + '</option>';
+                            }
+                            else
+                                s += '<option value="' + result[i] + ' ">' + result[i] + '   to   ' + result[i + 1] + '</option>';
+                        }
+                        $('#dropdownInterval').html(s);
+                    }
+                }
+            });
+        });
+
+
+        $('#dropdownInterval').on('change', function () {
+            var Id = $('#dropdownInterval option:selected').text();
+            //debugger;
+            $.ajax({
+                type: 'GET',
+                data: { Id: Id },
+                url: '@Url.Action("SaveEndInterval","User")',
+                success: function (result) {
+                    //alert(Id);
+                }
+            });
+        });
+    });
+
+    function intervals(startString, endString) {
+        var start = moment(startString, 'HH:mm:ss a');
+        var end = moment(endString, 'HH:mm:ss a');
+        start.minutes(Math.ceil(start.minutes() / 15) * 15);
+        var result = []; //result contain array of time
+        var current = moment(start);
+
+        while (current <= end) {
+            result.push(current.format('HH:mm:ss'));
+            current.add(setTime, 'minutes');
+        }
+        return result;
+    }
+</script>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-offset-3 col-sm-6">
+            <form method="POST" action="/User/SaveToDateTimeTable">
+                <table>
+                    @if (@ViewBag.Appointment != null)
+                    {
+                        <h2>Value Set : @ViewBag.Appointment</h2>
+                    }
+                    <tr>
+                        <td>Company</td>
+                        <td>
+                            <select id="dropdownCompany" name="dropdownCompany" class="btn btn-default form-control" data-live-search="true">
+                                <option value="-1">Select Company</option>
+
+                                @foreach (var Company in ViewBag.Company)
+                                {
+                                    <option value="@Company.Id">@Company.Name</option>
+                                }
+                            </select>
+                            <br />
+                            <br />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Department</td>
+                        <td>
+                            <select id="dropdownDepartment" name="dropdownDepartment" class="btn btn-default form-control" data-live-search="true">
+                                <option value="-1">Select Department</option>
+                            </select><br /><br />
+                        </td>
+                    </tr>
+                    <!--latest change-->
+                    <tr>
+                        <td>VIP</td>
+                        <td>
+                            <select id="dropdownVIP" name="dropdownVIP" class="btn btn-default form-control" data-live-search="true">
+                                <option value="-1">Select VIP</option>
+                            </select>
+                            <br />
+                            <br />
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Date</td>
+                        <td>
+                            <select id="dropdownDate" name="dropdownDate" class="btn btn-default form-control" data-live-search="true">
+                                <option value="-1">Select Date</option>
+                            </select>
+                            <br />
+                            <br />
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Date</td>
+                        <td>
+                            <select id="dropdownTime" name="dropdownTime" class="btn btn-default form-control" data-live-search="true">
+                                <option value="-1">Select Time</option>
+                            </select>
+                            <br />
+                            <br />
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Select Interval</td>
+
+                        <td>
+                            <select id="dropdownInterval" name="dropdownInterval" class="btn btn-default form-control" data-live-search="true">
+                                <option value="-1">Select Interval</option>
+                            </select>
+                            <br />
+                            <br />
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Appointment Details</td>
+                        <td>
+                            <br />
+                            <textarea rows="4" class="form-control" cols="50" style="resize:none" placeholder="Appointment Details" name="Details" id="Details"></textarea>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td></td>
+                        <td>
+                            <br />
+                            <input type="submit" value="Submit Appointment" class="btn btn-primary" id="submit" />
+                        </td>
+                    </tr>
+                </table>
+
+
+               
+
+            </form>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,89 @@
+﻿@model IEnumerable<BO.BOVipViewModel>
+
+@{
+    ViewBag.Title = "ViewAppointment";
+    Layout = "~/Views/Shared/_VIPSharedView.cshtml";
+}
+<br />
+<br />
+<br />
+<table class="table">
+    <tr class="success">
+        <th>
+            @Html.DisplayNameFor(model => model.Date )
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FromTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ToTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DepartmentId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AppointmentFrom)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Details)
+        </th>
+
+       
+        <th>
+            @Html.DisplayNameFor(model=>model.IsCanceled)
+        </th>
+
+
+        
+    </tr>
+
+
+
+@foreach (var item in Model)
+{
+    <tr>
+        
+            @Html.HiddenFor(modelItem=>item.Id )
+        
+
+        <td>
+            @Html.DisplayFor(modelItem => item.Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FromTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ToTime)
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.DepartmentId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AppointmentFrom)
+        </td>
+
+        
+
+        <td>
+            
+            @if (item.IsCanceled==true)
+            {
+                @Html.Label("Yes")
+            }
+            else
+            {
+              @Html.Label("No")
+            }
+
+        </td>
+       
+        <td>
+            @Html.ActionLink("Update", "UpdatingAppointment", new { id=item.Id},new { @class = "btn btn-info" })
+        </td>
+    </tr>
+}
+
+    
+
+</table>

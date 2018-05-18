@@ -1,0 +1,861 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="AppointmentDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="Model" Type="varbinary(max)" Nullable="false" />
+          <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetRoles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaims">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ClaimType" Type="nvarchar(max)" />
+          <Property Name="ClaimValue" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogins">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserRoles">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+          <Property Name="PasswordHash" Type="nvarchar(max)" />
+          <Property Name="SecurityStamp" Type="nvarchar(max)" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" />
+          <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="datetime" />
+          <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="tblAppointment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DepartmentId" Type="int" />
+          <Property Name="AppointmentFrom" Type="nvarchar(max)" />
+          <Property Name="AppointmentTo" Type="nvarchar(max)" />
+          <Property Name="DateTimeId" Type="int" />
+          <Property Name="Details" Type="nvarchar(max)" />
+          <Property Name="status" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tblAvailableTiming">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Date" Type="nvarchar" MaxLength="50" />
+          <Property Name="StartTime" Type="nvarchar" MaxLength="50" />
+          <Property Name="EndTime" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsAvailable" Type="bit" />
+          <Property Name="VipId" Type="int" />
+        </EntityType>
+        <EntityType Name="tblCompanyDetails">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="Address" Type="nvarchar(max)" />
+          <Property Name="Photo" Type="nvarchar" MaxLength="50" />
+          <Property Name="UserId" Type="nvarchar(max)" />
+          <Property Name="IsDeleted" Type="bit" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedAt" Type="nvarchar" MaxLength="50" />
+          <Property Name="LastUpdated" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tblDateTime">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Date" Type="date" />
+          <Property Name="FromTime" Type="nvarchar" MaxLength="50" />
+          <Property Name="ToTime" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsCanceled" Type="bit" />
+        </EntityType>
+        <EntityType Name="tblDepartment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CompanyId" Type="int" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="phone" Type="nvarchar(max)" />
+          <Property Name="Email" Type="nvarchar(max)" />
+          <Property Name="Details" Type="nvarchar(max)" />
+          <Property Name="HOD" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsDeleted" Type="bit" />
+          <Property Name="CreatedAt" Type="nvarchar" MaxLength="50" />
+          <Property Name="LastUpdated" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tblMeetingFirst">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="VIPUser" Type="nvarchar" MaxLength="50" />
+          <Property Name="Users" Type="nvarchar" MaxLength="50" />
+          <Property Name="StartTime" Type="nvarchar" MaxLength="50" />
+          <Property Name="EndTime" Type="nvarchar" MaxLength="50" />
+          <Property Name="Date" Type="date" />
+        </EntityType>
+        <EntityType Name="tblVIPUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DepartmentId" Type="int" />
+          <Property Name="UserId" Type="nvarchar(max)" />
+          <Property Name="Designation" Type="nvarchar(max)" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="50" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="Address1" Type="nvarchar" MaxLength="50" />
+          <Property Name="Address2" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsDeleted" Type="bit" />
+          <Property Name="Details" Type="nvarchar(max)" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Photo" Type="nvarchar(max)" />
+          <Property Name="CreatedAt" Type="nvarchar" MaxLength="50" />
+          <Property Name="LastUpdated" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetRoles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblAppointment_tblDateTime">
+          <End Role="tblDateTime" Type="Self.tblDateTime" Multiplicity="0..1" />
+          <End Role="tblAppointment" Type="Self.tblAppointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblDateTime">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblAppointment">
+              <PropertyRef Name="DateTimeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblAppointment_tblDepartment">
+          <End Role="tblDepartment" Type="Self.tblDepartment" Multiplicity="0..1" />
+          <End Role="tblAppointment" Type="Self.tblAppointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblDepartment">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblAppointment">
+              <PropertyRef Name="DepartmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblAvailableTiming_tblVIPUser">
+          <End Role="tblVIPUser" Type="Self.tblVIPUser" Multiplicity="0..1" />
+          <End Role="tblAvailableTiming" Type="Self.tblAvailableTiming" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblVIPUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblAvailableTiming">
+              <PropertyRef Name="VipId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblDepartment_tblCompanyDetails">
+          <End Role="tblCompanyDetails" Type="Self.tblCompanyDetails" Multiplicity="0..1" />
+          <End Role="tblDepartment" Type="Self.tblDepartment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCompanyDetails">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblDepartment">
+              <PropertyRef Name="CompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblVIPUser_tblDepartment">
+          <End Role="tblDepartment" Type="Self.tblDepartment" Multiplicity="0..1" />
+          <End Role="tblVIPUser" Type="Self.tblVIPUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblDepartment">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblVIPUser">
+              <PropertyRef Name="DepartmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AppointmentDatabaseModelStoreContainer">
+          <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblAppointment" EntityType="Self.tblAppointment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblAvailableTiming" EntityType="Self.tblAvailableTiming" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblCompanyDetails" EntityType="Self.tblCompanyDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblDateTime" EntityType="Self.tblDateTime" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblDepartment" EntityType="Self.tblDepartment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblMeetingFirst" EntityType="Self.tblMeetingFirst" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblVIPUser" EntityType="Self.tblVIPUser" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblAppointment_tblDateTime" Association="Self.FK_tblAppointment_tblDateTime">
+            <End Role="tblDateTime" EntitySet="tblDateTime" />
+            <End Role="tblAppointment" EntitySet="tblAppointment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblAppointment_tblDepartment" Association="Self.FK_tblAppointment_tblDepartment">
+            <End Role="tblDepartment" EntitySet="tblDepartment" />
+            <End Role="tblAppointment" EntitySet="tblAppointment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblAvailableTiming_tblVIPUser" Association="Self.FK_tblAvailableTiming_tblVIPUser">
+            <End Role="tblVIPUser" EntitySet="tblVIPUser" />
+            <End Role="tblAvailableTiming" EntitySet="tblAvailableTiming" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblDepartment_tblCompanyDetails" Association="Self.FK_tblDepartment_tblCompanyDetails">
+            <End Role="tblCompanyDetails" EntitySet="tblCompanyDetails" />
+            <End Role="tblDepartment" EntitySet="tblDepartment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblVIPUser_tblDepartment" Association="Self.FK_tblVIPUser_tblDepartment">
+            <End Role="tblDepartment" EntitySet="tblDepartment" />
+            <End Role="tblVIPUser" EntitySet="tblVIPUser" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AppointmentDatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="C__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ContextKey" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Model" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <Property Name="ProductVersion" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetRole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Self.AspNetUserRoles" FromRole="AspNetRoles" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaim">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaims" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogin">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProviderKey" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogins" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUserClaims" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
+          <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
+          <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="tblAppointment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DepartmentId" Type="Int32" />
+          <Property Name="AppointmentFrom" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AppointmentTo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DateTimeId" Type="Int32" />
+          <Property Name="Details" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tblDateTime" Relationship="Self.FK_tblAppointment_tblDateTime" FromRole="tblAppointment" ToRole="tblDateTime" />
+          <NavigationProperty Name="tblDepartment" Relationship="Self.FK_tblAppointment_tblDepartment" FromRole="tblAppointment" ToRole="tblDepartment" />
+        </EntityType>
+        <EntityType Name="tblAvailableTiming">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Date" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="StartTime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EndTime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsAvailable" Type="Boolean" />
+          <Property Name="VipId" Type="Int32" />
+          <NavigationProperty Name="tblVIPUser" Relationship="Self.FK_tblAvailableTiming_tblVIPUser" FromRole="tblAvailableTiming" ToRole="tblVIPUser" />
+        </EntityType>
+        <EntityType Name="tblCompanyDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Photo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedAt" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastUpdated" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tblDepartments" Relationship="Self.FK_tblDepartment_tblCompanyDetails" FromRole="tblCompanyDetails" ToRole="tblDepartment" />
+        </EntityType>
+        <EntityType Name="tblDateTime">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+          <Property Name="FromTime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ToTime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsCanceled" Type="Boolean" />
+          <NavigationProperty Name="tblAppointments" Relationship="Self.FK_tblAppointment_tblDateTime" FromRole="tblDateTime" ToRole="tblAppointment" />
+        </EntityType>
+        <EntityType Name="tblDepartment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CompanyId" Type="Int32" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="phone" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Details" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="HOD" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <Property Name="CreatedAt" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastUpdated" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tblAppointments" Relationship="Self.FK_tblAppointment_tblDepartment" FromRole="tblDepartment" ToRole="tblAppointment" />
+          <NavigationProperty Name="tblCompanyDetail" Relationship="Self.FK_tblDepartment_tblCompanyDetails" FromRole="tblDepartment" ToRole="tblCompanyDetails" />
+          <NavigationProperty Name="tblVIPUsers" Relationship="Self.FK_tblVIPUser_tblDepartment" FromRole="tblDepartment" ToRole="tblVIPUser" />
+        </EntityType>
+        <EntityType Name="tblVIPUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DepartmentId" Type="Int32" />
+          <Property Name="UserId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Designation" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Address1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Address2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <Property Name="Details" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FullName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Photo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedAt" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastUpdated" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tblAvailableTimings" Relationship="Self.FK_tblAvailableTiming_tblVIPUser" FromRole="tblVIPUser" ToRole="tblAvailableTiming" />
+          <NavigationProperty Name="tblDepartment" Relationship="Self.FK_tblVIPUser_tblDepartment" FromRole="tblVIPUser" ToRole="tblDepartment" />
+        </EntityType>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaim" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblAppointment_tblDateTime">
+          <End Role="tblDateTime" Type="Self.tblDateTime" Multiplicity="0..1" />
+          <End Role="tblAppointment" Type="Self.tblAppointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblDateTime">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblAppointment">
+              <PropertyRef Name="DateTimeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblAppointment_tblDepartment">
+          <End Role="tblDepartment" Type="Self.tblDepartment" Multiplicity="0..1" />
+          <End Role="tblAppointment" Type="Self.tblAppointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblDepartment">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblAppointment">
+              <PropertyRef Name="DepartmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblAvailableTiming_tblVIPUser">
+          <End Role="tblVIPUser" Type="Self.tblVIPUser" Multiplicity="0..1" />
+          <End Role="tblAvailableTiming" Type="Self.tblAvailableTiming" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblVIPUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblAvailableTiming">
+              <PropertyRef Name="VipId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblDepartment_tblCompanyDetails">
+          <End Role="tblCompanyDetails" Type="Self.tblCompanyDetail" Multiplicity="0..1" />
+          <End Role="tblDepartment" Type="Self.tblDepartment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCompanyDetails">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblDepartment">
+              <PropertyRef Name="CompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblVIPUser_tblDepartment">
+          <End Role="tblDepartment" Type="Self.tblDepartment" Multiplicity="0..1" />
+          <End Role="tblVIPUser" Type="Self.tblVIPUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblDepartment">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblVIPUser">
+              <PropertyRef Name="DepartmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AspNetUserRoles">
+          <End Role="AspNetRoles" Type="Self.AspNetRole" Multiplicity="*" />
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="AppointmentDatabaseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRole" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaim" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogin" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUser" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="tblAppointments" EntityType="Self.tblAppointment" />
+          <EntitySet Name="tblAvailableTimings" EntityType="Self.tblAvailableTiming" />
+          <EntitySet Name="tblCompanyDetails" EntityType="Self.tblCompanyDetail" />
+          <EntitySet Name="tblDateTimes" EntityType="Self.tblDateTime" />
+          <EntitySet Name="tblDepartments" EntityType="Self.tblDepartment" />
+          <EntitySet Name="tblVIPUsers" EntityType="Self.tblVIPUser" />
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblAppointment_tblDateTime" Association="Self.FK_tblAppointment_tblDateTime">
+            <End Role="tblDateTime" EntitySet="tblDateTimes" />
+            <End Role="tblAppointment" EntitySet="tblAppointments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblAppointment_tblDepartment" Association="Self.FK_tblAppointment_tblDepartment">
+            <End Role="tblDepartment" EntitySet="tblDepartments" />
+            <End Role="tblAppointment" EntitySet="tblAppointments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblAvailableTiming_tblVIPUser" Association="Self.FK_tblAvailableTiming_tblVIPUser">
+            <End Role="tblVIPUser" EntitySet="tblVIPUsers" />
+            <End Role="tblAvailableTiming" EntitySet="tblAvailableTimings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblDepartment_tblCompanyDetails" Association="Self.FK_tblDepartment_tblCompanyDetails">
+            <End Role="tblCompanyDetails" EntitySet="tblCompanyDetails" />
+            <End Role="tblDepartment" EntitySet="tblDepartments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblVIPUser_tblDepartment" Association="Self.FK_tblVIPUser_tblDepartment">
+            <End Role="tblDepartment" EntitySet="tblDepartments" />
+            <End Role="tblVIPUser" EntitySet="tblVIPUsers" />
+          </AssociationSet>
+          <AssociationSet Name="AspNetUserRoles" Association="Self.AspNetUserRoles">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <EntitySet Name="tblMeetingFirsts" EntityType="AppointmentDatabaseModel.tblMeetingFirst" />
+        </EntityContainer>
+        <EntityType Name="tblMeetingFirst">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="VIPUser" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Users" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="StartTime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EndTime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="AppointmentDatabaseModelStoreContainer" CdmEntityContainer="AppointmentDatabaseEntities">
+          <EntitySetMapping Name="C__MigrationHistory">
+            <EntityTypeMapping TypeName="AppointmentDatabaseModel.C__MigrationHistory">
+              <MappingFragment StoreEntitySet="__MigrationHistory">
+                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+                <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetRoles">
+            <EntityTypeMapping TypeName="AppointmentDatabaseModel.AspNetRole">
+              <MappingFragment StoreEntitySet="AspNetRoles">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserClaims">
+            <EntityTypeMapping TypeName="AppointmentDatabaseModel.AspNetUserClaim">
+              <MappingFragment StoreEntitySet="AspNetUserClaims">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+                <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserLogins">
+            <EntityTypeMapping TypeName="AppointmentDatabaseModel.AspNetUserLogin">
+              <MappingFragment StoreEntitySet="AspNetUserLogins">
+                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUsers">
+            <EntityTypeMapping TypeName="AppointmentDatabaseModel.AspNetUser">
+              <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="AppointmentDatabaseModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblAppointments">
+            <EntityTypeMapping TypeName="AppointmentDatabaseModel.tblAppointment">
+              <MappingFragment StoreEntitySet="tblAppointment">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
+                <ScalarProperty Name="AppointmentFrom" ColumnName="AppointmentFrom" />
+                <ScalarProperty Name="AppointmentTo" ColumnName="AppointmentTo" />
+                <ScalarProperty Name="DateTimeId" ColumnName="DateTimeId" />
+                <ScalarProperty Name="Details" ColumnName="Details" />
+                <ScalarProperty Name="status" ColumnName="status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblAvailableTimings">
+            <EntityTypeMapping TypeName="AppointmentDatabaseModel.tblAvailableTiming">
+              <MappingFragment StoreEntitySet="tblAvailableTiming">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+                <ScalarProperty Name="IsAvailable" ColumnName="IsAvailable" />
+                <ScalarProperty Name="VipId" ColumnName="VipId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblCompanyDetails">
+            <EntityTypeMapping TypeName="AppointmentDatabaseModel.tblCompanyDetail">
+              <MappingFragment StoreEntitySet="tblCompanyDetails">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Photo" ColumnName="Photo" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="LastUpdated" ColumnName="LastUpdated" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblDateTimes">
+            <EntityTypeMapping TypeName="AppointmentDatabaseModel.tblDateTime">
+              <MappingFragment StoreEntitySet="tblDateTime">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="FromTime" ColumnName="FromTime" />
+                <ScalarProperty Name="ToTime" ColumnName="ToTime" />
+                <ScalarProperty Name="IsCanceled" ColumnName="IsCanceled" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblDepartments">
+            <EntityTypeMapping TypeName="AppointmentDatabaseModel.tblDepartment">
+              <MappingFragment StoreEntitySet="tblDepartment">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Details" ColumnName="Details" />
+                <ScalarProperty Name="HOD" ColumnName="HOD" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="LastUpdated" ColumnName="LastUpdated" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblVIPUsers">
+            <EntityTypeMapping TypeName="AppointmentDatabaseModel.tblVIPUser">
+              <MappingFragment StoreEntitySet="tblVIPUser">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Designation" ColumnName="Designation" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Address1" ColumnName="Address1" />
+                <ScalarProperty Name="Address2" ColumnName="Address2" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="Details" ColumnName="Details" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="Photo" ColumnName="Photo" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="LastUpdated" ColumnName="LastUpdated" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="AspNetUserRoles" TypeName="AppointmentDatabaseModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+            <EndProperty Name="AspNetRoles">
+              <ScalarProperty Name="Id" ColumnName="RoleId" />
+            </EndProperty>
+            <EndProperty Name="AspNetUsers">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="tblMeetingFirsts">
+            <EntityTypeMapping TypeName="AppointmentDatabaseModel.tblMeetingFirst">
+              <MappingFragment StoreEntitySet="tblMeetingFirst">
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="Users" ColumnName="Users" />
+                <ScalarProperty Name="VIPUser" ColumnName="VIPUser" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
