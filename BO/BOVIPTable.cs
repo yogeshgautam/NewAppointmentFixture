@@ -56,5 +56,8 @@ namespace BO
         [Compare("Password")]
         public string ConfirmPassword { get; set; }
         public BODepartment lstDepartment { get; set; }
+
+//this is new line and this is my edit .
+        //ok
     }
 }
