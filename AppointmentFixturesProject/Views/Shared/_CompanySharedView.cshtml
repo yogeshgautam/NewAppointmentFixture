@@ -4,16 +4,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Appointment Scheduler</title>
-   
-
-    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-    <script src="~/Scripts/bootstrap.min.js"></script>
-    @*@Scripts.Render("~/bundles/modernizr")*@
-
-    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
-    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
-    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
-
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
 
 </head>
 <body>
@@ -26,7 +18,7 @@
                     <span class="icon-bar"></span>
                 </button>
              
-                @*@Html.ActionLink((string)@ViewBag.Companyname, "Index", "Company", new { area = "" }, new { @class = "navbar-brand" })*@
+                @Html.ActionLink((string)@ViewBag.Companyname, "Index", "Company", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
@@ -42,7 +34,7 @@
         </div>
     </div>
     <div class="container body-content">
-        <div style="min-height:500px;margin-top:100px">
+        <div style="min-height:500px">
             @RenderBody()
         </div>
         <hr />

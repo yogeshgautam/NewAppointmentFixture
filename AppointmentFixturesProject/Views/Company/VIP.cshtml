@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "VIP";
     Layout = "~/Views/Shared/_CompanySharedView.cshtml";
+    int counter = 1;
 }
 <div class="container">
     <h2>List Of VIP</h2>
@@ -11,7 +12,13 @@
         <table class="table table-hover table-bordered">
             <tr class="success">
                 <th>
+                    S.n
+                </th>
+                <th>
                     @Html.DisplayName("Department Name")
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model=>model.FullName)
                 </th>
 
                 <th>
@@ -29,37 +36,45 @@
 
                 <th></th>
             </tr>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @counter
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.lstDepartment.Name)
+                           
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FullName)
+                        </td>
 
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.lstDepartment.Name)
-                    </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Designation)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Phone)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Email)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Address1)
+                        </td>
 
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Designation)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Phone)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Email)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Address1)
-                    </td>
+                        <td>
 
-                    <td>
-                     
-                        @Html.ActionLink("Details", "DetailsVIP", new { id = item.Id }, new { @class = "btn btn-info" })
-                        @Html.ActionLink("View Schedule", "VIP", "ScheduleVIP", new { id = item.Id }, new { @class = "btn btn-primary" })
+                            @Html.ActionLink("Details", "DetailsVIP", new { id = item.Id }, new { @class = "btn btn-info" })
+                            @Html.ActionLink("View Schedule", "VIP", "ScheduleVIP", new { id = item.Id }, new { @class = "btn btn-primary" })
 
 
-                    </td>
-                </tr>
-            }
-
+                        </td>
+                    </tr>
+                    counter++;
+                }
+            </tbody>
         </table>
     </div>
 </div>
