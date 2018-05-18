@@ -7,84 +7,71 @@
 
 <div class="container">
     <h2>VIP Details</h2>
-    <div>
+    <div class="row">
+        <div class="col-md-6">
+            <div>
+                <hr />
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.FullName)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.FullName)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.lstDepartment.Name)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.lstDepartment.Name)
+                    </dd>
 
-        <hr />
-        <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Designation)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Designation)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Phone)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Phone)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Email)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Email)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Address1)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Address1)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Address2)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Address2)
+                    </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.FullName)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.FullName)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.lstDepartment.Name)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.lstDepartment.Name)
-            </dd>
-
-
-
-            <dt>
-                @Html.DisplayNameFor(model => model.Designation)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Designation)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.Phone)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Phone)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.Email)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Email)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.Address1)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Address1)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.Address2)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Address2)
-            </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Details)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Details)
+                    </dd>
 
 
-
-            <dt>
-                @Html.DisplayNameFor(model => model.Details)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Details)
-            </dd>
-
-
-          
-
-        </dl>
+                </dl>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <img src="~/Images/@Model.Photo" style="width:300px;height:300px" />
+        </div>
     </div>
+    
 
 </div>
 
