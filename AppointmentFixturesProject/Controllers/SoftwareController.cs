@@ -46,7 +46,7 @@ namespace AppointmentFixturesProject.Controllers
             var temp = blcompany.GetAllCompany().ToList(); 
             if(search!=null)
             {
-                temp = blcompany.GetAllCompany().Where(u => u.Name.StartsWith(search) || search == null).ToList();
+                temp = blcompany.GetAllCompany().Where(u => u.Name.StartsWith(search)).ToList();
             }
             return View(temp.ToPagedList(page??1,5));
         }
