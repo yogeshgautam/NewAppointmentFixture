@@ -15,7 +15,7 @@ namespace BO
         public string ToTime { get; set; }
         public bool? IsCanceled { get; set; }
 
-       
+        public int DateTimeId { get; set; }
         public Nullable<int> DepartmentId { get; set; }
         public string AppointmentFrom { get; set; }
         public string AppointmentTo { get; set; }

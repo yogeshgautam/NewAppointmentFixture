@@ -1,27 +1,9 @@
-﻿@model BO.BOVIPTable
-
+﻿@model BO.BOAvailableTiming
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_VIPSharedView.cshtml";
 }
-@*<script src="~/Scripts/jquery-1.10.2.min.js"></script>
-    <script src="~/Scripts/bootstrap.min.js"></script>
-    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
-    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
-    <script src="~/Scripts/employee.js"></script>*@
-
-
-
-<script>
-     $( function() {
-         $("#Date").datepicker();
-     });
-
-     //$("#StartTime").timepicker();
-
-</script>
-
-
+<link href="~/Content/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen" />
 <br />
 <br />
 <br />
@@ -46,64 +28,111 @@
                     <th>
                         IsAvailable
                     </th>
-
                     <th>
                         Action
                     </th>
-
                 </tr>
             </thead>
             <tbody class="tbody"></tbody>
-
         </table>
     </div>
-
-
 
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title" id="myModalLabel">Add Appointment</h4>
+                    <h4 class="modal-title" id="myModalLabel"> Appointment</h4>
                 </div>
-
                 <div class="modal-body">
                     <form id="myform">
                         <div class="form-group">
-                            <label for="AppointmentId">ID</label>
-                            <input type="text" class="form-control" id="AppointmentId" placeholder="Id" disabled="disabled" />
+                            <input type="hidden" class="form-control" id="AppointmentId" placeholder="Id" disabled="disabled" />
                         </div>
+
                         <div class="form-group">
-                            <label for="Date">Date</label>
-                            <input type="text" class="form-control" id="Date" placeholder="Date" />
+                            <label for="dtp_input2" class="col-md-3 control-label">Date</label>
+                            <div class="input-group date form_date col-md-5" data-date="" data-date-format="yyyy-mm-dd" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                                <input class="form-control" id="Date" size="16" type="text" value="" readonly>
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                            </div>
+                            <input type="hidden" id="dtp_input2" value="" /><br />
                         </div>
+
+                        <br /> <br />
                         <div class="form-group">
-                            <label for="StartTime">StartTime</label>
-                            <input type="text" class="form-control" id="StartTime" placeholder="StartTime" />
+                            <label for="dtp_input3" class="col-md-3 control-label">Start Time</label>
+                            <div class="input-group date form_time col-md-5" data-date="" data-date-format="hh:ii" data-link-field="dtp_input3" data-link-format="hh:ii">
+                                <input class="form-control" size="16" id="StartTime" type="text" value="" readonly>
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
+                            </div>
+                            <input type="hidden" id="dtp_input3" value="" /><br />
                         </div>
+
+                        <br /> <br />
                         <div class="form-group">
-                            <label for="EndTime">EndTime</label>
-                            <input type="text" class="form-control" id="EndTime" placeholder="EndTime" />
+                            <label for="dtp_input3" class="col-md-3 control-label">End Time</label>
+                            <div class="input-group date form_time col-md-5" data-date="" data-date-format="hh:ii" data-link-field="dtp_input3" data-link-format="hh:ii">
+                                <input class="form-control" id="EndTime" size="16" type="text" value="" readonly>
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
+                            </div>
+                            <input type="hidden" id="dtp_input3" value="" /><br />
                         </div>
+
+                        <br /> <br />
                         <div class="form-group">
-                            <label for="IsAvailable">IsAvailable</label>
-                            <input type="text" class="form-control" id="IsAvailable" placeholder="IsAvailable" />
+                            <div class="col-md-3">
+                                <label for="IsAvailable">IsAvailable</label>
+                            </div>
+                            <div class="col-md-5">
+                                <select id="IsAvailable" class="form-control">
+                                    <option value="-1">Select</option>
+                                    <option>true</option>
+                                    <option>false</option>
+                                </select>
+                            </div>
                         </div>
                     </form>
+                    <br /> <br />
+                    <div id="dateInvalidSummary" style="color:red;display:none">*Date must be greater than Current Date</div>
+                    <div id="timeInvalidSummary" style="color:red;display:none">*End Date must be greater than Start Date</div>
                 </div>
-
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" id="btnAdd" onclick="return Add();">Add</button>
                     <button type="button" class="btn btn-primary" id="btnUpdate" style="display:none;" onclick="Update();">Update</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
-
             </div>
         </div>
     </div>
-
 </div>
+<script src="~/Scripts/bootstrap-datetimepicker.min.js"></script>
+<script src="~/Scripts/locales/bootstrap-datetimepicker.uk.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script type="text/javascript">
 
-
+    $('.form_date').datetimepicker({
+        language: 'uk',
+        weekStart: 1,
+        todayBtn: 1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        minView: 2,
+        forceParse: 0
+    });
+    $('.form_time').datetimepicker({
+        language: 'uk',
+        weekStart: 1,
+        todayBtn: 1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 1,
+        minView: 0,
+        maxView: 1,
+        forceParse: 0
+    });
+</script>
