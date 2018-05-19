@@ -35,9 +35,7 @@
                 <th>
                     @Html.DisplayNameFor(model => model.First().Designation)
                 </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.First().Phone)
-                </th>
+                
                 <th>
                     @Html.DisplayNameFor(model => model.First().Email)
                 </th>
@@ -59,9 +57,7 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.Designation)
                     </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Phone)
-                    </td>
+                   
                     <td>
                         @Html.DisplayFor(modelItem => item.Email)
                     </td>
@@ -71,6 +67,9 @@
                      
                         @Html.ActionLink("Details", "DetailsVIP", new { id = item.Id }, new { @class = "btn btn-info" })
                         @Html.ActionLink("View Schedule", "VIP", "ScheduleVIP", new { id = item.Id }, new { @class = "btn btn-primary" })
+                        @Html.ActionLink("View Appointment", "ViewAppointment", "ScheduleVIP", new { id = item.Id }, new { @class = "btn btn-info" })
+
+
 
 
                     </td>
