@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using BO;
 using BLL;
+using PagedList;
+using PagedList.Mvc;
 
 namespace AppointmentFixturesProject.Controllers
 {
@@ -39,14 +41,14 @@ namespace AppointmentFixturesProject.Controllers
             return View();
         }
 
-        public ActionResult ViewCompany(string search)
+        public ActionResult ViewCompany(string search,int ?page)
         {
             var temp = blcompany.GetAllCompany().ToList(); 
             if(search!=null)
             {
                 temp = blcompany.GetAllCompany().Where(u => u.Name.StartsWith(search) || search == null).ToList();
             }
-            return View(temp);
+            return View(temp.ToPagedList(page??1,5));
         }
 
         public ActionResult EditCompany(int id)

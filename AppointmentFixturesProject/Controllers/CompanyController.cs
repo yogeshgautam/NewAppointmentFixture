@@ -8,7 +8,8 @@ using BLL;
 using Microsoft.AspNet.Identity;
 using System.Web.Security;
 using System.Net;
-
+using PagedList;
+using PagedList.Mvc;
 //
 
 
@@ -59,14 +60,14 @@ namespace AppointmentFixturesProject.Controllers
          }
 
         // GET: Company
-        public ActionResult Index(string search)
+        public ActionResult Index(string search,int ?page)
         {
             List<BODepartment> lst = bllDepartment.GetAllDepartment().Where(u => u.CompanyId == companyId).ToList();
             if (search != null)
             {
                 lst = bllDepartment.GetAllDepartment().Where(u => u.CompanyId == companyId && u.Name.StartsWith(search)).ToList();
             }
-            return View(lst);
+            return View(lst.ToPagedList(page??1,5));
         }
 
         public ActionResult CreateDepartment()
@@ -99,14 +100,14 @@ namespace AppointmentFixturesProject.Controllers
             return View();
         }
 
-        public ActionResult VIP(string search)
+        public ActionResult VIP(string search,int?page)
         {
             List<BOVIPTable> lst = bllvip.GetAllVIP().Where(u=>u.lstDepartment.CompanyId==companyId).ToList();
             if (search != null)
             {
                 lst = bllvip.GetAllVIP().Where(u => u.lstDepartment.CompanyId == companyId&&u.FullName.StartsWith(search)).ToList();
             }
-            return View(lst);
+            return View(lst.ToPagedList(page??1,10));
         }
 
         public ActionResult CreateVIP()
