@@ -59,9 +59,13 @@ namespace AppointmentFixturesProject.Controllers
          }
 
         // GET: Company
-        public ActionResult Index()
+        public ActionResult Index(string search)
         {
-            List<BODepartment> lst = bllDepartment.GetAllDepartment().Where(u=>u.CompanyId==companyId).ToList();
+            List<BODepartment> lst = bllDepartment.GetAllDepartment().Where(u => u.CompanyId == companyId).ToList();
+            if (search != null)
+            {
+                lst = bllDepartment.GetAllDepartment().Where(u => u.CompanyId == companyId && u.Name.StartsWith(search)).ToList();
+            }
             return View(lst);
         }
 
@@ -95,9 +99,13 @@ namespace AppointmentFixturesProject.Controllers
             return View();
         }
 
-        public ActionResult VIP()
+        public ActionResult VIP(string search)
         {
             List<BOVIPTable> lst = bllvip.GetAllVIP().Where(u=>u.lstDepartment.CompanyId==companyId).ToList();
+            if (search != null)
+            {
+                lst = bllvip.GetAllVIP().Where(u => u.lstDepartment.CompanyId == companyId&&u.FullName.StartsWith(search)).ToList();
+            }
             return View(lst);
         }
 

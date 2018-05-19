@@ -8,6 +8,18 @@
     <h2>List Of Departments</h2>
     <hr />
     <div class="container">
+        @using (Html.BeginForm("Index", "Company", FormMethod.Get))
+        {
+            <b>Search Department</b>
+    
+             @Html.TextBox("search", null, new { @class = "form-control" })
+  
+            <br />
+            <input type="submit" value="Search" class="btn btn-primary" />
+        }
+    </div>
+    <hr />
+    <div class="container">
         <table class="table table-bordered table-hover">
             <tr class="success">
                

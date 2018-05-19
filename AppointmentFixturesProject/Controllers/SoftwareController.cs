@@ -39,9 +39,14 @@ namespace AppointmentFixturesProject.Controllers
             return View();
         }
 
-        public ActionResult ViewCompany()
+        public ActionResult ViewCompany(string search)
         {
-            return View(blcompany.GetAllCompany());
+            var temp = blcompany.GetAllCompany().ToList(); 
+            if(search!=null)
+            {
+                temp = blcompany.GetAllCompany().Where(u => u.Name.StartsWith(search) || search == null).ToList();
+            }
+            return View(temp);
         }
 
         public ActionResult EditCompany(int id)
