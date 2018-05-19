@@ -7,6 +7,7 @@ using BO;
 using BLL;
 using Microsoft.AspNet.Identity;
 
+
 namespace AppointmentFixturesProject.Controllers
 {
     [Authorize(Roles = "COMPANYVIP")]
@@ -34,7 +35,6 @@ namespace AppointmentFixturesProject.Controllers
         {
             BOVIPTable vip = blvip.GetVIPById(VIPID);
             return View(vip);
-           
         }
 
         [HttpPost]
@@ -49,18 +49,6 @@ namespace AppointmentFixturesProject.Controllers
             return View();
         }
 
-      
-
-        //Notification Message
-        BLLAppointmentDetails bllappointmentdetails = new BLLAppointmentDetails();
-        [HttpGet]
-        public JsonResult GetNotifications()
-        {
-            return Json(bllappointmentdetails.GetAllAppointment(), JsonRequestBehavior.AllowGet);
-        }
-
-        //diwas part
-
         public JsonResult List()
         {
             var appointmentLst = blavailable.GetAvailableTimingByVIP(VIPID);
@@ -70,30 +58,58 @@ namespace AppointmentFixturesProject.Controllers
         public JsonResult Add(BOAvailableTiming model)
         {
             model.VipId = VIPID;
-            int i = blavailable.AddAvailableTiming(model);
-            return Json(i, JsonRequestBehavior.AllowGet);
+            int date = DateTime.Compare(DateTime.Now, Convert.ToDateTime(model.Date)); //now < myone ==>-1
+            int results = DateTime.Compare(Convert.ToDateTime(model.EndTime), Convert.ToDateTime(model.StartTime));
+
+            if (date <= 0 && results > 0)
+            {
+
+                int result = available.AddAvailableTiming(model);
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+
+                return Json(-1, JsonRequestBehavior.AllowGet);
+            }
+
+
         }
 
         public JsonResult Update(BOAvailableTiming model)
         {
             model.VipId = VIPID;
-            var appointment = blavailable.UpdateAvailableTiming(model);
-            return Json(appointment, JsonRequestBehavior.AllowGet);
+            int date = DateTime.Compare(DateTime.Now, Convert.ToDateTime(model.Date)); //now < myone ==>-1
+            int results = DateTime.Compare(Convert.ToDateTime(model.EndTime), Convert.ToDateTime(model.StartTime));
+            if (date <= 0 && results > 0)
+            {
+                var appointment = available.UpdateAvailableTiming(model);
+                return Json(appointment, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(-1, JsonRequestBehavior.AllowGet);
+            }
         }
 
         public JsonResult GetbyID(int Id)
         {
-            var appoint = blavailable.GetIndividualAvailableTiming(Id);
+            var appoint = available.GetIndividualAvailableTiming(Id);
             return Json(appoint, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult Delete(int ID)
         {
-            var temp = blavailable.DeleteAvailableTimings(ID);
+            var temp = available.DeleteAvailableTimings(ID);
             return Json(temp, JsonRequestBehavior.AllowGet);
         }
 
-
+        BLLAppointmentDetails bllappointmentdetails = new BLLAppointmentDetails();
+        [HttpGet]
+        public JsonResult GetNotifications()
+        {
+            return Json(bllappointmentdetails.GetAllAppointment(), JsonRequestBehavior.AllowGet);
+        }
 
 
         [HttpPost]
@@ -102,7 +118,7 @@ namespace AppointmentFixturesProject.Controllers
             if (ModelState.IsValid)
             {
                 model.VipId = VIPID;
-                blavailable.AddAvailableTiming(model);
+                available.AddAvailableTiming(model);
 
             }
             return View();
@@ -110,14 +126,14 @@ namespace AppointmentFixturesProject.Controllers
         }
 
 
-        //public ActionResult ViewAppointment()
-        //{
-        //    string email = System.Web.HttpContext.Current.User.Identity.GetUserName();
-        //    var temp = blavailable.getBookAppointmentByUser(email);
+        public ActionResult ViewAppointment()
+        {
+            string email = System.Web.HttpContext.Current.User.Identity.GetUserName();
+            var temp = bllAppointment.getBookAppointmentByUser(email);
 
 
-        //    return View(temp);
-        //}
+            return View(temp);
+        }
 
 
         public ActionResult UpdatingAppointment(int id)
@@ -148,8 +164,12 @@ namespace AppointmentFixturesProject.Controllers
             }
 
         }
-
+        //asdfasd
+        //conformed
 
 
     }
+
+
 }
+//€uv

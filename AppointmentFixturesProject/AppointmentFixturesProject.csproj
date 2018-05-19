@@ -183,6 +183,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\img\nty.png" />
+    <Content Include="Content\bootstrap-datetimepicker.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
@@ -267,6 +268,7 @@
     <Content Include="Others\js\popper.min.js" />
     <Content Include="Others\style.css" />
     <Content Include="Scripts\AppointmentSetOrCancel.js" />
+    <Content Include="Scripts\bootstrap-datetimepicker.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Others\fonts\fontawesome-webfont.eot" />
@@ -292,6 +294,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datetimepicker.uk.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\new\bootstrap.js" />

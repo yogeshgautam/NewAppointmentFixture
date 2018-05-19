@@ -4,8 +4,7 @@ $(document).ready(function () {
     loadData();
 });
 //Load Data function
-function loadData()
-{
+function loadData() {
     $.ajax({
         url: "/VIP/List",
         type: "GET",
@@ -28,11 +27,17 @@ function loadData()
             $('.tbody').html(html);
         },
         error: function (errormessage) {
-            //alert(errormessage.response);
+            alert(errormessage.response);
         }
     });
 }
 function getbyID(EmpID) {
+
+
+    $('#dateInvalidSummary').hide();
+    $('#timeInvalidSummary').hide();
+
+
     $('#Date').css('border-color', 'lightgrey');
     $('#StartTime').css('border-color', 'lightgrey');
     $('#EndTime').css('border-color', 'lightgrey');
@@ -43,18 +48,23 @@ function getbyID(EmpID) {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-            //debugger;
+            debugger;
             $('#AppointmentId').val(result.Id);
             $('#Date').val(result.Date);
             $('#StartTime').val(result.StartTime);
             $('#EndTime').val(result.EndTime);
             $('#IsAvailable').val(result.IsAvailable);
             $('#myModal').modal('show')
+            
+            $("#IsAvailable option").filter(function () {
+                return this.text == String(result.IsAvailable);
+            }).attr('selected', true);
+
             $('#btnUpdate').show();
             $('#btnAdd').hide();
         },
         error: function (errormessage) {
-            //alert(errormessage.responseText);
+            swal("Oops", "We couldn't connect to the server!", "error");
         }
     });
     return false;
@@ -62,6 +72,7 @@ function getbyID(EmpID) {
 
 function Delete(ID) {
     var ans = confirm("Are you sure you want to delete this Record?");
+
     if (ans) {
         $.ajax({
             url: "/VIP/Delete/" + ID,
@@ -72,17 +83,19 @@ function Delete(ID) {
                 loadData();
             },
             error: function (errormessage) {
-                //alert(errormessage.responseText);
+                swal("Oops", "We couldn't connect to the server!", "error");
             }
         });
     }
 }
-function Add() {
 
+function Add() {
+    
     var res = validate();
     if (res == false) {
         return false;
     }
+
     var empObj =
         {
             Id: $('#AppointmentId').val(),
@@ -91,7 +104,9 @@ function Add() {
             EndTime: $('#EndTime').val(),
             IsAvailable: $('#IsAvailable').val()
         };
+
   
+
     $.ajax({
         url: "/VIP/Add",
         data: JSON.stringify(empObj),
@@ -99,22 +114,40 @@ function Add() {
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (result) {
-            loadData();
-            $('#myModal').modal('hide');
+            debugger;
+            
+            if (result == -1) {
+                $('#dateInvalidSummary').show();
+                $('#timeInvalidSummary').show();
+
+            }
+            else {
+
+                loadData();
+                $('#myModal').modal('hide');
+                sweetAlert
+                         ({
+                             title: "Inserted!",
+                             text: "Your Data Added Successfylly.",
+                             type: "success"
+                         });
+            }
         },
         error: function (errormessage) {
-            //alert(errormessage.responseText);
+            swal("Oops", "We couldn't connect to the server!", "error");
         }
     });
 }
 
 function clearTextBox() {
+    $('#btnUpdate').hide();
+    $('#btnAdd').show();
     $('#AppointmentId').val("");
     $('#Date').val("");
     $('#StartTime').val("");
     $('#EndTime').val("");
     $('#IsAvailable').val("");
-   
+
     $('#Date').css('border-color', 'lightgrey');
     $('#StartTime').css('border-color', 'lightgrey');
     $('#EndTime').css('border-color', 'lightgrey');
@@ -134,7 +167,6 @@ function Update() {
         EndTime: $('#EndTime').val(),
         IsAvailable: $('#IsAvailable').val(),
     };
-    debugger;
     $.ajax({
         url: "/VIP/Update",
         data: JSON.stringify(empObj),
@@ -142,16 +174,24 @@ function Update() {
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (result) {
-            loadData();
-            $('#myModal').modal('hide');
-            $('#AppointmentId').val(""); /// i 423
-            $('#Date').val("");
-            $('#StartTime').val("");
-            $('#EndTime').val("");
-            $('#IsAvailable').val("");
+            debugger;
+            if (result == -1) {
+                $('#dateInvalidSummary').show();
+                $('#timeInvalidSummary').show();
+            }
+            else {
+                loadData();
+                $('#myModal').modal('hide');
+                $('#AppointmentId').val("");
+                $('#Date').val("");
+                $('#StartTime').val("");
+                $('#EndTime').val("");
+                $('#IsAvailable').val("");
+                swal("Update Successful!", "Appointment Set", "success");
+            }
         },
         error: function (errormessage) {
-           // alert(errormessage.responseText);
+            swal("Oops", "We couldn't connect to the server!", "error");
         }
     });
 }
@@ -159,7 +199,7 @@ function Update() {
 
 function validate() {
     var isValid = true;
-   
+
     if ($('#Date').val().trim() == "") {
         $('#Date').css('border-color', 'Red');
         isValid = false;
