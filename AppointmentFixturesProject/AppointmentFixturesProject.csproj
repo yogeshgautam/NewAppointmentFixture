@@ -365,7 +365,7 @@
     <Content Include="Views\Shared\_VIPSharedView.cshtml" />
     <Content Include="Views\VIP\Index.cshtml" />
     <Content Include="Views\VIP\FixAppointment.cshtml" />
-    <Content Include="Views\VIP\ViewAppointment.cshtml" />
+    <Content Include="Views\VIP\ViewAppointmentDone.cshtml" />
     <Content Include="Views\VIP\EditAppointmentTiming.cshtml" />
     <Content Include="Views\VIP\DeleteAppointmentTiming.cshtml" />
     <Content Include="Views\Account\RegisterVIP.cshtml" />
@@ -400,6 +400,7 @@
     <Content Include="Views\ScheduleVIP\EditAvailableTiming.cshtml" />
     <Content Include="Views\ScheduleVIP\ViewAppointment.cshtml" />
     <Content Include="Views\ScheduleVIP\AppointmentDetails.cshtml" />
+    <Content Include="Views\VIP\AppointmentDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
