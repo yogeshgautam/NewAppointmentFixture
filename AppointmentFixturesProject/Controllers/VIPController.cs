@@ -168,6 +168,7 @@ namespace AppointmentFixturesProject.Controllers
             }
 
         }
+<<<<<<< HEAD
 
         public int compareDate(string date)
         {
@@ -192,9 +193,43 @@ namespace AppointmentFixturesProject.Controllers
             }
             return results;
         }
+=======
+        
+        //yogesh part to add functionality to cancel appointment
+>>>>>>> 66f487378a985896990fa2b244160923ea8d2f62
 
+        public ActionResult ViewAppointmentDone()
+        {
+            
+            var model = bllAppointment.getAppointmentByVIP(VIPID);
+            return View(model);
+        }
+
+        public ActionResult AppointmentDetails(int id)
+        {
+            var model = bllAppointment.getAppointmentByVIP(VIPID).Where(u => u.Id == id).FirstOrDefault();
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult AppointmentDetails(BOVipViewModel model)
+        {
+            BODateTime datetime = new BODateTime();
+            datetime.AppointmentId = model.Id;
+            datetime.Date = model.Date;
+            datetime.Id = model.DateTimeId;
+            datetime.FromTime = model.FromTime;
+            datetime.ToTime = model.ToTime;
+            datetime.IsCanceled = model.IsCanceled;
+
+            bllDateTime.UpdateDateTime(datetime);
+            return RedirectToAction("ViewAppointmentDone");
+        }
 
     }
+
+    
+
 
 
 }

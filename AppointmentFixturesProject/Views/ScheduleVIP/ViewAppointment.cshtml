@@ -1,0 +1,80 @@
+﻿@model IEnumerable<BO.BOVipViewModel>
+
+@{
+    ViewBag.Title = "ViewAppointment";
+    Layout = "~/Views/Shared/_CompanySharedView.cshtml";
+}
+<div class="container">
+    <h2>View Appointment</h2>
+    <hr />
+    <div class="container">
+        <table class="table table-bordered table-hover">
+            <tr class="success">
+                <th>
+                    @Html.DisplayNameFor(model => model.Date)
+                </th>
+                <th>
+                    @Html.DisplayName("Start Time")
+                </th>
+                <th>
+                    @Html.DisplayName("End Time")
+                </th>
+
+
+                <th>
+                    @Html.DisplayNameFor(model => model.AppointmentFrom)
+                </th>
+
+                <th>
+                    @Html.DisplayName("Appointment Status")
+                </th>
+
+
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Date)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FromTime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ToTime)
+                    </td>
+
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AppointmentFrom)
+
+                    </td>
+
+                    <td>
+                        @if (item.IsCanceled == true)
+                        {
+                            @Html.Label("Canceled")
+                        }
+                        else
+                        {
+                            @Html.Label("Scheduled")
+                        }
+                    </td>
+
+
+                    <td>
+
+                        @Html.ActionLink("Details", "AppointmentDetails", new { id = item.Id }, new { @class = "btn btn-info" })
+
+                    </td>
+                </tr>
+            }
+
+        </table> 
+    </div>
+</div>
+
+
+
