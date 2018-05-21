@@ -13,17 +13,16 @@ namespace BLL
         AppointmentDatabaseEntities _db = new AppointmentDatabaseEntities();
         public int AddAvailableTiming(BOAvailableTiming model)
         {
-            using (_db)
-            {
-                tblAvailableTiming available = new tblAvailableTiming();
+            AppointmentDatabaseEntities _dbs = new AppointmentDatabaseEntities();
+            tblAvailableTiming available = new tblAvailableTiming();
                 available.Date = model.Date;
                 available.StartTime = model.StartTime;
                 available.EndTime = model.EndTime;
                 available.IsAvailable = model.IsAvailable;
                 available.VipId = model.VipId;
-                _db.tblAvailableTimings.Add(available);
-                return _db.SaveChanges();
-            }
+                _dbs.tblAvailableTimings.Add(available);
+                return _dbs.SaveChanges();
+            
         }
 
         public int UpdateAvailableTiming(BOAvailableTiming model)
@@ -73,8 +72,8 @@ namespace BLL
 
         public List<BOAvailableTiming> GetAvailableTimingByVIP(int id)
         {
-            using (_db)
-            {
+            //using (_db)
+            //{
                 List<BOAvailableTiming> lst = new List<BOAvailableTiming>();
                 var temp = _db.tblAvailableTimings.Where(u => u.VipId == id).ToList();
                 foreach (var model in temp)
@@ -90,7 +89,7 @@ namespace BLL
                     lst.Add(available);
                 }
                 return lst;
-            }
+           // }
         }
 
         public BOAvailableTiming GetIndividualAvailableTiming(int id)

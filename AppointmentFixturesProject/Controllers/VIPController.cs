@@ -28,9 +28,11 @@ namespace AppointmentFixturesProject.Controllers
 
         public VIPController()
         {
-            string id = System.Web.HttpContext.Current.User.Identity.GetUserId();
-            var vip = blvip.GetAllVIP().Where(u => u.UserId == id).FirstOrDefault();
-            VIPID = vip.Id;
+            string id = System.Web.HttpContext.Current.User.Identity.GetUserId();          
+                var vip = blvip.GetAllVIP().Where(u => u.UserId == id).FirstOrDefault();
+                VIPID = vip.Id;
+            
+           
         }
 
         public ActionResult Index()
@@ -57,13 +59,15 @@ namespace AppointmentFixturesProject.Controllers
             return Json(appointmentLst, JsonRequestBehavior.AllowGet);
         }
 
+
+
         public JsonResult Add(BOAvailableTiming model)
         {
             model.VipId = VIPID;
-            int date = DateTime.Compare(DateTime.Now, Convert.ToDateTime(model.Date)); //now < myone ==>-1
-            int results = DateTime.Compare(Convert.ToDateTime(model.EndTime), Convert.ToDateTime(model.StartTime));
+            int date = compareDate(model.Date);
+            int time = compareTime(model.EndTime, model.StartTime);
 
-            if (date <= 0 && results > 0)
+            if (date <= 0 && time > 0)
             {
 
                 int result = available.AddAvailableTiming(model);
@@ -81,9 +85,9 @@ namespace AppointmentFixturesProject.Controllers
         public JsonResult Update(BOAvailableTiming model)
         {
             model.VipId = VIPID;
-            int date = DateTime.Compare(DateTime.Now, Convert.ToDateTime(model.Date)); //now < myone ==>-1
-            int results = DateTime.Compare(Convert.ToDateTime(model.EndTime), Convert.ToDateTime(model.StartTime));
-            if (date <= 0 && results > 0)
+            int date = compareDate(model.Date);
+            int time = compareTime(model.EndTime, model.StartTime);
+            if (date <= 0 && time > 0)
             {
                 var appointment = available.UpdateAvailableTiming(model);
                 return Json(appointment, JsonRequestBehavior.AllowGet);
@@ -166,8 +170,35 @@ namespace AppointmentFixturesProject.Controllers
             }
 
         }
+<<<<<<< HEAD
         
         //yogesh part to add functionality to cancel appointment
+=======
+
+        public int compareDate(string date)
+        {
+            int bdate = DateTime.Compare(DateTime.Now, Convert.ToDateTime(date)); //now < myone ==>-1
+            if (DateTime.Now.Date == Convert.ToDateTime(date))
+            {
+                bdate = 0;
+            }
+            return bdate;
+        }
+
+        public int compareTime(string endTime, string startTime)
+        {
+            DateTime utcTime = DateTime.UtcNow;
+            TimeZoneInfo tzi = TimeZoneInfo.FindSystemTimeZoneById("Nepal Standard Time");
+            DateTime localTime = TimeZoneInfo.ConvertTimeFromUtc(utcTime, tzi);
+
+            int results = DateTime.Compare(Convert.ToDateTime(startTime), Convert.ToDateTime(localTime));
+            if (results >= 0)
+            {
+                results = DateTime.Compare(Convert.ToDateTime(endTime), Convert.ToDateTime(startTime));
+            }
+            return results;
+        }
+>>>>>>> diwasDevelopment
 
         public ActionResult ViewAppointmentDone(int ?page)
         {
