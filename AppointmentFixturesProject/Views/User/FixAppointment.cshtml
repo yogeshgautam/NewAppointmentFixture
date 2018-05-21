@@ -6,12 +6,11 @@
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js">
 </script>
-
-<br />
+<script src="~/Scripts/WordLeft.js"></script>
 <br />
 <script>
     var setTime = 15;
-    debugger
+    //debugger;
     $(document).ready(function () {
         $('#dropdownCompany').on('change', function () {
             var Id = $('#dropdownCompany option:selected').val();
@@ -54,11 +53,13 @@
                 data: { Id: Id },
                 url: '@Url.Action("loadDate","User")',
                 success: function (result) {
-                    //alert(result + "diwas");
+                    debugger;
+                    alert(result[0]);
                     var s = '<option value="-1">Please Select Date</option>';
                     for (var i = 0; i < result.length; i++) {
                         s += '<option value="' + result[i].Id + ' ">' + result[i].Date + '</option>';
                     }
+                    //result[i].Date
                     $('#dropdownDate').html(s);
                 }
             });
@@ -66,14 +67,17 @@
 
 
         $('#dropdownDate').on('change', function () {
-            var Id = $('#dropdownDate option:selected').val();
+            var Id = $('#dropdownDate option:selected').text();
+            alert($('#dropdownDate option:selected').text());
             $.ajax({
                 type: 'GET',
                 data: { Id: Id },
                 url: '@Url.Action("loadTime","User")',
                 success: function (result) {
                     var s = '<option value="-1">Please Select Date</option>';
+                   // alert(result);
                     for (var i = 0; i < result.length; i++) {
+                       // alert(result[i].StartTime);
                         s += '<option value="' + result[i].Id + ' ">' + result[i].StartTime + '--- ' + result[i].EndTime + '</option>';
                     }
                     $('#dropdownTime').html(s);
@@ -220,7 +224,8 @@
                         <td>Appointment Details</td>
                         <td>
                             <br />
-                            <textarea rows="4" class="form-control" cols="50" style="resize:none" placeholder="Appointment Details" name="Details" id="Details"></textarea>
+                            <textarea rows="4" class="form-control" cols="50" style="resize:none" placeholder="Appointment Details(50 words)" name="Details" id="Details"></textarea>
+                            <span id="spnCharLeft"></span>
                         </td>
                     </tr>
 
