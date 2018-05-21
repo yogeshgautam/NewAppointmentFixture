@@ -68,14 +68,20 @@ namespace AppointmentFixturesProject.Controllers
 
         public ActionResult loadDate(int Id)  //Id of VIP
         {
-            var temp = bllAvailable.GetAllAvailableTiming().Where(u => u.VipId == Id).ToList();
+            //var temp = bllAvailable.GetAllAvailableTiming().Where(u => u.VipId == Id).ToList();
+            var temp = bllAvailable.GetAllAvailableTiming().Where(u => u.VipId == Id).Distinct().OrderBy(x=>x.Date).ToList();
+            //var temp = bllAvailable.GetAllAvailableTiming().Where(u => u.VipId == Id).Distinct();
+   //         TblDateTimes
+   //.Select(o => o.Date)
+   //.Distinct()
+   //.OrderBy(Date => Date)
 
             return Json(temp, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult loadTime(int Id)
+        public ActionResult loadTime(string Id)
         {
-            var temp = bllAvailable.GetAllAvailableTiming().Where(u => u.Id == Id).ToList();
+            var temp = bllAvailable.GetAllAvailableTiming().Where(u => u.Date==Id).ToList();
             return Json(temp, JsonRequestBehavior.AllowGet);
         }
 
