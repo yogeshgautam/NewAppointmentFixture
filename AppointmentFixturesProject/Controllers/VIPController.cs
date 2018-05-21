@@ -168,7 +168,6 @@ namespace AppointmentFixturesProject.Controllers
             }
 
         }
-<<<<<<< HEAD
 
         public int compareDate(string date)
         {
@@ -193,10 +192,10 @@ namespace AppointmentFixturesProject.Controllers
             }
             return results;
         }
-=======
+
         
         //yogesh part to add functionality to cancel appointment
->>>>>>> 66f487378a985896990fa2b244160923ea8d2f62
+
 
         public ActionResult ViewAppointmentDone()
         {
@@ -233,4 +232,3 @@ namespace AppointmentFixturesProject.Controllers
 
 
 }
-//€uv
