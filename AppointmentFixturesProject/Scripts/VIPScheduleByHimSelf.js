@@ -126,6 +126,10 @@ function Add() {
 
                 GetPageData(1);
                 $('#myModal').modal('hide');
+
+                $('body').removeClass('modal-open');
+                $('.modal-backdrop').remove();
+
                 sweetAlert
                          ({
                              title: "Inserted!",

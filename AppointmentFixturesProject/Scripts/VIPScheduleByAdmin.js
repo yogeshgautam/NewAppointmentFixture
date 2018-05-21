@@ -120,6 +120,7 @@ function Add() {
 
                 $('#myModal2').modal('hide');
                 //put this if modal gets closed but gray color fade still exists 
+
                 $('body').removeClass('modal-open');
                 $('.modal-backdrop').remove();
                 //end
