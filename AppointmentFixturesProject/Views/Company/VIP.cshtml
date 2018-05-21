@@ -103,12 +103,12 @@
                     <td>
                         @Html.ActionLink("Details", "DetailsVIP", new { id = item.Id }, new { @class = "btn btn-info" })
                         @Html.ActionLink("View Schedule", "VIP", "ScheduleVIP", new { id = item.Id }, new { @class = "btn btn-primary" })
-
                         @Html.ActionLink("View Appointment", "ViewAppointment", "ScheduleVIP", new { id = item.Id }, new { @class = "btn btn-info" })
 
 
 
 
+<<<<<<< HEAD
 =======
                         <td>
                             @Html.DisplayFor(modelItem => item.Designation)
@@ -129,6 +129,11 @@
                             @Html.ActionLink("View Schedule", "VIP", "ScheduleVIP", new { id = item.Id }, new { @class = "btn btn-primary" })
 >>>>>>> OsnBranch
 
+=======
+                    </td>
+                </tr>
+            }
+>>>>>>> b5e4e914aca3f2f20dc5bb637f6e2e1c433966d2
 
                         </td>
                     </tr>
@@ -139,17 +144,16 @@
         @Html.PagedListPager(Model,page=>Url.Action("VIP",
                             new
                             {
-                               page,
-                               search=Request.QueryString["search"],
-                                
+                                page,
+                                search=Request.QueryString["search"],
+
                             }
 
                  ), new PagedListRenderOptions()
                  {
                      Display = PagedListDisplayMode.IfNeeded
                  }
-          
-        )
+                 )
     </div>
 </div>
 
