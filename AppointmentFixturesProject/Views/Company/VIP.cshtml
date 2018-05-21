@@ -14,8 +14,15 @@
         @using (Html.BeginForm("VIP", "Company", FormMethod.Get))
         {
             <b>Search VIP</b>
-          
-            @Html.TextBox("search", null, new { @class = "form-control" })
+            <div class="row">
+                <div class="col-md-4">
+                    @Html.TextBox("search", null, new { @class = "form-control" })
+                </div>
+                <div class="col-md-8">
+
+                </div>
+            </div>
+           
           
             <br />
             <input type="submit" value="Search" class="btn btn-primary" />
@@ -66,14 +73,11 @@
                     <td>
                         @Html.ActionLink("Details", "DetailsVIP", new { id = item.Id }, new { @class = "btn btn-info" })
                         @Html.ActionLink("View Schedule", "VIP", "ScheduleVIP", new { id = item.Id }, new { @class = "btn btn-primary" })
-<<<<<<< HEAD
-=======
                         @Html.ActionLink("View Appointment", "ViewAppointment", "ScheduleVIP", new { id = item.Id }, new { @class = "btn btn-info" })
 
 
 
 
->>>>>>> 66f487378a985896990fa2b244160923ea8d2f62
                     </td>
                 </tr>
             }

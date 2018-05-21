@@ -403,6 +403,13 @@
     <Content Include="Views\ScheduleVIP\ViewAppointment.cshtml" />
     <Content Include="Views\ScheduleVIP\AppointmentDetails.cshtml" />
     <Content Include="Views\VIP\AppointmentDetails.cshtml" />
+
+    <Content Include="Views\ScheduleVIP\ViewAppointment.cshtml" />
+    <Content Include="Views\ScheduleVIP\AppointmentDetails.cshtml" />
+    <Content Include="Views\VIP\AppointmentDetails.cshtml" />
+
+    <Content Include="Views\ScheduleVIP\FixAppointment.cshtml" />
+
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

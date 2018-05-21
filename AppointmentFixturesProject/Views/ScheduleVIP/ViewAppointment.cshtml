@@ -1,4 +1,7 @@
-﻿@model IEnumerable<BO.BOVipViewModel>
+﻿@using PagedList.Mvc;
+@using PagedList;
+
+@model IPagedList<BO.BOVipViewModel>
 
 @{
     ViewBag.Title = "ViewAppointment";
@@ -11,7 +14,7 @@
         <table class="table table-bordered table-hover">
             <tr class="success">
                 <th>
-                    @Html.DisplayNameFor(model => model.Date)
+                    @Html.DisplayNameFor(model => model.First().Date)
                 </th>
                 <th>
                     @Html.DisplayName("Start Time")
@@ -22,7 +25,7 @@
 
 
                 <th>
-                    @Html.DisplayNameFor(model => model.AppointmentFrom)
+                    @Html.DisplayNameFor(model => model.First().AppointmentFrom)
                 </th>
 
                 <th>
@@ -73,6 +76,21 @@
             }
 
         </table> 
+
+        @Html.PagedListPager(Model, page => Url.Action("ViewAppointment",
+                            new
+                            {
+                                page,
+                                search = Request.QueryString["search"],
+
+                            }
+
+                 ), new PagedListRenderOptions()
+                 {
+                     Display = PagedListDisplayMode.IfNeeded
+                 }
+
+        )
     </div>
 </div>
 

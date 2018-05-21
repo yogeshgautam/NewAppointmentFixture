@@ -5,7 +5,12 @@ using System.Web;
 using System.Web.Mvc;
 using BLL;
 using BO;
+
+using PagedList.Mvc;
+using PagedList;
+
 using System.Globalization;
+
 
 namespace AppointmentFixturesProject.Controllers
 {
@@ -139,7 +144,37 @@ namespace AppointmentFixturesProject.Controllers
             return RedirectToAction("VIP", new { id = VIPID });
         }
 
-<<<<<<< HEAD
+
+
+        public ActionResult ViewAppointment(int id,int ?page)
+        {
+            VIPID = id;
+            var model=bllAppointment.getAppointmentByVIP(id);
+            return View(model.ToPagedList(page??1,5));
+        }
+
+        [HttpGet]
+        public ActionResult AppointmentDetails(int id)
+        {
+            var model = bllAppointment.getAppointmentByVIP(VIPID).Where(u => u.Id == id).FirstOrDefault();
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult AppointmentDetails(BOVipViewModel model)
+        {
+            BODateTime datetime = new BODateTime();
+            datetime.AppointmentId = model.Id;
+            datetime.Date = model.Date;
+            datetime.Id = model.DateTimeId;
+            datetime.FromTime = model.FromTime;
+            datetime.ToTime = model.ToTime;
+            datetime.IsCanceled = model.IsCanceled;
+
+            bllDateTime.UpdateDateTime(datetime);
+            return RedirectToAction("ViewAppointment", new { id = VIPID });
+        }
+
         public int compareDate(string date)
         {
             int bdate = DateTime.Compare(DateTime.Now, Convert.ToDateTime(date)); //now < myone ==>-1
@@ -184,7 +219,6 @@ namespace AppointmentFixturesProject.Controllers
             return i;
         }
 
-=======
         public ActionResult ViewAppointment(int id)
         {
             VIPID = id;
@@ -192,27 +226,26 @@ namespace AppointmentFixturesProject.Controllers
             return View(model);
         }
 
-        public ActionResult AppointmentDetails(int id)
-        {
-            var model = bllAppointment.getAppointmentByVIP(VIPID).Where(u => u.Id == id).FirstOrDefault();
-            return View(model);
-        }
+        //public ActionResult AppointmentDetails(int id)
+        //{
+        //    var model = bllAppointment.getAppointmentByVIP(VIPID).Where(u => u.Id == id).FirstOrDefault();
+        //    return View(model);
+        //}
 
-        [HttpPost]
-        public ActionResult AppointmentDetails(BOVipViewModel model)
-        {
-            BODateTime datetime = new BODateTime();
-            datetime.AppointmentId = model.Id;
-            datetime.Date = model.Date;
-            datetime.Id = model.DateTimeId;
-            datetime.FromTime = model.FromTime;
-            datetime.ToTime = model.ToTime;
-            datetime.IsCanceled = model.IsCanceled;
+        //[HttpPost]
+        //public ActionResult AppointmentDetails(BOVipViewModel model)
+        //{
+        //    BODateTime datetime = new BODateTime();
+        //    datetime.AppointmentId = model.Id;
+        //    datetime.Date = model.Date;
+        //    datetime.Id = model.DateTimeId;
+        //    datetime.FromTime = model.FromTime;
+        //    datetime.ToTime = model.ToTime;
+        //    datetime.IsCanceled = model.IsCanceled;
 
-            bllDateTime.UpdateDateTime(datetime);
-            return RedirectToAction("ViewAppointment", new { id = VIPID });
-        }
->>>>>>> 66f487378a985896990fa2b244160923ea8d2f62
+        //    bllDateTime.UpdateDateTime(datetime);
+        //    return RedirectToAction("ViewAppointment", new { id = VIPID });
+        //}
 
 
     }

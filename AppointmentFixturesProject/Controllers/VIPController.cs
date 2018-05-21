@@ -6,6 +6,8 @@ using System.Web.Mvc;
 using BO;
 using BLL;
 using Microsoft.AspNet.Identity;
+using PagedList;
+using PagedList.Mvc;
 
 
 namespace AppointmentFixturesProject.Controllers
@@ -169,6 +171,8 @@ namespace AppointmentFixturesProject.Controllers
 
         }
 
+
+
         public int compareDate(string date)
         {
             int bdate = DateTime.Compare(DateTime.Now, Convert.ToDateTime(date)); //now < myone ==>-1
@@ -197,11 +201,12 @@ namespace AppointmentFixturesProject.Controllers
         //yogesh part to add functionality to cancel appointment
 
 
-        public ActionResult ViewAppointmentDone()
+
+        public ActionResult ViewAppointmentDone(int ?page)
         {
             
             var model = bllAppointment.getAppointmentByVIP(VIPID);
-            return View(model);
+            return View(model.ToPagedList(page??1,5));
         }
 
         public ActionResult AppointmentDetails(int id)
@@ -228,7 +233,7 @@ namespace AppointmentFixturesProject.Controllers
     }
 
     
-
+    //test
 
 
 }
