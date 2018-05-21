@@ -5,12 +5,12 @@ using System.Web;
 using System.Web.Mvc;
 using BLL;
 using BO;
-<<<<<<< HEAD
+
 using PagedList.Mvc;
 using PagedList;
-=======
+
 using System.Globalization;
->>>>>>> diwasDevelopment
+
 
 namespace AppointmentFixturesProject.Controllers
 {
@@ -144,7 +144,7 @@ namespace AppointmentFixturesProject.Controllers
             return RedirectToAction("VIP", new { id = VIPID });
         }
 
-<<<<<<< HEAD
+
         public ActionResult ViewAppointment(int id,int ?page)
         {
             VIPID = id;
@@ -172,7 +172,7 @@ namespace AppointmentFixturesProject.Controllers
             bllDateTime.UpdateDateTime(datetime);
             return RedirectToAction("ViewAppointment", new { id = VIPID });
         }
-=======
+
         public int compareDate(string date)
         {
             int bdate = DateTime.Compare(DateTime.Now, Convert.ToDateTime(date)); //now < myone ==>-1
@@ -217,7 +217,6 @@ namespace AppointmentFixturesProject.Controllers
             return i;
         }
 
->>>>>>> diwasDevelopment
 
 
     }
