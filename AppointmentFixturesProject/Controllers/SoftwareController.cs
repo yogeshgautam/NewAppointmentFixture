@@ -59,8 +59,28 @@ namespace AppointmentFixturesProject.Controllers
         }
 
          [HttpPost]
-        public ActionResult EditCompany(BOCompany model)
+        public ActionResult EditCompany(BOCompany model , HttpPostedFileBase fup)
         {
+			 string filename = "";
+            if (Request.Files.Count > 0)
+            {
+
+                fup = Request.Files[0];
+                if (fup != null && fup.ContentLength>0)
+                {
+                   
+                    filename = fup.FileName;
+                    fup.SaveAs(Server.MapPath("~/Images/" + fup.FileName));
+                    model.Photo = filename;
+                }
+            }
+            else
+            {
+                
+                
+               
+                
+            }
             blcompany.UpdateCompany(model);
             return RedirectToAction("ViewCOmpany");
         }

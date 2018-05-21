@@ -35,7 +35,10 @@ namespace BLL
             company.Name = model.Name;
             company.Phone = model.Phone;
             company.Address = model.Address;
+			if (model.Photo != null) { 
             company.Photo = model.Photo;
+            }
+           
             company.Email = model.Email;
             company.Description = model.Description;
             return _db.SaveChanges();

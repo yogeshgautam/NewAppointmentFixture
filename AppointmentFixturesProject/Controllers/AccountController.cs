@@ -310,7 +310,7 @@ namespace AppointmentFixturesProject.Controllers
 
                     vlcompany.CreateCompany(model);
 
-                    return RedirectToAction("Index", "Software");
+                    return RedirectToAction("ViewCompany", "Software");
                 }
                 AddErrors(result);
             }

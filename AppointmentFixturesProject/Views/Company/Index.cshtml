@@ -6,6 +6,7 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_CompanySharedView.cshtml";
+    int counter = 1;
 }
 <div class="container">
     <h2>List Of Departments</h2>
@@ -32,7 +33,9 @@
     <div class="container">
         <table class="table table-bordered table-hover">
             <tr class="success">
-               
+               <th>
+                   Sn
+               </th>
                 <th>
                     @Html.DisplayName("Department Name")
                 </th>
@@ -51,7 +54,9 @@
             @foreach (var item in Model)
             {
                 <tr>
-                    
+                    <td>
+                        @counter
+                    </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Name)
                     </td>
@@ -72,6 +77,7 @@
                         @Html.ActionLink("Delete", "DeleteDepartment", new { id = item.Id }, new { @class = "btn btn-danger" })
                     </td>
                 </tr>
+                counter++;
             }
 
         </table>

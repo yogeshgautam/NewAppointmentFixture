@@ -44,7 +44,7 @@ namespace BO
         [Required]
         public string FullName { get; set; }
 
-        [Required]
+        //[Required]
         public string Photo { get; set; }
         public string CreatedAt { get; set; }
         public string LastUpdated { get; set; }
