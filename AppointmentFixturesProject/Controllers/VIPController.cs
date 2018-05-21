@@ -59,6 +59,12 @@ namespace AppointmentFixturesProject.Controllers
             return Json(appointmentLst, JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult GetPaggedData(int pageNumber = 1, int pageSize = 5)
+        {
+            var listData = blavailable.GetAvailableTimingByVIP(VIPID).OrderByDescending(u => u.Id).ToList();
+            var pagedData = Pagination.PagedResult(listData, pageNumber, pageSize);
+            return Json(pagedData, JsonRequestBehavior.AllowGet);
+        }
 
 
         public JsonResult Add(BOAvailableTiming model)

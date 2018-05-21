@@ -2,7 +2,7 @@
 //Load Data in Table when documents is ready
 var globalCurrentPage;
 $(document).ready(function () {
-    // loadData();
+   
     GetPageData(1);
 });
 //Load Data function
@@ -145,7 +145,7 @@ function Add() {
 
             }
             else {
-                // loadData();
+               
                 GetPageData(1);
                 
                 $('#myModal2').modal('hide');
@@ -268,7 +268,7 @@ function validate() {
 
 
 //////////////////
-//This is paging temlpate ,you should just copy paste
+//
 function PaggingTemplate(totalPage, currentPage) {
     var template = "";
     var TotalPages = totalPage;

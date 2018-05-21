@@ -86,17 +86,16 @@
         @Html.PagedListPager(Model,page=>Url.Action("VIP",
                             new
                             {
-                               page,
-                               search=Request.QueryString["search"],
-                                
+                                page,
+                                search=Request.QueryString["search"],
+
                             }
 
                  ), new PagedListRenderOptions()
                  {
                      Display = PagedListDisplayMode.IfNeeded
                  }
-          
-        )
+                 )
     </div>
 </div>
 

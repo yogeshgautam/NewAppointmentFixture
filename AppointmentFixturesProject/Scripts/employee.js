@@ -1,7 +1,9 @@
 ﻿/// <reference path="jquery-1.9.1.intellisense.js" />
 //Load Data in Table when documents is ready
+var globalCurrentPage;
 $(document).ready(function () {
-    loadData();
+   
+    GetPageData(1);
 });
 //Load Data function
 function loadData() {
@@ -31,9 +33,35 @@ function loadData() {
         }
     });
 }
+
+/////
+function GetPageData(pageNum, pageSize) {
+    //After every trigger remove previous data and paging
+    $(".tbody").empty();
+    $("#paged").empty();
+    $.getJSON("/VIP/GetPaggedData", { pageNumber: pageNum, pageSize: pageSize }, function (response) {
+        var html = "";
+
+        for (var i = 0; i < response.Data.length; i++) {
+            html = html + '<tr><td>' + response.Data[i].Id + '</td><td>' + response.Data[i].Date + '</td>';
+            html += '<td>' + response.Data[i].StartTime + '</td><td>' + response.Data[i].EndTime + '</td>';
+            html += '<td>' + response.Data[i].IsAvailable + '</td>';
+            //  html = html + '<td>' + response.Date[i].EndTime + '</td><td>' + response.Data[i].IsAvailable + '</td>';
+            html += '<td><a href="#" class="btn btn-info" onclick="return getbyID(' + response.Data[i].Id + ')">Edit</a>    <a href="#" class="btn btn-danger" onclick="Delete(' + response.Data[i].Id + ')">Delete</a></td>';
+            html += "</tr>";
+        }
+
+        $(".tbody").html(html);
+        //var currentPage = response.currentPage;
+        //alert(response.currentPage);
+        //alert(response.totalPages);
+        PaggingTemplate(response.TotalPages, response.CurrentPage);
+    }
+    );
+}
+////
+
 function getbyID(EmpID) {
-
-
     $('#dateInvalidSummary').hide();
     $('#timeInvalidSummary').hide();
 
@@ -123,7 +151,7 @@ function Add() {
             }
             else {
 
-                loadData();
+                GetPageData(1);
                 $('#myModal').modal('hide');
                 sweetAlert
                          ({
@@ -180,7 +208,8 @@ function Update() {
                 $('#timeInvalidSummary').show();
             }
             else {
-                loadData();
+                alert(globalCurrentPage);
+                GetPageData(globalCurrentPage);
                 $('#myModal').modal('hide');
                 $('#AppointmentId').val("");
                 $('#Date').val("");
@@ -230,3 +259,55 @@ function validate() {
     }
     return isValid;
 }
+
+
+//////////////////
+//
+function PaggingTemplate(totalPage, currentPage) {
+    var template = "";
+    var TotalPages = totalPage;
+    var CurrentPage = currentPage;
+    var PageNumberArray = Array();
+    window.globalCurrentPage = CurrentPage;
+
+
+
+    var countIncr = 1;
+    for (var i = currentPage; i <= totalPage; i++) {
+        PageNumberArray[0] = currentPage;
+        if (totalPage != currentPage && PageNumberArray[countIncr - 1] != totalPage) {
+            PageNumberArray[countIncr] = i + 1;
+        }
+        countIncr++;
+    };
+    PageNumberArray = PageNumberArray.slice(0, 5);
+    var FirstPage = 1;
+    var LastPage = totalPage;
+    if (totalPage != currentPage) {
+        var ForwardOne = currentPage + 1;
+    }
+    var BackwardOne = 1;
+    if (currentPage > 1) {
+        BackwardOne = currentPage - 1;
+    }
+
+    template = "<p>" + CurrentPage + " of " + TotalPages + " pages</p>"
+    template = template + '<ul class="pager">' +
+        '<li class="previous"><a href="#" onclick="GetPageData(' + FirstPage + ')"><i class="fa fa-fast-backward"></i>&nbsp;First</a></li>' +
+        '<li><select ng-model="pageSize" id="selectedId"><option value="20" selected>20</option><option value="50">50</option><option value="100">100</option><option value="150">150</option></select> </li>' +
+        '<li><a href="#" onclick="GetPageData(' + BackwardOne + ')"><i class="glyphicon glyphicon-backward"></i></a>';
+
+    var numberingLoop = "";
+    for (var i = 0; i < PageNumberArray.length; i++) {
+        numberingLoop = numberingLoop + '<a class="page-number active" onclick="GetPageData(' + PageNumberArray[i] + ')" href="#">' + PageNumberArray[i] + ' &nbsp;&nbsp;</a>'
+    }
+    template = template + numberingLoop + '<a href="#" onclick="GetPageData(' + ForwardOne + ')" ><i class="glyphicon glyphicon-forward"></i></a></li>' +
+        '<li class="next"><a href="#" onclick="GetPageData(' + LastPage + ')">Last&nbsp;<i class="fa fa-fast-forward"></i></a></li></ul>';
+    $("#paged").append(template);
+    $('#selectedId').change(function () {
+        GetPageData(1, $(this).val());
+    });
+}
+
+
+////////////////
