@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using BLL;
 using BO;
+using PagedList.Mvc;
+using PagedList;
 
 namespace AppointmentFixturesProject.Controllers
 {
@@ -64,11 +66,11 @@ namespace AppointmentFixturesProject.Controllers
             return RedirectToAction("VIP", new { id = VIPID });
         }
 
-        public ActionResult ViewAppointment(int id)
+        public ActionResult ViewAppointment(int id,int ?page)
         {
             VIPID = id;
             var model=bllAppointment.getAppointmentByVIP(id);
-            return View(model);
+            return View(model.ToPagedList(page??1,5));
         }
 
         public ActionResult AppointmentDetails(int id)
