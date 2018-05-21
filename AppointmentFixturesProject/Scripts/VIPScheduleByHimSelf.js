@@ -5,34 +5,7 @@ $(document).ready(function () {
    
     GetPageData(1);
 });
-//Load Data function
-function loadData() {
-    $.ajax({
-        url: "/VIP/List",
-        type: "GET",
-        contentType: "json",
-        dataType: "json",
-        success: function (result) {
-            //debugger
-            var html = '';
-            $.each(result, function (key, item) {
-                html += '<tr>';
-                html += '<td>' + item.Id + '</td>';
-                html += '<td>' + item.Date + '</td>';
-                //var date = new Date(item.StartTime);          
-                html += '<td>' + item.StartTime + '</td>';
-                html += '<td>' + item.EndTime + '</td>';
-                html += '<td>' + item.IsAvailable + '</td>';
-                html += '<td><a href="#" class="btn btn-info" onclick="return getbyID(' + item.Id + ')">Edit</a>   <a href="#" class="btn btn-danger" onclick="Delete(' + item.Id + ')">Delete</a></td>';
-                html += '</tr>';
-            });
-            $('.tbody').html(html);
-        },
-        error: function (errormessage) {
-            alert(errormessage.response);
-        }
-    });
-}
+
 
 /////
 function GetPageData(pageNum, pageSize) {
@@ -108,7 +81,7 @@ function Delete(ID) {
             contentType: "application/json;charset=UTF-8",
             dataType: "json",
             success: function (result) {
-                loadData();
+                GetPageData(1);
             },
             error: function (errormessage) {
                 swal("Oops", "We couldn't connect to the server!", "error");

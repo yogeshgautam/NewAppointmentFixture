@@ -1,39 +1,11 @@
 ﻿/// <reference path="jquery-1.9.1.intellisense.js" />
 //Load Data in Table when documents is ready
 var globalCurrentPage;
+
 $(document).ready(function () {
-   
+
     GetPageData(1);
 });
-//Load Data function
-function loadData() {
-    $.ajax({
-        url: "/ScheduleVIP/List",
-        type: "GET",
-        contentType: "json",
-        dataType: "json",
-        success: function (result) {
-            //debugger
-            var html = '';
-            $.each(result, function (key, item) {
-                html += '<tr>';
-                html += '<td>' + item.Id + '</td>';
-                html += '<td>' + item.Date + '</td>';
-                //var date = new Date(item.StartTime);          
-                html += '<td>' + item.StartTime + '</td>';
-                html += '<td>' + item.EndTime + '</td>';
-                html += '<td>' + item.IsAvailable + '</td>';
-                html += '<td><a href="#" class="btn btn-info" onclick="return getbyID(' + item.Id + ')">Edit</a>   <a href="#" class="btn btn-danger" onclick="Delete(' + item.Id + ')">Delete</a></td>';
-                html += '</tr>';
-            });
-            $('.tbody').html(html);
-        },
-        error: function (errormessage) {
-            swal("Oops", "We couldn't connect to the server!", "error");
-        }
-    });
-}
-
 function GetPageData(pageNum, pageSize) {
     //After every trigger remove previous data and paging
     $(".tbody").empty();
@@ -45,7 +17,7 @@ function GetPageData(pageNum, pageSize) {
             html = html + '<tr><td>' + response.Data[i].Id + '</td><td>' + response.Data[i].Date + '</td>';
             html += '<td>' + response.Data[i].StartTime + '</td><td>' + response.Data[i].EndTime + '</td>';
             html += '<td>' + response.Data[i].IsAvailable + '</td>';
-          //  html = html + '<td>' + response.Date[i].EndTime + '</td><td>' + response.Data[i].IsAvailable + '</td>';
+            //  html = html + '<td>' + response.Date[i].EndTime + '</td><td>' + response.Data[i].IsAvailable + '</td>';
             html += '<td><a href="#" class="btn btn-info" onclick="return getbyID(' + response.Data[i].Id + ')">Edit</a>    <a href="#" class="btn btn-danger" onclick="Delete(' + response.Data[i].Id + ')">Delete</a></td>';
             html += "</tr>";
         }
@@ -58,8 +30,6 @@ function GetPageData(pageNum, pageSize) {
     }
     );
 }
-
-
 
 function getbyID(EmpID) {
     $('#dateInvalidSummary').hide();
@@ -81,7 +51,7 @@ function getbyID(EmpID) {
             $('#EndTime').val(result.EndTime);
             $('#IsAvailable').val(result.IsAvailable);
             $('#myModal2').modal('show')
-            
+
             $("#IsAvailable option").filter(function () {
                 return this.text == String(result.IsAvailable);
             }).attr('selected', true);
@@ -106,7 +76,7 @@ function Delete(ID) {
             contentType: "application/json;charset=UTF-8",
             dataType: "json",
             success: function (result) {
-                loadData();
+                GetPageData(1);
             },
             error: function (errormessage) {
                 swal("Oops", "We couldn't connect to the server!", "error");
@@ -116,7 +86,7 @@ function Delete(ID) {
 }
 
 function Add() {
-    
+
     var res = validate();
     if (res == false) {
         return false;
@@ -138,22 +108,22 @@ function Add() {
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (result) {
-            debugger;            
+            debugger;
             if (result == -1) {
                 $('#dateInvalidSummary').show();
                 $('#timeInvalidSummary').show();
 
             }
             else {
-               
+
                 GetPageData(1);
-                
+
                 $('#myModal2').modal('hide');
                 //put this if modal gets closed but gray color fade still exists 
                 $('body').removeClass('modal-open');
                 $('.modal-backdrop').remove();
                 //end
-              
+
                 sweetAlert
                          ({
                              title: "Inserted!",
@@ -189,7 +159,6 @@ function Update() {
     if (res == false) {
         return false;
     }
- 
 
     var empObj = {
         Id: $('#AppointmentId').val(),
@@ -265,18 +234,12 @@ function validate() {
 }
 
 
-
-
-//////////////////
-//
 function PaggingTemplate(totalPage, currentPage) {
     var template = "";
     var TotalPages = totalPage;
     var CurrentPage = currentPage;
     var PageNumberArray = Array();
     window.globalCurrentPage = CurrentPage;
-    
-
 
     var countIncr = 1;
     for (var i = currentPage; i <= totalPage; i++) {
@@ -315,5 +278,3 @@ function PaggingTemplate(totalPage, currentPage) {
     });
 }
 
-
-////////////////
