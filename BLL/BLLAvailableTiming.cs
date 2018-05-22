@@ -41,8 +41,7 @@ namespace BLL
 
         public List<BOAvailableTiming> GetAllAvailableTiming()
         {
-            using (_db)
-            {
+           
                 List<BOAvailableTiming> lst = new List<BOAvailableTiming>();
                 var temp = _db.tblAvailableTimings.ToList();
                 foreach (var model in temp)
@@ -57,7 +56,7 @@ namespace BLL
                     lst.Add(available);
                 }
                 return lst;
-            }
+           
         }
 
         public int DeleteAvailableTimings(int id)
