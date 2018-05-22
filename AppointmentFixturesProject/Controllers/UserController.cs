@@ -67,29 +67,27 @@ namespace AppointmentFixturesProject.Controllers
         }
 
         public ActionResult loadDate(int Id)  //Id of VIP
-        {
-            //var temp = bllAvailable.GetAllAvailableTiming().Where(u => u.VipId == Id).ToList();
-            var temp = bllAvailable.GetAllAvailableTiming().Where(u => u.VipId == Id).Distinct().OrderBy(x=>x.Date).ToList();
-            //var temp = bllAvailable.GetAllAvailableTiming().Where(u => u.VipId == Id).Distinct();
-   //         TblDateTimes
-   //.Select(o => o.Date)
-   //.Distinct()
-   //.OrderBy(Date => Date)
-
+        {   
+            //var temp = bllAvailable.GetAllAvailableTiming().Where(u => u.VipId == Id).Distinct().OrderBy(x=>x.Date).ToList();
+            var temp = bllAvailable.GetAllAvailableTiming().Where(u => u.VipId == Id && u.IsAvailable == true).Select(u => u.Date).Distinct().ToList();
             return Json(temp, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult loadTime(string Id)
         {
-            var temp = bllAvailable.GetAllAvailableTiming().Where(u => u.Date==Id).ToList();
+            var temp = bllAvailable.GetAllAvailableTiming().Where(u => u.Date==Id && u.IsAvailable==true).ToList();
             return Json(temp, JsonRequestBehavior.AllowGet);
         }
+
+
 
         public ActionResult loadFixedTime(int Id)
         {
             var temp = bllAvailable.GetAllAvailableTiming().Where(u => u.Id == Id).SingleOrDefault();
             return Json(temp, JsonRequestBehavior.AllowGet);
         }
+
+
 
         public ActionResult SaveEndInterval(string Id)
         {
