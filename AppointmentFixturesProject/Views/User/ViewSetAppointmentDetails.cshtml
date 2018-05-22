@@ -4,70 +4,78 @@
     ViewBag.Title = "ViewSetAppointmentDetails";
     Layout = "~/Views/Shared/_UserSharedView.cshtml";
 }
+<div class="container">
+    <br />
+    <br />
+    <h2>
+        List Of Appointments
+    </h2>
+    <hr />
+    <div class="container">
+        <table class="table table-bordered table-hover" >
+            <tr class="success">
+                <th>
+                    @Html.DisplayNameFor(model => model.Date)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FromTime)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ToTime)
+                </th>
+                <th>
+                    @Html.DisplayName("Status")
+                </th>
+              
 
-<table class="table" >
-    <tr class="success">
-        <th>
-            @Html.DisplayNameFor(model => model.Date)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FromTime)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ToTime)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IsCanceled)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DepartmentId)
-        </th>
-        
-        <th>
-            @Html.DisplayNameFor(model => model.AppointmentTo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Details)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.status)
-        </th>
-        <th></th>
-    </tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.AppointmentTo)
+                </th>
+             
+               
+                <th></th>
+            </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Date)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FromTime)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ToTime)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IsCanceled)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DepartmentId)
-        </td>
-       
-        <td>
-            @Html.DisplayFor(modelItem => item.AppointmentTo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Details)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.status)
-        </td>
-        <td>
-            @*@Html.ActionLink("Edit", "EditUserAppointment", new { id=item.Id },new { @class = "btn btn-info" }) 
-       
-            @Html.ActionLink("Delete", "DeleteUserAppointment", new { id=item.Id },new { @class = "btn btn-danger" })*@
-        </td>
-    </tr>
-}
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Date)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FromTime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ToTime)
+                    </td>
+                    <td>
+                        @if (item.IsCanceled == true)
+                        {
+                            @Html.Label("Canceled")
+                        }
+                        else
+                        {
+                            @Html.Label("Scheduled")
+                        }
+                    
+                    </td>
+                  
 
-</table>
+                    <td>
+                        <b>@Html.DisplayFor(modelItem => item.AppointmentTo)</b>
+                        
+                    </td>
+                 
+                 
+                    <td>
+                        @*@Html.ActionLink("Edit", "EditUserAppointment", new { id=item.Id },new { @class = "btn btn-info" })*@
+
+                        @Html.ActionLink("Details", "DetailsUserAppointment", new { id=item.Id },new { @class = "btn btn-info" })
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+</div>
+

@@ -166,5 +166,10 @@ namespace AppointmentFixturesProject.Controllers
             }
             return View();
         }
+
+        public ActionResult DetailsUserAppointment(int id)
+        {
+            return View();
+        }
     }
 }
