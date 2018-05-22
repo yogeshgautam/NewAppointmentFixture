@@ -13,6 +13,7 @@ namespace BLL
     public class BLLAppointmentDetails
     {
         AppointmentDatabaseEntities _db = new AppointmentDatabaseEntities();
+        BLLDepartment bldept = new BLLDepartment();
         public int CreateAppointment(BOAppointmentDetails model)
         {
             tblAppointment appointment = new tblAppointment();
@@ -117,6 +118,7 @@ namespace BLL
                 bb.AppointmentTo = item.q.AppointmentTo;
                 bb.Details = item.q.Details;
                 bb.Id = item.p.Id;
+                bb.Department = bldept.GetDepartmentById(Convert.ToInt32(bb.DepartmentId));
                 bb.IsCanceled = item.p.IsCanceled;
                 lst.Add(bb);
             }

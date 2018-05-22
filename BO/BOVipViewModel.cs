@@ -21,5 +21,7 @@ namespace BO
         public string AppointmentTo { get; set; }
         public string Details { get; set; }
         public string status { get; set; }
+
+        public BODepartment Department { get; set; }
     }
 }

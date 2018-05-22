@@ -34,33 +34,25 @@
         <table class="table table-hover table-bordered">
             <tr class="success">
                 <th>
-<<<<<<< HEAD
-                    @Html.DisplayNameFor(model=>model.First().FullName)
-=======
+
+                    
+
                     S.n
                 </th>
                 <th>
                     @Html.DisplayName("Department Name")
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model=>model.FullName)
+                    @Html.DisplayNameFor(model => model.First().FullName)
                 </th>
 
-                <th>
-                    @Html.DisplayNameFor(model => model.Designation)
->>>>>>> OsnBranch
-                </th>
-                <th>
-                    @Html.DisplayName("Department Name")
-                </th>
+              
 
                 <th>
                     @Html.DisplayNameFor(model => model.First().Designation)
                 </th>
                 
-                <th>
-                    @Html.DisplayNameFor(model => model.First().Email)
-                </th>
+              
              
 
                 <th></th>
@@ -79,66 +71,23 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.FullName)
                         </td>
-
-<<<<<<< HEAD
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.FullName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.lstDepartment.Name)
-                    </td>
-
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Designation)
-                    </td>
-                   
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Email)
-                    </td>
-                   
-
-                    <td>
-                        @Html.ActionLink("Details", "DetailsVIP", new { id = item.Id }, new { @class = "btn btn-info" })
-                        @Html.ActionLink("View Schedule", "VIP", "ScheduleVIP", new { id = item.Id }, new { @class = "btn btn-primary" })
-                        @Html.ActionLink("View Appointment", "ViewAppointment", "ScheduleVIP", new { id = item.Id }, new { @class = "btn btn-info" })
-
-
-
-
-<<<<<<< HEAD
-=======
                         <td>
                             @Html.DisplayFor(modelItem => item.Designation)
                         </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Phone)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Email)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Address1)
-                        </td>
+
+                       
 
                         <td>
-
                             @Html.ActionLink("Details", "DetailsVIP", new { id = item.Id }, new { @class = "btn btn-info" })
                             @Html.ActionLink("View Schedule", "VIP", "ScheduleVIP", new { id = item.Id }, new { @class = "btn btn-primary" })
->>>>>>> OsnBranch
-
-=======
-                    </td>
-                </tr>
-            }
->>>>>>> b5e4e914aca3f2f20dc5bb637f6e2e1c433966d2
-
+                            @Html.ActionLink("View Appointment", "ViewAppointment", "ScheduleVIP", new { id = item.Id }, new { @class = "btn btn-info" })
                         </td>
-                    </tr>
+                        </tr>
                     counter++;
-                }
+
+                          
+            }
+        
             </tbody>
         </table>
         @Html.PagedListPager(Model,page=>Url.Action("VIP",

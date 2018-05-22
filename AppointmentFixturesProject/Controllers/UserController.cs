@@ -164,5 +164,13 @@ namespace AppointmentFixturesProject.Controllers
             }
             return View();
         }
+
+        public ActionResult DetailsUserAppointment(int id)
+        {
+
+
+            var model=bllAppointment.getAppointmentDetailsByUser(emailId);
+            return View(model.SingleOrDefault(u=>u.Id==id));
+        }
     }
 }
