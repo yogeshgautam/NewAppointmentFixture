@@ -44,7 +44,9 @@ namespace BLL
             vip.Email = model.Email;
             vip.FullName = model.FullName;
             vip.Phone = model.Phone;
+            if(model.Photo!=null){
             vip.Photo = model.Photo;
+                }
           //  vip.UserId = model.UserId;
             return _db.SaveChanges();
         }

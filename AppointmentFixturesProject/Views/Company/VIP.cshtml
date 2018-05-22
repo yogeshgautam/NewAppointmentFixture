@@ -34,26 +34,14 @@
         <table class="table table-hover table-bordered">
             <tr class="success">
                 <th>
-<<<<<<< HEAD
-                    @Html.DisplayNameFor(model=>model.First().FullName)
-=======
-                    S.n
+                  S.n
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().FullName)
                 </th>
                 <th>
                     @Html.DisplayName("Department Name")
                 </th>
-                <th>
-                    @Html.DisplayNameFor(model=>model.FullName)
-                </th>
-
-                <th>
-                    @Html.DisplayNameFor(model => model.Designation)
->>>>>>> OsnBranch
-                </th>
-                <th>
-                    @Html.DisplayName("Department Name")
-                </th>
-
                 <th>
                     @Html.DisplayNameFor(model => model.First().Designation)
                 </th>
@@ -72,18 +60,9 @@
                         <td>
                             @counter
                         </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.lstDepartment.Name)
-                           
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.FullName)
-                        </td>
+                     
 
-<<<<<<< HEAD
-            @foreach (var item in Model)
-            {
-                <tr>
+
                     <td>
                         @Html.DisplayFor(modelItem => item.FullName)
                     </td>
@@ -108,32 +87,8 @@
 
 
 
-<<<<<<< HEAD
-=======
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Designation)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Phone)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Email)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Address1)
-                        </td>
 
-                        <td>
-
-                            @Html.ActionLink("Details", "DetailsVIP", new { id = item.Id }, new { @class = "btn btn-info" })
-                            @Html.ActionLink("View Schedule", "VIP", "ScheduleVIP", new { id = item.Id }, new { @class = "btn btn-primary" })
->>>>>>> OsnBranch
-
-=======
-                    </td>
-                </tr>
-            }
->>>>>>> b5e4e914aca3f2f20dc5bb637f6e2e1c433966d2
+                   
 
                         </td>
                     </tr>

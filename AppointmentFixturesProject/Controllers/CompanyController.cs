@@ -169,8 +169,29 @@ namespace AppointmentFixturesProject.Controllers
         }
 
         [HttpPost]
-        public ActionResult EditVIP(BOVIPTable model)
+        public ActionResult EditVIP(BOVIPTable model, HttpPostedFileBase fup)
         {
+            string filename = "";
+            if (Request.Files.Count > 0)
+            {
+
+                fup = Request.Files[0];
+                if (fup != null && fup.ContentLength > 0)
+                {
+
+                    filename = fup.FileName;
+                    fup.SaveAs(Server.MapPath("~/Images/" + fup.FileName));
+                    model.Photo = filename;
+                }
+            }
+            else
+            {
+
+
+
+
+            }
+
             bllvip.UpdateVIP(model);
             ViewBag.Department = bllDepartment.GetAllDepartment();
             return RedirectToAction("VIP");

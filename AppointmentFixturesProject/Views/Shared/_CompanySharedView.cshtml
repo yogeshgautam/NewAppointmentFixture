@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Appointment Scheduler</title>
-<<<<<<< HEAD
+@*<<<<<<< HEAD*@
    
 
     @*<script src="~/Scripts/jquery-1.10.2.min.js"></script>
@@ -21,10 +21,10 @@
     <script src="~/Scripts/VIPScheduleByAdmin.js"></script>
 
 
-=======
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
->>>>>>> OsnBranch
+@*=======*@
+    @*@Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")*@
+@*>>>>>>> OsnBranch*@
 
 </head>
 <body>
@@ -37,7 +37,7 @@
                     <span class="icon-bar"></span>
                 </button>
              
-                @Html.ActionLink((string)@ViewBag.Companyname, "Index", "Company", new { area = "" }, new { @class = "navbar-brand" })
+                @*@Html.ActionLink((string)@ViewBag.Companyname, "Index", "Company", new { area = "" }, new { @class = "navbar-brand" })*@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
@@ -69,5 +69,7 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
 </body>
 </html>
