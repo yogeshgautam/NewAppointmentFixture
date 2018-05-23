@@ -2,7 +2,7 @@
     ViewBag.Title = "FixAppointment";
     Layout = "~/Views/Shared/_UserSharedView.cshtml";
 }
-
+<br />
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js">
 </script>
@@ -57,7 +57,7 @@
                     alert(result[0]);
                     var s = '<option value="-1">Please Select Date</option>';
                     for (var i = 0; i < result.length; i++) {
-                        s += '<option value="' + result[i].Id + ' ">' + result[i].Date + '</option>';
+                        s += '<option value="' + result[i] + ' ">' + result[i] + '</option>';
                     }
                     //result[i].Date
                     $('#dropdownDate').html(s);
@@ -96,6 +96,7 @@
                     var a = result.StartTime;
                     var b = result.EndTime;
                     var result = intervals(a, b);
+                    //alert(result[1].)
                     for (var i = 0; i < result.length; i++) {
                         var s = '<option value="-1">Please Select Interval</option>';
                         for (var i = 0; i < result.length; i++) {
@@ -198,7 +199,7 @@
                     </tr>
 
                     <tr>
-                        <td>Date</td>
+                        <td>Time</td>
                         <td>
                             <select id="dropdownTime" name="dropdownTime" class="btn btn-default form-control" data-live-search="true">
                                 <option value="-1">Select Time</option>
