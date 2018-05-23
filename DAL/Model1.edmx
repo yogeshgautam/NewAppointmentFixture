@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="AppointmentDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="AppointmentDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="__MigrationHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
@@ -338,7 +338,8 @@
             <End Role="tblVIPUser" EntitySet="tblVIPUser" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="AppointmentDatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -483,6 +484,17 @@
           <NavigationProperty Name="tblCompanyDetail" Relationship="Self.FK_tblDepartment_tblCompanyDetails" FromRole="tblDepartment" ToRole="tblCompanyDetails" />
           <NavigationProperty Name="tblVIPUsers" Relationship="Self.FK_tblVIPUser_tblDepartment" FromRole="tblDepartment" ToRole="tblVIPUser" />
         </EntityType>
+        <EntityType Name="tblMeetingFirst">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="VIPUser" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Users" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="StartTime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EndTime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+        </EntityType>
         <EntityType Name="tblVIPUser">
           <Key>
             <PropertyRef Name="Id" />
@@ -608,6 +620,7 @@
           <EntitySet Name="tblCompanyDetails" EntityType="Self.tblCompanyDetail" />
           <EntitySet Name="tblDateTimes" EntityType="Self.tblDateTime" />
           <EntitySet Name="tblDepartments" EntityType="Self.tblDepartment" />
+          <EntitySet Name="tblMeetingFirsts" EntityType="Self.tblMeetingFirst" />
           <EntitySet Name="tblVIPUsers" EntityType="Self.tblVIPUser" />
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -641,19 +654,7 @@
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
-          <EntitySet Name="tblMeetingFirsts" EntityType="AppointmentDatabaseModel.tblMeetingFirst" />
         </EntityContainer>
-        <EntityType Name="tblMeetingFirst">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="VIPUser" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Users" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="StartTime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="EndTime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Date" Type="DateTime" Precision="0" />
-        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -795,6 +796,18 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="tblMeetingFirsts">
+            <EntityTypeMapping TypeName="AppointmentDatabaseModel.tblMeetingFirst">
+              <MappingFragment StoreEntitySet="tblMeetingFirst">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="VIPUser" ColumnName="VIPUser" />
+                <ScalarProperty Name="Users" ColumnName="Users" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="tblVIPUsers">
             <EntityTypeMapping TypeName="AppointmentDatabaseModel.tblVIPUser">
               <MappingFragment StoreEntitySet="tblVIPUser">
@@ -823,18 +836,6 @@
               <ScalarProperty Name="Id" ColumnName="UserId" />
             </EndProperty>
           </AssociationSetMapping>
-          <EntitySetMapping Name="tblMeetingFirsts">
-            <EntityTypeMapping TypeName="AppointmentDatabaseModel.tblMeetingFirst">
-              <MappingFragment StoreEntitySet="tblMeetingFirst">
-                <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
-                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
-                <ScalarProperty Name="Users" ColumnName="Users" />
-                <ScalarProperty Name="VIPUser" ColumnName="VIPUser" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

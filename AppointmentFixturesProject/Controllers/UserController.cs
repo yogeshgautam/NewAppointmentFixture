@@ -174,5 +174,25 @@ namespace AppointmentFixturesProject.Controllers
             var model=bllAppointment.getAppointmentDetailsByUser(emailId);
             return View(model.SingleOrDefault(u=>u.Id==id));
         }
+
+        public ActionResult ViewAppointmentList()
+        {
+            List<BOVipViewModel> boVipViewModel = bllAppointment.getAppointmentDetailsByUser(emailId);
+            return Json(boVipViewModel, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult ViewAppointmentById(int id)
+        {
+            List<BOVipViewModel> boVipViewModel = bllAppointment.getAppointmentDetailsByUser(emailId);
+            var temp = boVipViewModel.Where(u => u.Id == id).FirstOrDefault();
+            return Json(temp, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult GetPaggedData(int pageNumber = 1, int pageSize = 5)
+        {
+            List<BOVipViewModel> boVipViewModel = bllAppointment.getAppointmentDetailsByUser(emailId);
+            var pagedData = Pagination.PagedResult(boVipViewModel, pageNumber, pageSize);
+            return Json(pagedData, JsonRequestBehavior.AllowGet);
+        }
     }
 }

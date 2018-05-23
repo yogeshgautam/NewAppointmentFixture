@@ -4,10 +4,16 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Appointment Scheduler</title>
-    @Styles.Render("~/Content/css")
-
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
     @Scripts.Render("~/bundles/modernizr")
- 
+
+
+
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+
+    <script src="~/Scripts/UserScript/UserViewAppointment.js"></script>
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -31,7 +37,7 @@
         </div>
     </div>
     <div class="container body-content">
-        <div style="min-height:500px">
+        <div style="min-height:500px;margin-top:60px">
             @RenderBody()
         </div>
         <hr />
