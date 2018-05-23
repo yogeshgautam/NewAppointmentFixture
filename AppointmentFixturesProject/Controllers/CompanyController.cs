@@ -65,7 +65,8 @@ namespace AppointmentFixturesProject.Controllers
             List<BODepartment> lst = bllDepartment.GetAllDepartment().Where(u => u.CompanyId == companyId).ToList();
             if (search != null)
             {
-                lst = bllDepartment.GetAllDepartment().Where(u => u.CompanyId == companyId && u.Name.StartsWith(search)).ToList();
+                lst = bllDepartment.GetAllDepartment().Where(u => u.CompanyId == companyId && u.Name.IndexOf(search,StringComparison.OrdinalIgnoreCase)>=0).ToList();
+                //lst = bllDepartment.GetAllDepartment().Where(u => u.CompanyId == companyId && u.Name.StartsWith(search)).ToList();
             }
             return View(lst.ToPagedList(page??1,5));
         }
