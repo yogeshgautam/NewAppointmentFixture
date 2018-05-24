@@ -1,17 +1,16 @@
 ﻿@{
     ViewBag.Title = "FixAppointment";
-    Layout = "~/Views/Shared/_CompanySharedView.cshtml";
+    Layout = "~/Views/Shared/_UserSharedView.cshtml";
 }
-
+<br />
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js">
 </script>
-
-<br />
+<script src="~/Scripts/WordLeft.js"></script>
 <br />
 <script>
     var setTime = 15;
-    debugger
+    //debugger;
     $(document).ready(function () {
         $('#dropdownCompany').on('change', function () {
             var Id = $('#dropdownCompany option:selected').val();
@@ -54,11 +53,15 @@
                 data: { Id: Id },
                 url: '@Url.Action("loadDate","User")',
                 success: function (result) {
-                    //alert(result + "diwas");
+                    debugger;
+                   // alert(result[0]);
                     var s = '<option value="-1">Please Select Date</option>';
                     for (var i = 0; i < result.length; i++) {
                         s += '<option value="' + result[i].Id + ' ">' + result[i].Date + '</option>';
+                       // s += '<option value="' + result[i] + ' ">' + result[i] + '</option>';
+                        //s += '<option value="' + result[i].Date+ ' ">' + result[i].Id + '</option>';
                     }
+                    //result[i].Date
                     $('#dropdownDate').html(s);
                 }
             });
@@ -66,14 +69,17 @@
 
 
         $('#dropdownDate').on('change', function () {
-            var Id = $('#dropdownDate option:selected').val();
+            var Id = $('#dropdownDate option:selected').text();
+            //alert($('#dropdownDate option:selected').text());
             $.ajax({
                 type: 'GET',
                 data: { Id: Id },
                 url: '@Url.Action("loadTime","User")',
                 success: function (result) {
                     var s = '<option value="-1">Please Select Date</option>';
+                   // alert(result);
                     for (var i = 0; i < result.length; i++) {
+                        alert(result[i].StartTime);
                         s += '<option value="' + result[i].Id + ' ">' + result[i].StartTime + '--- ' + result[i].EndTime + '</option>';
                     }
                     $('#dropdownTime').html(s);
@@ -92,6 +98,7 @@
                     var a = result.StartTime;
                     var b = result.EndTime;
                     var result = intervals(a, b);
+                    //alert(result[1].)
                     for (var i = 0; i < result.length; i++) {
                         var s = '<option value="-1">Please Select Interval</option>';
                         for (var i = 0; i < result.length; i++) {
@@ -124,14 +131,14 @@
     });
 
     function intervals(startString, endString) {
-        var start = moment(startString, 'HH:mm:ss a');
-        var end = moment(endString, 'HH:mm:ss a');
+        var start = moment(startString, 'HH:mm a');
+        var end = moment(endString, 'HH:mm a');
         start.minutes(Math.ceil(start.minutes() / 15) * 15);
         var result = []; //result contain array of time
         var current = moment(start);
 
         while (current <= end) {
-            result.push(current.format('HH:mm:ss'));
+            result.push(current.format('HH:mm'));
             current.add(setTime, 'minutes');
         }
         return result;
@@ -143,10 +150,13 @@
         <div class="col-sm-offset-3 col-sm-6">
             <form method="POST" action="/User/SaveToDateTimeTable">
                 <table>
-                    @if (@ViewBag.Appointment != null)
+                   
+                    @if (ViewBag.Appointment != null)
                     {
-                        <h2>Value Set : @ViewBag.Appointment</h2>
+                        <text> ViewBag.Appointment</text>
+                       
                     }
+                   
                     <tr>
                         <td>Company</td>
                         <td>
@@ -194,7 +204,7 @@
                     </tr>
 
                     <tr>
-                        <td>Date</td>
+                        <td>Time</td>
                         <td>
                             <select id="dropdownTime" name="dropdownTime" class="btn btn-default form-control" data-live-search="true">
                                 <option value="-1">Select Time</option>
@@ -220,7 +230,8 @@
                         <td>Appointment Details</td>
                         <td>
                             <br />
-                            <textarea rows="4" class="form-control" cols="50" style="resize:none" placeholder="Appointment Details" name="Details" id="Details"></textarea>
+                            <textarea rows="4" class="form-control" cols="50" style="resize:none" placeholder="Appointment Details(50 words)" name="Details" id="Details"></textarea>
+                            <span id="spnCharLeft"></span>
                         </td>
                     </tr>
 

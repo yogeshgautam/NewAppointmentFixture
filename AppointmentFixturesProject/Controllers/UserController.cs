@@ -48,6 +48,7 @@ namespace AppointmentFixturesProject.Controllers
         {
             var a = bllcompany.GetAllCompany();
             ViewBag.Company = a;
+          
             return View();
         }
 
@@ -67,23 +68,27 @@ namespace AppointmentFixturesProject.Controllers
         }
 
         public ActionResult loadDate(int Id)  //Id of VIP
-        {
-            var temp = bllAvailable.GetAllAvailableTiming().Where(u => u.VipId == Id).ToList();
-
+        {   
+           var temp = bllAvailable.GetAllAvailableTiming().Where(u => u.VipId == Id && u.IsAvailable==true).Distinct().OrderBy(x=>x.Date).ToList();
+           // var temp = bllAvailable.GetAllAvailableTiming().Where(u => u.VipId == Id && u.IsAvailable == true).Select(u => u.Date).Distinct().ToList();
             return Json(temp, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult loadTime(int Id)
+        public ActionResult loadTime(string Id)
         {
-            var temp = bllAvailable.GetAllAvailableTiming().Where(u => u.Id == Id).ToList();
+            var temp = bllAvailable.GetAllAvailableTiming().Where(u => u.Date==Id && u.IsAvailable==true).ToList();
             return Json(temp, JsonRequestBehavior.AllowGet);
         }
+
+
 
         public ActionResult loadFixedTime(int Id)
         {
             var temp = bllAvailable.GetAllAvailableTiming().Where(u => u.Id == Id).SingleOrDefault();
             return Json(temp, JsonRequestBehavior.AllowGet);
         }
+
+
 
         public ActionResult SaveEndInterval(string Id)
         {
@@ -117,6 +122,7 @@ namespace AppointmentFixturesProject.Controllers
             int j = bllAppointment.CreateAppointment(bAppointment);
             if (j > 0)
             {
+                TempData["shortMessage"] = "MyMessage";
                 ViewBag.Appointment = "Successfully Created";
             }
             else
@@ -159,6 +165,34 @@ namespace AppointmentFixturesProject.Controllers
                 }
             }
             return View();
+        }
+
+        public ActionResult DetailsUserAppointment(int id)
+        {
+
+
+            var model=bllAppointment.getAppointmentDetailsByUser(emailId);
+            return View(model.SingleOrDefault(u=>u.Id==id));
+        }
+
+        public ActionResult ViewAppointmentList()
+        {
+            List<BOVipViewModel> boVipViewModel = bllAppointment.getAppointmentDetailsByUser(emailId);
+            return Json(boVipViewModel, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult ViewAppointmentById(int id)
+        {
+            List<BOVipViewModel> boVipViewModel = bllAppointment.getAppointmentDetailsByUser(emailId);
+            var temp = boVipViewModel.Where(u => u.Id == id).FirstOrDefault();
+            return Json(temp, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult GetPaggedData(int pageNumber = 1, int pageSize = 5)
+        {
+            List<BOVipViewModel> boVipViewModel = bllAppointment.getAppointmentDetailsByUser(emailId);
+            var pagedData = Pagination.PagedResult(boVipViewModel, pageNumber, pageSize);
+            return Json(pagedData, JsonRequestBehavior.AllowGet);
         }
     }
 }

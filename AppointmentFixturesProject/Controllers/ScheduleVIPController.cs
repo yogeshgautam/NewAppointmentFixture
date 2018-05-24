@@ -219,12 +219,12 @@ namespace AppointmentFixturesProject.Controllers
             return i;
         }
 
-        public ActionResult ViewAppointment(int id)
-        {
-            VIPID = id;
-            var model=bllAppointment.getAppointmentByVIP(id);
-            return View(model);
-        }
+        //public ActionResult ViewAppointment(int id)
+        //{
+        //    VIPID = id;
+        //    var model=bllAppointment.getAppointmentByVIP(id);
+        //    return View(model);
+        //}
 
         //public ActionResult AppointmentDetails(int id)
         //{

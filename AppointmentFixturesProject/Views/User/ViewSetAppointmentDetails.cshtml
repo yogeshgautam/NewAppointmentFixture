@@ -5,69 +5,146 @@
     Layout = "~/Views/Shared/_UserSharedView.cshtml";
 }
 
-<table class="table" >
-    <tr class="success">
-        <th>
-            @Html.DisplayNameFor(model => model.Date)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FromTime)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ToTime)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IsCanceled)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DepartmentId)
-        </th>
-        
-        <th>
-            @Html.DisplayNameFor(model => model.AppointmentTo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Details)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.status)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Date)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FromTime)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ToTime)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IsCanceled)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DepartmentId)
-        </td>
-       
-        <td>
-            @Html.DisplayFor(modelItem => item.AppointmentTo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Details)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.status)
-        </td>
-        <td>
-            @*@Html.ActionLink("Edit", "EditUserAppointment", new { id=item.Id },new { @class = "btn btn-info" }) 
-       
-            @Html.ActionLink("Delete", "DeleteUserAppointment", new { id=item.Id },new { @class = "btn btn-danger" })*@
-        </td>
-    </tr>
-}
+<script src="~/Scripts/UserScript/UserViewAppointment.js"></script>
 
-</table>
+<br />
+
+
+
+    <div class="container">
+        <table class="table table-hover table-bordered  ">
+            <thead>
+                <tr class="success">
+                    <th>
+                        ID
+                    </th>
+                    <th>
+                        Date
+                    </th>
+                    <th>
+                        FromTime
+                    </th>
+                    <th>
+                        ToTime
+                    </th>
+                    <th>
+                        Status
+                    </th>
+                    <th>
+                        AppointmentTo
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody class="tbody"></tbody>
+            </table>
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title" id="myModalLabel"> Appointment Details</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form id="myform">
+                                <div class="form-group">
+                                    <input type="hidden" class="form-control" id="AppointmentId" placeholder="Id" disabled="disabled" />
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="dtp_input2" class="col-md-4 control-label">Date</label>
+                                    <div class="input-group date form_date col-md-4" data-date="" data-date-format="yyyy-mm-dd" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                                        <label for="dtp_input2" id="Date" value="" class="col-md-3 control-label"></label>
+
+                                    </div>
+                                    <input type="hidden" id="dtp_input2" value="" /><br />
+                                </div>
+
+                                <br /> 
+                                <div class="form-group">
+                                    <label for="dtp_input3" class="col-md-4 control-label">From Time</label>
+                                    <div class="input-group date form_date col-md-4" data-date="" data-date-format="yyyy-mm-dd" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                                        <label for="dtp_input2" id="FromTime" value="" class="col-md-3 control-label"></label>
+
+                                    </div>
+                                    <input type="hidden" id="dtp_input3" value="" /><br />
+                                </div>
+
+                                <br /> 
+                                <div class="form-group">
+                                    <label for="dtp_input3" class="col-md-4 control-label">To Time</label>
+                                    <div class="input-group date form_date col-md-4" data-date="" data-date-format="yyyy-mm-dd" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                                        <label for="dtp_input2" id="ToTime" value="" class="col-md-3 control-label"></label>
+
+                                    </div>
+                                    <input type="hidden" id="dtp_input3" value="" /><br />
+                                </div>
+                                <br />
+                                <div class="form-group">
+                                    <label for="dtp_input3" class="col-md-4 control-label">Appointment To</label>
+                                    <div class="input-group date form_date col-md-4" data-date="" data-date-format="yyyy-mm-dd" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                                        <label for="dtp_input2" id="AppointmentTo" value="" class="col-md-3 control-label"></label>
+
+                                    </div>
+                                    <input type="hidden" id="dtp_input3" value="" /><br />
+                                </div>
+                                <br />
+                                <div class="form-group">
+                                    <label for="dtp_input3" class="col-md-4 control-label">Company Name</label>
+                                    <div class="input-group date form_date col-md-4" data-date="" data-date-format="yyyy-mm-dd" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                                        <label for="dtp_input2"vocab="" id="CompanyName" value="" class="col-md-3 control-label"></label>
+
+                                    </div>
+                                    <input type="hidden" id="dtp_input3" value="" /><br />
+                                </div>
+                                <br />
+                                <div class="form-group">
+                                    <label for="dtp_input3" class="col-md-4 control-label">Department Name</label>
+                                    <div class="input-group date form_date col-md-4" data-date="" data-date-format="yyyy-mm-dd" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                                        <label for="dtp_input2" id="DepartmentName" value="" class="col-md-3 control-label"></label>
+
+                                    </div>
+                                    <input type="hidden" id="dtp_input3" value="" /><br />
+                                </div>
+                                <br />
+                                <div class="form-group">
+                                    <label for="dtp_input3" class="col-md-4 control-label">Status</label>
+                                    <div class="input-group date form_date col-md-4" data-date="" data-date-format="yyyy-mm-dd" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                                        <label for="dtp_input2" id="Status" value="" class="col-md-3 control-label"></label>
+
+                                    </div>
+                                    <input type="hidden" id="dtp_input3" value="" /><br />
+                                </div>
+                                <br />
+                                <div class="form-group">
+                                    <label for="dtp_input3" class="col-md-4 control-label">Details</label>
+                                    <div class="input-group date form_date col-md-4" data-date="" data-date-format="yyyy-mm-dd" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                                        <label for="dtp_input2" id="Details" value="" class="col-md-3 control-label"></label>
+
+                                    </div>
+                                    <input type="hidden" id="dtp_input3" value="" /><br />
+                                </div>
+
+                                
+                            </form>
+                            <br /> 
+                            <div id="dateInvalidSummary" style="color:red;display:none">*Date must be greater than Current Date</div>
+                            <div id="timeInvalidSummary" style="color:red;display:none">*End Date must be greater than Start Date</div>
+                        </div>
+                        <div class="modal-footer">
+                            
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           
+       
+        <div id="paged">
+
+        </div>
+    
+    </div>
+     
+
