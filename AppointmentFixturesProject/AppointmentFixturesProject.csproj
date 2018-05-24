@@ -276,6 +276,9 @@
     <Content Include="Others\js\plugins.js" />
     <Content Include="Others\js\popper.min.js" />
     <Content Include="Others\style.css" />
+    <Content Include="Scripts\departmentjs\department.js" />
+    <Content Include="Scripts\notification\notificationCompany.js" />
+    <Content Include="Scripts\notification\notificationVip.js" />
     <Content Include="Scripts\UserScript\UserViewAppointment.js" />
     <Content Include="Scripts\WordLeft.js" />
     <Content Include="Scripts\VIPScheduleByAdmin.js" />
@@ -410,6 +413,7 @@
     <Content Include="Views\VIP\AppointmentDetails.cshtml" />
     <Content Include="Views\ScheduleVIP\FixAppointment.cshtml" />
     <Content Include="Views\User\DetailsUserAppointment.cshtml" />
+    <Content Include="Views\Home\test.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
