@@ -10,7 +10,6 @@ using System.Web.Security;
 using System.Net;
 using PagedList;
 using PagedList.Mvc;
-using Jquery_Mvc_Paging.Helper;
 namespace AppointmentFixturesProject.Controllers
 {
 
