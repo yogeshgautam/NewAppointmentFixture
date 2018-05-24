@@ -181,6 +181,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helper\PagedData.cs" />
+    <Compile Include="Helper\Pagination.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Company\DepartmentViewModel.cs" />
     <Compile Include="Models\Company\VIPViewModel.cs" />
@@ -308,6 +310,7 @@
     <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\new\bootstrap.js" />
     <Content Include="Scripts\new\bootstrap.min.js" />
+    <Content Include="Scripts\new\department.js" />
     <Content Include="Scripts\new\employee.js" />
     <Content Include="Scripts\new\javasc.js" />
     <Content Include="Scripts\new\JavaScript1.js" />
@@ -316,6 +319,8 @@
     <Content Include="Scripts\new\jquery-1.9.1.min.js" />
     <Content Include="Scripts\new\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\new\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Scripts\notification\notificationCompany.js" />
+    <Content Include="Scripts\notification\notificationVip.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\UserScript\UserViewScript.js" />
@@ -358,7 +363,6 @@
     <Content Include="Views\Shared\_CompanySharedView.cshtml" />
     <Content Include="Views\Company\CreateDepartment.cshtml" />
     <Content Include="Views\Company\CreateVIP.cshtml" />
-    <Content Include="Views\Company\Index.cshtml" />
     <Content Include="Views\Company\VIP.cshtml" />
     <Content Include="Views\Company\DeleteVIP.cshtml" />
     <Content Include="Views\Company\EditVIP.cshtml" />
@@ -401,6 +405,7 @@
     <Content Include="Views\ScheduleVIP\ViewAppointment.cshtml" />
     <Content Include="Views\ScheduleVIP\AppointmentDetails.cshtml" />
     <Content Include="Views\VIP\AppointmentDetails.cshtml" />
+    <Content Include="Views\Company\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

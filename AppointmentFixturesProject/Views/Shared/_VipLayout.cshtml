@@ -12,51 +12,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js" type="text/javascript"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
             type="text/javascript"></script>
+    <script src="~/Scripts/notification/notificationVip.js"></script>
 
-
-
-
-    <script type="text/javascript">
-
-    $(document).ready(function () {
-        setInterval(function () {
-            UpdateNotifications();
-        }, 1000);
-    });
-
-    function UpdateNotifications() {
-        $.ajax({
-            type: "GET",
-            url: "/VIP/GetNotifications",
-            data: '{}',
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (response) {
-                console.log(response);
-                if (response != null) {
-
-                    var j = ""; var p = 0; var Q = "";
-                    $.each(response, function (k, v) {
-                        p++;
-                        if (p < 6) {
-                            j += "<li><a><img src='../assets/img/nty.png' style='height:20px;width:20px'/> <strong>  " + v.Details.toString() + " </strong> <br /> <div style='text-align:right;font-size:smaller;font-style:italic'> <i style='font-size:smaller'> updated : " + v.AppointmentFrom.toString() + "</i></div></a></li>";
-                        }
-                        Q += "<a><img src='../assets/img/nty.png' style='height:20px;width:20px'/> <strong>  " + v.Details.toString() + " </strong> <br /> <div style='text-align:right;font-size:smaller;font-style:italic'> <i style='font-size:smaller'> updated : " + v.AppointmentFrom.toString() + "</i></div></a>";
-                    });
-                    $('#myNotifyList').html("");
-                    j += "<li><a data-toggle='modal' data-target='#myModal'><div style='text-align:center'><strong> Show more </strong></div></li>";
-                    $('#myNotifyList').append(j);
-                    $('#countNotify').html("<span>" + p + "</span>");
-                    $('#myAllNotifications').html("");
-                    $('#myAllNotifications').append(Q);
-                }               
-            },
-            failure: function (response) {
-                alert(response.d);
-            }
-        });
-    }
-    </script>
 </head> <a href="#">content</a>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
