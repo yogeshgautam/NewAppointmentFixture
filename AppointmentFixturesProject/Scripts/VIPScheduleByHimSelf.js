@@ -13,6 +13,7 @@ function GetPageData(pageNum, pageSize) {
     $(".tbody").empty();
     $("#paged").empty();
 
+
     $.getJSON("/VIP/GetPaggedData", { pageNumber: pageNum, pageSize: pageSize }, function (response) {
         var html = "";
 
