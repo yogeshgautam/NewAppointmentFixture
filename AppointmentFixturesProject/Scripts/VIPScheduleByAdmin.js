@@ -10,11 +10,14 @@ function GetPageData(pageNum, pageSize) {
     //After every trigger remove previous data and paging
     $(".tbody").empty();
     $("#paged").empty();
+  
     $.getJSON("/ScheduleVIP/GetPaggedData", { pageNumber: pageNum, pageSize: pageSize }, function (response) {
         var html = "";
-
+         
         for (var i = 0; i < response.Data.length; i++) {
-            html = html + '<tr><td>' + response.Data[i].Id + '</td><td>' + response.Data[i].Date + '</td>';
+            html = html + '<tr><td>' + (i+1) + '</td>';
+            html = html + '<td>' + response.Data[i].Id + '</td><td>' + response.Data[i].Date + '</td>';
+            
             html += '<td>' + response.Data[i].StartTime + '</td><td>' + response.Data[i].EndTime + '</td>';
             html += '<td>' + response.Data[i].IsAvailable + '</td>';
             //  html = html + '<td>' + response.Date[i].EndTime + '</td><td>' + response.Data[i].IsAvailable + '</td>';
@@ -77,12 +80,16 @@ function Delete(ID) {
             dataType: "json",
             success: function (result) {
                 GetPageData(1);
+                swal(" Deleted Successfully!", "Thank you!", "success")
             },
             error: function (errormessage) {
                 swal("Oops", "We couldn't connect to the server!", "error");
             }
         });
     }
+   
+    
+
 }
 
 function Add() {
