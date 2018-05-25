@@ -25,5 +25,7 @@ namespace BO
         public string Details { get; set; }
 
         public string status { get; set; }
+
+        public BODepartment Department { get; set; }
     }
 }
