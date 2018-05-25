@@ -114,7 +114,7 @@ namespace AppointmentFixturesProject.Controllers
                 StartDate = StartDate.AddMinutes(MinInterval);
             }
 
-            var lstofDate = bllAppointment.getBookAppointmentByUser(VipEmail).Where(u => u.Date == Convert.ToDateTime(selectedDate) && u.IsCanceled==true).ToList();
+            var lstofDate = bllAppointment.getBookAppointmentByUser(VipEmail).Where(u => u.Date == Convert.ToDateTime(selectedDate) && u.IsCanceled==false).ToList();
             List<string> dateList1 = new List<string>();
                 foreach (var items in lstofDate)
                 {  
