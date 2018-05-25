@@ -15,8 +15,6 @@ namespace AppointmentFixturesProject.Controllers
      [Authorize(Roles = "CompanyMaster")]
     public class CompanyController : Controller
     {
-
-    
         BLLDepartment bllDepartment = new BLLDepartment();
         BLLCompany bllCompany=new BLLCompany();
         BLLVIP bllvip = new BLLVIP();
