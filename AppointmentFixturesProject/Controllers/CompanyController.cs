@@ -223,6 +223,11 @@ namespace AppointmentFixturesProject.Controllers
              }
              return View();
          }
+        
+
+
+         //prinsha part
+
          [HttpGet]
          public ActionResult ViewMeetingOne()
          {
@@ -235,11 +240,13 @@ namespace AppointmentFixturesProject.Controllers
 
              return View();
          }
+
          public JsonResult List()
          {
              var ae = bllMeetingFirst.GetALLMeeting();
              return Json(ae, JsonRequestBehavior.AllowGet);
          }
+
          public JsonResult UpdateMeetingOne(BOMeetingFirst model)
          {
              var ae = bllMeetingFirst.UpdateMeetingOne(model);
@@ -259,6 +266,19 @@ namespace AppointmentFixturesProject.Controllers
          public JsonResult Add(BOMeetingFirst model)
          {
              var ae = bllMeetingFirst.AddMeetingFirst(model);
+             return Json(ae, JsonRequestBehavior.AllowGet);
+         }
+         public ActionResult GetPaggedDataa(int pageNumber = 1, int pageSize = 5)
+         {
+
+             List<BOMeetingFirst> listData = bllMeetingFirst.GetALLMeeting().ToList();
+             var pagedData = Pagination.PagedResult(listData, pageNumber, pageSize);
+             return Json(pagedData, JsonRequestBehavior.AllowGet);
+         }
+
+         public JsonResult GetVip()
+         {
+             var ae = bllvip.GetAllVIP().Where(u => u.lstDepartment.CompanyId == companyId).ToList();
              return Json(ae, JsonRequestBehavior.AllowGet);
          }
 

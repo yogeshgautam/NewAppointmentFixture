@@ -7,20 +7,22 @@
 <script src="~/Scripts/new/bootstrap.js"></script>
 <script src="~/Scripts/new/jquery.unobtrusive-ajax.js"></script>
 <script src="~/Scripts/new/javasc.js"></script>
-<script src="~/Scripts/VIPScheduleByAdmin.js"></script>*
+
 
 
 <div>
 
 
     <div class="container">
+
         <h2>View Meeting</h2>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" onclick="clearTextBox();">New Meeting</button><br /><br />
         <hr />
         <div class="container">
             <table class="table table-bordered table-hover">
                 <thead>
                     <tr class="success">
-                        <th> ID  </th>
+
                         <th>  VIP Name</th>
                         <th> Users</th>
                         <th> StartTime</th>
@@ -31,6 +33,9 @@
                 </thead>
                 <tbody class="tbody"></tbody>
             </table>
+            <div id="paged">
+
+            </div>
         </div>
 
     </div>
@@ -47,13 +52,21 @@
                 <div class="modal-body">
                     <form>
                         <div class="form-group">
-                            <label for="ID">ID</label>
-                            <input type="text" class="form-control" id="ID" placeholder="Id" disabled="disabled" />
+                            <label for="ID"></label>
+                            <input type="hidden" class="form-control" id="ID" placeholder="ID" />
                         </div>
+
                         <div class="form-group">
                             <label for="VIPuser">VIPuser</label>
-                            <input type="text" class="form-control" id="VIPuser" placeholder="VIPuser" />
+
+                            <div class="select ">
+
+                            </div>
                         </div>
+
+
+
+
                         <div class="form-group">
                             <label for="Users">Users</label>
                             <input type="text" class="form-control" id="Users" placeholder="Users" />
@@ -65,6 +78,10 @@
                         <div class="form-group">
                             <label for="">EndTime</label>
                             <input type="text" class="form-control" id="EndTime" placeholder="EndTime" />
+                        </div>
+                        <div class="form-group">
+                            <label for="">Date</label>
+                            <input type="text" class="form-control" id="Date" placeholder="Date" />
                         </div>
                     </form>
                 </div>
