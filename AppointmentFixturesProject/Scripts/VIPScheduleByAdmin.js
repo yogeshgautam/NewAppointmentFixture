@@ -10,11 +10,14 @@ function GetPageData(pageNum, pageSize) {
     //After every trigger remove previous data and paging
     $(".tbody").empty();
     $("#paged").empty();
+  
     $.getJSON("/ScheduleVIP/GetPaggedData", { pageNumber: pageNum, pageSize: pageSize }, function (response) {
         var html = "";
-
+         
         for (var i = 0; i < response.Data.length; i++) {
-            html = html + '<tr><td>' + response.Data[i].Id + '</td><td>' + response.Data[i].Date + '</td>';
+            html = html + '<tr><td>' + (i+1) + '</td>';
+            html = html + '<td>' + response.Data[i].Id + '</td><td>' + response.Data[i].Date + '</td>';
+            
             html += '<td>' + response.Data[i].StartTime + '</td><td>' + response.Data[i].EndTime + '</td>';
             html += '<td>' + response.Data[i].IsAvailable + '</td>';
             //  html = html + '<td>' + response.Date[i].EndTime + '</td><td>' + response.Data[i].IsAvailable + '</td>';
@@ -23,9 +26,6 @@ function GetPageData(pageNum, pageSize) {
         }
 
         $(".tbody").html(html);
-        //var currentPage = response.currentPage;
-        //alert(response.currentPage);
-        //alert(response.totalPages);
         PaggingTemplate(response.TotalPages, response.CurrentPage);
     }
     );
@@ -77,6 +77,7 @@ function Delete(ID) {
             dataType: "json",
             success: function (result) {
                 GetPageData(1);
+                swal(" Deleted Successfully!", "Thank you!", "success")
             },
             error: function (errormessage) {
                 swal("Oops", "We couldn't connect to the server!", "error");
@@ -86,7 +87,6 @@ function Delete(ID) {
 }
 
 function Add() {
-
     var res = validate();
     if (res == false) {
         return false;
@@ -100,7 +100,6 @@ function Add() {
             EndTime: $('#EndTime').val(),
             IsAvailable: $('#IsAvailable').val()
         };
-
     $.ajax({
         url: "/ScheduleVIP/Add",
         data: JSON.stringify(empObj),
@@ -112,15 +111,12 @@ function Add() {
             if (result == -1) {
                 $('#dateInvalidSummary').show();
                 $('#timeInvalidSummary').show();
-
             }
             else {
 
                 GetPageData(1);
-
                 $('#myModal2').modal('hide');
                 //put this if modal gets closed but gray color fade still exists 
-
                 $('body').removeClass('modal-open');
                 $('.modal-backdrop').remove();
                 //end
@@ -147,7 +143,6 @@ function clearTextBox() {
     $('#StartTime').val("");
     $('#EndTime').val("");
     $('#IsAvailable').val("");
-
     $('#Date').css('border-color', 'lightgrey');
     $('#StartTime').css('border-color', 'lightgrey');
     $('#EndTime').css('border-color', 'lightgrey');

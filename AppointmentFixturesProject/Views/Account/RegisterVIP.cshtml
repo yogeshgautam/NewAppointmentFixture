@@ -4,17 +4,17 @@
     ViewBag.Title = "RegisterVIP";
     Layout = "~/Views/Shared/_CompanySharedView.cshtml";
 }
+@*<script src="~/Scripts/jquery-1.10.2.min.js"></script>*@
+@*<script src="~/Scripts/new/photoupload.js"></script>*@
 
-<script src="~/Scripts/jquery-1.10.2.min.js"></script>
-<script src="~/Scripts/jquery-1.10.2.js"></script>
 <h2>Register VIP</h2>
 
-@using (Html.BeginForm("RegisterVIP", "Account", FormMethod.Post, new { enctype = "multipart/form-data" })) 
+@using (Html.BeginForm("RegisterVIP", "Account", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
-        
+
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="row">
@@ -69,106 +69,123 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.Details, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.TextAreaFor(model => model.Details, new {  @class = "form-control" })
+                        @Html.TextAreaFor(model => model.Details, new { @class = "form-control" })
                         @Html.ValidationMessageFor(model => model.Details, "", new { @class = "text-danger" })
                     </div>
                 </div>
-           
-         
-               
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div id="imgPreview" class="thumbnail" style="display:none">
+                        <img class="img-responsive" width="100" height="100" id="targetImg" />
+                        <div class="caption">
+                            <a href="#" onclick="ClearPreview()"><i class="glyphicon glyphicon-trash"></i></a>
+                            <span id="description"></span>
                         </div>
                     </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", type = "password" } })
-                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ConfirmPassword, htmlAttributes: new { @class = "control-label col-md-4" })
-            <div class="col-md-8">
-                @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control" ,type="password" } })
-                @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Photo, htmlAttributes: new { @class = "control-label col-md-2" })
-            @*<img width="200" height="100" src="~/Images/default.png" />*@
-            <div class="col-md-10">
-                <div class="row">
-                    <div class="col-md-4">
-                        <img width="100" height="100" id="applicantImage" src="~/Images/profile.png" />
-                    </div>
-                </div>
-                <div class="col-md-4">
                     <div class="form-group">
-
-                    @*<img width="200" height="100" src="~/Images/default.png" />*@
-                   
-                    <div class="form-group">
-
 
 
                         @*@Html.LabelFor(model => model.Photo, htmlAttributes: new { @class = "control-label col-md-2" })*@
                         <div class="">
-                            @Html.TextBoxFor(model => model.Photo, new { type = "file", @id = "imagePicker" })
+                            @Html.TextBoxFor(model => model.Photo, new { type = "file", @id = "imageBrowes" })
                             @Html.ValidationMessageFor(model => model.Photo, "", new { @class = "text-danger" })
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-            </div>
         <hr />
-     
+        <div class="row">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                </div>
+            </div>
 
+            <div class="form-group">
+                @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                </div>
+            </div>
 
+            <div class="form-group">
+                @Html.LabelFor(model => model.ConfirmPassword, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+                </div>
+            </div>
         </div>
-      
 
 
 
-        
+
+
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </div>
     </div>
-        </div>
-}
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script>
 
-<script>
+        $(document).ready(function () {
 
-    $('#imagePicker').on('change', function () {
-        if (this.files && this.files[0]) {
-            debugger;
-            //var chk = isImage(this.files[0].name)
-            //if (!chk) {
-            //    alert('Invalid File Type!! Please select jpg or png file!!');
-            //    return;
-            //}
-            var reader = new FileReader();
+            $("#imageBrowes").change(function () {
 
-            reader.onload = function (e) {
-                $('#applicantImage').attr('src', e.target.result);
-                // $('#ImageChange').val(true);
+                var File = this.files;
+
+                if (File && File[0]) {
+                    ReadImage(File[0]);
+                }
+
+            })
+
+
+        })
+
+
+        var ReadImage = function (file) {
+
+            var reader = new FileReader;
+            var image = new Image;
+
+            reader.readAsDataURL(file);
+            reader.onload = function (_file) {
+
+                image.src = _file.target.result;
+                image.onload = function () {
+
+                    var height = this.height;
+                    var width = this.width;
+                    var type = file.type;
+                    var size = ~~(file.size / 1024) + "KB";
+
+                    $("#targetImg").attr('src', _file.target.result);
+                    $("#description").text("Size:" + size + ", " + height + "X " + width + ", " + type + "");
+                    $("#imgPreview").show();
+
+                }
+
             }
 
-            reader.readAsDataURL(this.files[0]);
         }
-    });
 
-</script>
+        var ClearPreview = function () {
+            $("#imageBrowes").val('');
+            $("#description").text('');
+            $("#imgPreview").hide();
 
+        }
+
+    </script>
+}
 
 

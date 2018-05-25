@@ -1,15 +1,15 @@
-﻿@model BO.BOAvailableTiming
-@{
-    ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_VIPSharedView.cshtml";
+﻿@{
+    ViewBag.Title = "FixAppointment";
+    Layout = "~/Views/Shared/_CompanySharedView.cshtml";
 }
+<br />
+<br />
 <link href="~/Content/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen" />
-<br />
-<br />
-<br />
+<script src="/Scripts/VIPScheduleByAdmin.js"></script>
+
 <div>
     <div class="container">
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" onclick="clearTextBox();">Add New Appointment</button><br /><br />
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal2" onclick="clearTextBox();">Add New Appointment</button><br /><br />
         <table class="table table-hover table-bordered  ">
             <thead>
                 <tr class="success">
@@ -39,8 +39,8 @@
             <tbody class="tbody"></tbody>
         </table>
     </div>
-
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <h2>@ViewBag.Time</h2>
+    <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -105,16 +105,24 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" id="btnAdd" onclick="return Add();">Add</button>
-                    @*<button type="button" class="btn btn-primary" id="btnUpdate" style="display:none;" onclick="Update();">Update</button>*@
+                    <button type="button" class="btn btn-primary" id="btnUpdate" style="display:none;" onclick="Update();">Update</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 <div id="paged">
 
 </div>
+
+@if (TempData["message"] != null)
+{
+    <script type="text/javascript">
+        alert(@Html.Raw(Json.Encode(TempData["message"])));
+    </script>
+}
 <script src="~/Scripts/bootstrap-datetimepicker.min.js"></script>
 <script src="~/Scripts/locales/bootstrap-datetimepicker.uk.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>

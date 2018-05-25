@@ -217,7 +217,7 @@ namespace AppointmentFixturesProject.Controllers
             //The Below codes are written to display the Company name in the navigation Bar
             BLL.BLLCompany bllCompany = new BLL.BLLCompany();
             string id = System.Web.HttpContext.Current.User.Identity.GetUserId();
-            var lst = bllCompany.GetAllCompany().Where(u => u.UserId == id).FirstOrDefault();   
+            var lst = bllCompany.GetAllCompany().Where(u => u.UserId == id).FirstOrDefault();
             ViewBag.Companyname = lst.Name;
 
 
@@ -269,9 +269,8 @@ namespace AppointmentFixturesProject.Controllers
                 AddErrors(result);
             }
 
-            // If we got this far, something failed, redisplay form
+           
             return View(model);
-      
         }
 
         [Authorize(Roles = "Master")]

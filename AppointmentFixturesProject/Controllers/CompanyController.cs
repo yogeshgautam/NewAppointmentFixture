@@ -15,8 +15,6 @@ namespace AppointmentFixturesProject.Controllers
      [Authorize(Roles = "CompanyMaster")]
     public class CompanyController : Controller
     {
-
-    
         BLLDepartment bllDepartment = new BLLDepartment();
         BLLCompany bllCompany=new BLLCompany();
         BLLVIP bllvip = new BLLVIP();
@@ -223,6 +221,11 @@ namespace AppointmentFixturesProject.Controllers
              }
              return View();
          }
+        
+
+
+         //prinsha part
+
          [HttpGet]
          public ActionResult ViewMeetingOne()
          {
@@ -235,11 +238,13 @@ namespace AppointmentFixturesProject.Controllers
 
              return View();
          }
+
          public JsonResult List()
          {
              var ae = bllMeetingFirst.GetALLMeeting();
              return Json(ae, JsonRequestBehavior.AllowGet);
          }
+
          public JsonResult UpdateMeetingOne(BOMeetingFirst model)
          {
              var ae = bllMeetingFirst.UpdateMeetingOne(model);
@@ -261,6 +266,19 @@ namespace AppointmentFixturesProject.Controllers
              var ae = bllMeetingFirst.AddMeetingFirst(model);
              return Json(ae, JsonRequestBehavior.AllowGet);
          }
+         public ActionResult GetPaggedDataa(int pageNumber = 1, int pageSize = 5)
+         {
+
+             List<BOMeetingFirst> listData = bllMeetingFirst.GetALLMeeting().ToList();
+             var pagedData = Pagination.PagedResult(listData, pageNumber, pageSize);
+             return Json(pagedData, JsonRequestBehavior.AllowGet);
+         }
+
+         public JsonResult GetVip()
+         {
+             var ae = bllvip.GetAllVIP().Where(u => u.lstDepartment.CompanyId == companyId).ToList();
+             return Json(ae, JsonRequestBehavior.AllowGet);
+         }
 
         //ViewMeetingOne Ends
 
@@ -268,15 +286,13 @@ namespace AppointmentFixturesProject.Controllers
         //NotificationFunction
         [HttpGet]
         public JsonResult GetNotifications()
-        {
-           
-            return Json(bllappointmentdetails.GetAllAppointment(), JsonRequestBehavior.AllowGet);
+        { 
+            BOAppointmentDetails lst=new BOAppointmentDetails();
+            var temp = bllappointmentdetails.GetAllAppointment().Where(u=>u.Department.CompanyId==companyId);
+            return Json(temp, JsonRequestBehavior.AllowGet);
+
         }
         //NotificationFunctionEnds
-
-
-
-
 
 
 
