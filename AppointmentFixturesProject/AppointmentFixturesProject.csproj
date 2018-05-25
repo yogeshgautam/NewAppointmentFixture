@@ -278,6 +278,9 @@
     <Content Include="Others\js\plugins.js" />
     <Content Include="Others\js\popper.min.js" />
     <Content Include="Others\style.css" />
+    <Content Include="Scripts\departmentjs\department.js" />
+    <Content Include="Scripts\notification\notificationCompany.js" />
+    <Content Include="Scripts\notification\notificationVip.js" />
     <Content Include="Scripts\UserScript\UserViewAppointment.js" />
     <Content Include="Scripts\WordLeft.js" />
     <Content Include="Scripts\VIPScheduleByAdmin.js" />

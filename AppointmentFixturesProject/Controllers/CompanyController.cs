@@ -12,11 +12,11 @@ using PagedList;
 using PagedList.Mvc;
 namespace AppointmentFixturesProject.Controllers
 {
-
      [Authorize(Roles = "CompanyMaster")]
     public class CompanyController : Controller
     {
-        //BLL
+
+    
         BLLDepartment bllDepartment = new BLLDepartment();
         BLLCompany bllCompany=new BLLCompany();
         BLLVIP bllvip = new BLLVIP();
@@ -24,7 +24,7 @@ namespace AppointmentFixturesProject.Controllers
         BLLAvailableTiming blavailable = new BLLAvailableTiming();
         BLLMeetingFirst bllMeetingFirst = new BLLMeetingFirst();
         BLLAppointmentDetails bllappointmentdetails = new BLLAppointmentDetails();
-        //BLLEnds
+    
 
 
          public static int companyId=1;
@@ -53,7 +53,7 @@ namespace AppointmentFixturesProject.Controllers
          }
         //
         //Department Functions
-        public ActionResult Index(string search, int? page)
+        public ActionResult Index()
         {
 
             return View();
@@ -64,17 +64,15 @@ namespace AppointmentFixturesProject.Controllers
             var pagedData = Pagination.PagedResult(listData, pageNumber, pageSize);
             return Json(pagedData, JsonRequestBehavior.AllowGet);
         }
-        public JsonResult AddDepartments(BODepartment department)
-        {
-            department.CompanyId = companyId;
-            var ae = bllDepartment.CreateDepartment(department);
-            return Json(ae, JsonRequestBehavior.AllowGet);
-        }
+       
+
+      
         public JsonResult GetbyIDDepartments(int id)
         {
             var ae = bllDepartment.GetDepartmentById(id);
             return Json(ae, JsonRequestBehavior.AllowGet);
         }
+
         public JsonResult UpdateDepartments(BODepartment department)
         {
             var ae = bllDepartment.UpdateDepartment(department);
@@ -85,9 +83,16 @@ namespace AppointmentFixturesProject.Controllers
             var ae = bllDepartment.DeleteDepartment(ID);
             return Json(ae, JsonRequestBehavior.AllowGet);
         }
-        //Department Function Ends
-
-        //VIPFunction
+    
+      
+        public JsonResult AddDepartments(BODepartment department)
+        {
+            department.CompanyId = companyId;
+            var ae = bllDepartment.CreateDepartment(department);
+            return Json(ae, JsonRequestBehavior.AllowGet);
+        }
+       
+       
         public ActionResult VIP(string search,int?page)
         {
             List<BOVIPTable> lst = bllvip.GetAllVIP().Where(u=>u.lstDepartment.CompanyId==companyId).ToList();
@@ -163,16 +168,17 @@ namespace AppointmentFixturesProject.Controllers
             BOVIPTable vip= bllvip.GetVIPById(id);
             return View(vip);
         }
-        public ActionResult ScheduleVip(int id)
+
+       
+         public ActionResult ScheduleVip(int id)
+
          {
              List<BOAvailableTiming> lst = blavailable.GetAvailableTimingByVIP(id);
              return View(lst);
              
          }
-        //VIP Function Ends
 
-       //ViewMeetingOne 
-        [HttpGet]
+         [HttpGet]
          public ActionResult CreateMeetingOne()
          {
              BOMeetingFirst meeting = new BOMeetingFirst();
@@ -233,7 +239,9 @@ namespace AppointmentFixturesProject.Controllers
              var ae = bllMeetingFirst.AddMeetingFirst(model);
              return Json(ae, JsonRequestBehavior.AllowGet);
          }
+
         //ViewMeetingOne Ends
+
 
         //NotificationFunction
         [HttpGet]
@@ -241,6 +249,13 @@ namespace AppointmentFixturesProject.Controllers
         {
             return Json(bllappointmentdetails.GetAllAppointment(), JsonRequestBehavior.AllowGet);
         }
-        //NotificationFunctionends
+        //NotificationFunctionEnds
+
+
+
+
+
+
+
     }
 }
