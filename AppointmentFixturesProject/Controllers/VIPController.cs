@@ -131,7 +131,7 @@ namespace AppointmentFixturesProject.Controllers
             {
                 model.VipId = VIPID;
                 available.AddAvailableTiming(model);
-
+    
             }
             return View();
 

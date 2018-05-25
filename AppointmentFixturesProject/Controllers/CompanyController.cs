@@ -269,6 +269,8 @@ namespace AppointmentFixturesProject.Controllers
         [HttpGet]
         public JsonResult GetNotifications()
         {
+
+            var temp = bllappointmentdetails.GetAllAppointment();
             return Json(bllappointmentdetails.GetAllAppointment(), JsonRequestBehavior.AllowGet);
         }
         //NotificationFunctionEnds
