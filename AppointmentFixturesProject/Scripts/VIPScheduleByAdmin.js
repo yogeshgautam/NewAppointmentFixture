@@ -26,9 +26,6 @@ function GetPageData(pageNum, pageSize) {
         }
 
         $(".tbody").html(html);
-        //var currentPage = response.currentPage;
-        //alert(response.currentPage);
-        //alert(response.totalPages);
         PaggingTemplate(response.TotalPages, response.CurrentPage);
     }
     );
@@ -87,13 +84,9 @@ function Delete(ID) {
             }
         });
     }
-   
-    
-
 }
 
 function Add() {
-
     var res = validate();
     if (res == false) {
         return false;
@@ -107,7 +100,6 @@ function Add() {
             EndTime: $('#EndTime').val(),
             IsAvailable: $('#IsAvailable').val()
         };
-
     $.ajax({
         url: "/ScheduleVIP/Add",
         data: JSON.stringify(empObj),
@@ -119,15 +111,12 @@ function Add() {
             if (result == -1) {
                 $('#dateInvalidSummary').show();
                 $('#timeInvalidSummary').show();
-
             }
             else {
 
                 GetPageData(1);
-
                 $('#myModal2').modal('hide');
                 //put this if modal gets closed but gray color fade still exists 
-
                 $('body').removeClass('modal-open');
                 $('.modal-backdrop').remove();
                 //end
@@ -154,7 +143,6 @@ function clearTextBox() {
     $('#StartTime').val("");
     $('#EndTime').val("");
     $('#IsAvailable').val("");
-
     $('#Date').css('border-color', 'lightgrey');
     $('#StartTime').css('border-color', 'lightgrey');
     $('#EndTime').css('border-color', 'lightgrey');

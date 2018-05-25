@@ -9,7 +9,6 @@ $(document).ready(function () {
 
 /////
 function GetPageData(pageNum, pageSize) {
-    //After every trigger remove previous data and paging
     $(".tbody").empty();
     $("#paged").empty();
 
@@ -28,20 +27,15 @@ function GetPageData(pageNum, pageSize) {
         }
 
         $(".tbody").html(html);
-        //var currentPage = response.currentPage;
-        //alert(response.currentPage);
-        //alert(response.totalPages);
         PaggingTemplate(response.TotalPages, response.CurrentPage);
     }
     );
 }
-////
+
 
 function getbyID(EmpID) {
     $('#dateInvalidSummary').hide();
     $('#timeInvalidSummary').hide();
-
-
     $('#Date').css('border-color', 'lightgrey');
     $('#StartTime').css('border-color', 'lightgrey');
     $('#EndTime').css('border-color', 'lightgrey');
@@ -124,20 +118,16 @@ function Add() {
         dataType: "json",
         success: function (result) {
             debugger;
-            
             if (result == -1) {
                 $('#dateInvalidSummary').show();
                 $('#timeInvalidSummary').show();
-
             }
             else {
-
                 GetPageData(1);
                 $('#myModal').modal('hide');
 
                 $('body').removeClass('modal-open');
                 $('.modal-backdrop').remove();
-
                 sweetAlert
                          ({
                              title: "Inserted!",
@@ -160,7 +150,6 @@ function clearTextBox() {
     $('#StartTime').val("");
     $('#EndTime').val("");
     $('#IsAvailable').val("");
-
     $('#Date').css('border-color', 'lightgrey');
     $('#StartTime').css('border-color', 'lightgrey');
     $('#EndTime').css('border-color', 'lightgrey');
@@ -245,18 +234,12 @@ function validate() {
     return isValid;
 }
 
-
-//////////////////
-//
 function PaggingTemplate(totalPage, currentPage) {
     var template = "";
     var TotalPages = totalPage;
     var CurrentPage = currentPage;
     var PageNumberArray = Array();
     window.globalCurrentPage = CurrentPage;
-
-
-
     var countIncr = 1;
     for (var i = currentPage; i <= totalPage; i++) {
         PageNumberArray[0] = currentPage;
@@ -293,6 +276,3 @@ function PaggingTemplate(totalPage, currentPage) {
         GetPageData(1, $(this).val());
     });
 }
-
-
-////////////////

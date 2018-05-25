@@ -15,15 +15,11 @@ using PagedList.Mvc;
 
 namespace AppointmentFixturesProject.Controllers
 {
-
      [Authorize(Roles = "CompanyMaster")]
     public class CompanyController : Controller
     {
-        //temp code
-        
-
         BLLDepartment bllDepartment = new BLLDepartment();
-         BLLCompany bllCompany=new BLLCompany();
+        BLLCompany bllCompany=new BLLCompany();
         BLLVIP bllvip = new BLLVIP();
         BLLUser bluser = new BLLUser();
         BLLAvailableTiming blavailable = new BLLAvailableTiming();
@@ -31,8 +27,6 @@ namespace AppointmentFixturesProject.Controllers
 
          public static int companyId=1;
          public static string companyName = "";
-
-
          public CompanyController()
          {
 
