@@ -413,7 +413,6 @@
     <Content Include="Views\VIP\AppointmentDetails.cshtml" />
     <Content Include="Views\ScheduleVIP\FixAppointment.cshtml" />
     <Content Include="Views\User\DetailsUserAppointment.cshtml" />
-    <Content Include="Views\Home\test.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
