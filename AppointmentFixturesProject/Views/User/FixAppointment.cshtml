@@ -10,7 +10,7 @@
 <br />
 <script>
     var setTime = 15;
-    //debugger;
+    var globalEndTime;
     $(document).ready(function () {
         $('#dropdownCompany').on('change', function () {
             var Id = $('#dropdownCompany option:selected').val();
@@ -54,12 +54,13 @@
                 url: '@Url.Action("loadDate","User")',
                 success: function (result) {
                     debugger;
-                    alert(result[0]);
+                   // alert(result[0]);
                     var s = '<option value="-1">Please Select Date</option>';
                     for (var i = 0; i < result.length; i++) {
-                        s += '<option value="' + result[i] + ' ">' + result[i] + '</option>';
+                        s += '<option value="' + result[i].Id + ' ">' + result[i].Date + '</option>';
+                       // s += '<option value="' + result[i] + ' ">' + result[i] + '</option>';
+                        //s += '<option value="' + result[i].Date+ ' ">' + result[i].Id + '</option>';
                     }
-                    //result[i].Date
                     $('#dropdownDate').html(s);
                 }
             });
@@ -67,17 +68,24 @@
 
 
         $('#dropdownDate').on('change', function () {
+<<<<<<< HEAD
+            var Id = $('#dropdownDate option:selected').text();;
+=======
             var Id = $('#dropdownDate option:selected').text();
-            alert($('#dropdownDate option:selected').text());
+            //alert($('#dropdownDate option:selected').text());
+>>>>>>> 2d2db80665ba4f1facebbf94527a6b41066bb192
             $.ajax({
                 type: 'GET',
                 data: { Id: Id },
                 url: '@Url.Action("loadTime","User")',
                 success: function (result) {
                     var s = '<option value="-1">Please Select Date</option>';
-                   // alert(result);
                     for (var i = 0; i < result.length; i++) {
-                       // alert(result[i].StartTime);
+<<<<<<< HEAD
+                       
+=======
+                        alert(result[i].StartTime);
+>>>>>>> 2d2db80665ba4f1facebbf94527a6b41066bb192
                         s += '<option value="' + result[i].Id + ' ">' + result[i].StartTime + '--- ' + result[i].EndTime + '</option>';
                     }
                     $('#dropdownTime').html(s);
@@ -87,25 +95,23 @@
 
         $('#dropdownTime').on('change', function () {
             var Id = $('#dropdownTime option:selected').val();
-            //debugger;
+            var text=$('#dropdownTime option:selected').text();
+            globalEndTime = text.substr(text.length - 5);
             $.ajax({
                 type: 'GET',
                 data: { Id: Id },
                 url: '@Url.Action("loadFixedTime","User")',
                 success: function (result) {
-                    var a = result.StartTime;
-                    var b = result.EndTime;
-                    var result = intervals(a, b);
-                    //alert(result[1].)
                     for (var i = 0; i < result.length; i++) {
                         var s = '<option value="-1">Please Select Interval</option>';
                         for (var i = 0; i < result.length; i++) {
                             if (typeof result[i + 1] == 'undefined') {
-
-                                s += '<option value="' + result[i] + ' ">' + result[i] + '   to   ' + b + '</option>';
+                                 
+                                s += '<option value="' + result[i] + ' ">' + result[i] + '   to   ' + globalEndTime + '</option>';
                             }
-                            else
-                                s += '<option value="' + result[i] + ' ">' + result[i] + '   to   ' + result[i + 1] + '</option>';
+                            else {
+                                s += '<option value="' + result[i] + ' " >' + result[i] + '   to   ' + (moment(result[i], 'HH:mm').add(setTime, 'minutes').format('HH:mm')) + '</option>';
+                            }
                         }
                         $('#dropdownInterval').html(s);
                     }
@@ -128,19 +134,22 @@
         });
     });
 
+<<<<<<< HEAD
+=======
     function intervals(startString, endString) {
-        var start = moment(startString, 'HH:mm:ss a');
-        var end = moment(endString, 'HH:mm:ss a');
+        var start = moment(startString, 'HH:mm a');
+        var end = moment(endString, 'HH:mm a');
         start.minutes(Math.ceil(start.minutes() / 15) * 15);
         var result = []; //result contain array of time
         var current = moment(start);
 
         while (current <= end) {
-            result.push(current.format('HH:mm:ss'));
+            result.push(current.format('HH:mm'));
             current.add(setTime, 'minutes');
         }
         return result;
     }
+>>>>>>> 2d2db80665ba4f1facebbf94527a6b41066bb192
 </script>
 
 <div class="container-fluid">
@@ -148,10 +157,13 @@
         <div class="col-sm-offset-3 col-sm-6">
             <form method="POST" action="/User/SaveToDateTimeTable">
                 <table>
-                    @if (@ViewBag.Appointment != null)
+                   
+                    @if (ViewBag.Appointment != null)
                     {
-                        <h2>Value Set : @ViewBag.Appointment</h2>
+                        <text> ViewBag.Appointment</text>
+                       
                     }
+                   
                     <tr>
                         <td>Company</td>
                         <td>

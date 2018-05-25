@@ -1,5 +1,5 @@
 ﻿$('#spnCharLeft').css('display', 'none');
-var maxLimit = 100;
+var maxLimit = 50;
 $(document).ready(function () {
     $('#Details').keyup(function () {
         var lengthCount = this.value.length;

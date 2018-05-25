@@ -60,6 +60,7 @@ namespace AppointmentFixturesProject.Controllers
         }
         public ActionResult GetPaggedData(int pageNumber = 1, int pageSize = 5)
         {
+
             var listData = bllDepartment.GetAllDepartment().OrderByDescending(u => u.Id).ToList();
             var pagedData = Pagination.PagedResult(listData, pageNumber, pageSize);
             return Json(pagedData, JsonRequestBehavior.AllowGet);
@@ -157,8 +158,29 @@ namespace AppointmentFixturesProject.Controllers
             return View(vip);
         }
         [HttpPost]
-        public ActionResult EditVIP(BOVIPTable model)
+        public ActionResult EditVIP(BOVIPTable model, HttpPostedFileBase fup)
         {
+            string filename = "";
+            if (Request.Files.Count > 0)
+            {
+
+                fup = Request.Files[0];
+                if (fup != null && fup.ContentLength > 0)
+                {
+
+                    filename = fup.FileName;
+                    fup.SaveAs(Server.MapPath("~/Images/" + fup.FileName));
+                    model.Photo = filename;
+                }
+            }
+            else
+            {
+
+
+
+
+            }
+
             bllvip.UpdateVIP(model);
             ViewBag.Department = bllDepartment.GetAllDepartment();
             return RedirectToAction("VIP");
