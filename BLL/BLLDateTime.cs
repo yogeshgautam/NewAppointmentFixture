@@ -63,6 +63,6 @@ namespace BLL
            return _db.tblDateTimes.Max(u => u.Id);
         }
 
-       
+     
     }
 }

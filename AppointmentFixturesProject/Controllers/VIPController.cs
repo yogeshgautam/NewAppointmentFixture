@@ -28,11 +28,9 @@ namespace AppointmentFixturesProject.Controllers
 
         public VIPController()
         {
-            string id = System.Web.HttpContext.Current.User.Identity.GetUserId();          
+                string id = System.Web.HttpContext.Current.User.Identity.GetUserId();          
                 var vip = blvip.GetAllVIP().Where(u => u.UserId == id).FirstOrDefault();
                 VIPID = vip.Id;
-            
-           
         }
 
         public ActionResult Index()
@@ -144,8 +142,6 @@ namespace AppointmentFixturesProject.Controllers
         {
             string email = System.Web.HttpContext.Current.User.Identity.GetUserName();
             var temp = bllAppointment.getBookAppointmentByUser(email);
-
-
             return View(temp);
         }
 
