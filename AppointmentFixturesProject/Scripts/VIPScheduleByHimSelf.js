@@ -1,22 +1,24 @@
 ﻿/// <reference path="jquery-1.9.1.intellisense.js" />
 //Load Data in Table when documents is ready
 var globalCurrentPage;
-$(document).ready(function () {
-   
-    GetPageData(1);
-});
 
+$(document).ready(function () {
+    GetPageData(1);
+
+});
 
 /////
 function GetPageData(pageNum, pageSize) {
     //After every trigger remove previous data and paging
     $(".tbody").empty();
     $("#paged").empty();
+
     $.getJSON("/VIP/GetPaggedData", { pageNumber: pageNum, pageSize: pageSize }, function (response) {
         var html = "";
 
         for (var i = 0; i < response.Data.length; i++) {
-            html = html + '<tr><td>' + response.Data[i].Id + '</td><td>' + response.Data[i].Date + '</td>';
+            html = html + '<tr><td>' + (i+1) + '</td>';
+            html = html + '<td>' + response.Data[i].Id + '</td><td>' + response.Data[i].Date + '</td>';
             html += '<td>' + response.Data[i].StartTime + '</td><td>' + response.Data[i].EndTime + '</td>';
             html += '<td>' + response.Data[i].IsAvailable + '</td>';
             //  html = html + '<td>' + response.Date[i].EndTime + '</td><td>' + response.Data[i].IsAvailable + '</td>';
@@ -72,6 +74,7 @@ function getbyID(EmpID) {
 }
 
 function Delete(ID) {
+    debugger;
     var ans = confirm("Are you sure you want to delete this Record?");
 
     if (ans) {
@@ -81,6 +84,7 @@ function Delete(ID) {
             contentType: "application/json;charset=UTF-8",
             dataType: "json",
             success: function (result) {
+                swal("Good job!", "You clicked the button!", "success")
                 GetPageData(1);
             },
             error: function (errormessage) {
@@ -88,6 +92,9 @@ function Delete(ID) {
             }
         });
     }
+
+
+
 }
 
 function Add() {
