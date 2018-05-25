@@ -1,37 +1,80 @@
 ﻿/// <reference path="jquery-1.9.1.intellisense.js" />
-
-
-
+var globalCurrentPage;
 $(document).ready(function () {
-    loadData();
+    GetPageData(1);
+    GetVip();
 });
+
 //Load Data function
-function loadData() {
-    $.ajax({
-        url: "/Company/List",
-        type: "GET",
-        contentType: "json",
-        dataType: "json",
-        success: function (result) {
-            var html = '';
-            $.each(result, function (key, item) {
-                html += '<tr>';
-                html += '<td>' + item.ID + '</td>';
-                html += '<td>' + item.VIPname + '</td>';
-                html += '<td>' + item.Users + '</td>';
-                html += '<td>' + item.StartTime + '</td>';
-                html += '<td>' + item.EndTime + '</td>';
-                html += '<td>' + item.Date + '</td>';
-                html += '<td><a href="#"  class="btn btn-info"  onclick="return getbyID(' + item.ID + ')" >Edit </a>  <a href="#" class="btn btn-danger" onclick="Delete(' + item.ID + ')">Delete</a></td>';
-                html += '</tr>';
-            });
-            $('.tbody').html(html);
-        },
-        error: function (errormessage) {
-            alert(errormessage.responseText);
+function GetPageData(pageNum, pageSize) {
+    $(".tbody").empty();
+    $("#paged").empty();
+    $.getJSON("/Company/GetPaggedDataa", { pageNumber: pageNum, pageSize: pageSize }, function (response) {
+        var html = "";
+
+        for (var i = 0; i < response.Data.length; i++) {
+            html = html + "<tr>"
+            html += '<td>' + response.Data[i].VipName + '</td>';
+            html += '<td>' + response.Data[i].Users + '</td><td>' + response.Data[i].StartTime + '</td>';
+            html += '<td>' + response.Data[i].EndTime + '</td>';
+            html += '<td>' + response.Data[i].Date + '</td>';
+            html += '<td><a href="#" class="btn btn-info" onclick="return getbyID(' + response.Data[i].ID + ')">Edit</a>    <a href="#" class="btn btn-danger" onclick="Delete(' + response.Data[i].ID + ')">Delete</a></td>';
+            html += "</tr>";
         }
+
+        $(".tbody").html(html);
+        //var currentPage = response.currentPage;
+        //alert(response.currentPage);
+        //alert(response.totalPages);
+        PaggingTemplate(response.TotalPages, response.CurrentPage);
+    }
+    );
+}
+//This is paging temlpate ,you should just copy paste
+function PaggingTemplate(totalPage, currentPage) {
+    var template = "";
+    var TotalPages = totalPage;
+    var CurrentPage = currentPage;
+    var PageNumberArray = Array();
+
+
+    var countIncr = 1;
+    for (var i = currentPage; i <= totalPage; i++) {
+        PageNumberArray[0] = currentPage;
+        if (totalPage != currentPage && PageNumberArray[countIncr - 1] != totalPage) {
+            PageNumberArray[countIncr] = i + 1;
+        }
+        countIncr++;
+    };
+    PageNumberArray = PageNumberArray.slice(0, 5);
+    var FirstPage = 1;
+    var LastPage = totalPage;
+    if (totalPage != currentPage) {
+        var ForwardOne = currentPage + 1;
+    }
+    var BackwardOne = 1;
+    if (currentPage > 1) {
+        BackwardOne = currentPage - 1;
+    }
+
+    template = "<p>" + CurrentPage + " of " + TotalPages + " pages</p>"
+    template = template + '<ul class="pager">' +
+        '<li class="previous"><a href="#" onclick="GetPageData(' + FirstPage + ')"><i class="fa fa-fast-backward"></i>&nbsp;First</a></li>' +
+        '<li><select ng-model="pageSize" id="selectedId"><option value="20" selected>20</option><option value="50">50</option><option value="100">100</option><option value="150">150</option></select> </li>' +
+        '<li><a href="#" onclick="GetPageData(' + BackwardOne + ')"><i class="glyphicon glyphicon-backward"></i></a>';
+
+    var numberingLoop = "";
+    for (var i = 0; i < PageNumberArray.length; i++) {
+        numberingLoop = numberingLoop + '<a class="page-number active" onclick="GetPageData(' + PageNumberArray[i] + ')" href="#">' + PageNumberArray[i] + ' &nbsp;&nbsp;</a>'
+    }
+    template = template + numberingLoop + '<a href="#" onclick="GetPageData(' + ForwardOne + ')" ><i class="glyphicon glyphicon-forward"></i></a></li>' +
+        '<li class="next"><a href="#" onclick="GetPageData(' + LastPage + ')">Last&nbsp;<i class="fa fa-fast-forward"></i></a></li></ul>';
+    $("#paged").append(template);
+    $('#selectedId').change(function () {
+        GetPageData(1, $(this).val());
     });
 }
+
 function getbyID(MeetID) {
 
     $('#VIPuser').css('border-color', 'lightgrey');
@@ -72,7 +115,7 @@ function Delete(ID) {
             contentType: "application/json;charset=UTF-8",
             dataType: "json",
             success: function (result) {
-                loadData();
+                GetPageData();
             },
             error: function (errormessage) {
                 alert(errormessage.responseText);
@@ -82,12 +125,14 @@ function Delete(ID) {
 }
 function Add() {
     var res = validate();
+
     if (res == false) {
         return false;
     }
+
     var meetObj =
         {
-            ID: $('#ID').val(),
+
             VIPuser: $('#VIPuser').val(),
             Users: $('#Users').val(),
             StartTime: $('#StartTime').val(),
@@ -101,8 +146,10 @@ function Add() {
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (result) {
-            loadData();
+            GetPageData(1);
             $('#myModal').modal('hide');
+            $('body').removeClass('modal-open');
+            $('.modal-backdrop').remove();
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
@@ -119,10 +166,11 @@ function clearTextBox() {
     $('#Date').val("");
     $('#btnUpdate').hide();
     $('#btnAdd').show();
-    //$('#Name').css('border-color', 'lightgrey');
-    //$('#Age').css('border-color', 'lightgrey');
-    //$('#State').css('border-color', 'lightgrey');
-    //$('#Country').css('border-color', 'lightgrey');
+    $('#VIPuser').css('border-color', 'lightgrey');
+    $('#Users').css('border-color', 'lightgrey');
+    $('#StartTime').css('border-color', 'lightgrey');
+    $('#EndTime').css('border-color', 'lightgrey');
+    $('#Date').css('border-color', 'lightgrey');
 }
 function Update() {
     //var res = validate();
@@ -145,7 +193,7 @@ function Update() {
         dataType: "json",
 
         success: function (result) {
-            loadData(); debugger;
+            GetPageData(); debugger;
             $('#myModal').modal('hide');
             $('#ID').val("");
             $('#VIPuser').val("");
@@ -160,20 +208,22 @@ function Update() {
     });
 }
 function validate() {
+
     var isValid = true;
-    if ($('#VIPuser').val().trim() == "") {
-        $('#VIPuser').css('border-color', 'Red');
+
+    //if ($('#VIPuser').val().trim() == "") {
+    //    $('#VIPuser').css('border-color', 'Red');
+    //    isValid = false;
+    //}
+    //else {
+    //    $('#VIPuser').css('border-color', 'lightgrey');
+    //}
+    if ($('#Users').val().trim() == "") {
+        $('#Users').css('border-color', 'Red');
         isValid = false;
     }
     else {
-        $('#VIPuser').css('border-color', 'lightgrey');
-    }
-    if ($('#User').val().trim() == "") {
-        $('#User').css('border-color', 'Red');
-        isValid = false;
-    }
-    else {
-        $('#User').css('border-color', 'lightgrey');
+        $('#Users').css('border-color', 'lightgrey');
     }
     if ($('#StartTime').val().trim() == "") {
         $('#StartTime').css('border-color', 'Red');
@@ -199,3 +249,40 @@ function validate() {
 
     return isValid;
 }
+
+function GetVip() {
+
+   
+
+    $.ajax({
+        url: "/Company/GetVip",
+
+        type: "GET",
+        contentType: "json",
+        dataType: "json",
+        success: function (result) {
+
+            var options = '';
+            options += '<select class="form-control"><option value="Select">Select</option>';
+
+            $.each(result, function (key, item) {
+                options += '<option value="' + item.Id + '">' + item.FullName + '</option>';
+            });
+            options += "</select>"
+
+            $('.select').html(options);
+
+        },
+
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+            alert("ogesh");
+        }
+    })
+}
+
+
+
+
+
+
