@@ -6,7 +6,8 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_CompanySharedView.cshtml";
-    int counter = 1;
+    
+    int counter = 1 + ((Model.PageNumber-1)*Model.PageSize);
 }
 <div class="container">
     <h2>List Of Departments</h2>

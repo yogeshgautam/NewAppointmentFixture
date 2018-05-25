@@ -65,7 +65,8 @@ namespace AppointmentFixturesProject.Controllers
             List<BODepartment> lst = bllDepartment.GetAllDepartment().Where(u => u.CompanyId == companyId).ToList();
             if (search != null)
             {
-                lst = bllDepartment.GetAllDepartment().Where(u => u.CompanyId == companyId && u.Name.StartsWith(search)).ToList();
+                lst = bllDepartment.GetAllDepartment().Where(u => u.CompanyId == companyId && u.Name.IndexOf(search,StringComparison.OrdinalIgnoreCase)>=0).ToList();
+                //lst = bllDepartment.GetAllDepartment().Where(u => u.CompanyId == companyId && u.Name.StartsWith(search)).ToList();
             }
             return View(lst.ToPagedList(page??1,5));
         }
@@ -169,8 +170,29 @@ namespace AppointmentFixturesProject.Controllers
         }
 
         [HttpPost]
-        public ActionResult EditVIP(BOVIPTable model)
+        public ActionResult EditVIP(BOVIPTable model, HttpPostedFileBase fup)
         {
+            string filename = "";
+            if (Request.Files.Count > 0)
+            {
+
+                fup = Request.Files[0];
+                if (fup != null && fup.ContentLength > 0)
+                {
+
+                    filename = fup.FileName;
+                    fup.SaveAs(Server.MapPath("~/Images/" + fup.FileName));
+                    model.Photo = filename;
+                }
+            }
+            else
+            {
+
+
+
+
+            }
+
             bllvip.UpdateVIP(model);
             ViewBag.Department = bllDepartment.GetAllDepartment();
             return RedirectToAction("VIP");

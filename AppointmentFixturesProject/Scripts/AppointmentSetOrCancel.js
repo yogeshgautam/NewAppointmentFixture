@@ -1,21 +1,22 @@
 ﻿
 var UpdateIt=function(Id)
-    {
-        alert(Id);
-        $.ajax({
-            type:"POST",
-            url:"/VIP/AppointOrCancel",
-            date: { ID: Id},
-            success:function(result)
-            {
-                $('#Id').val(result.Id);
-                $('#Date').val(result.Date);
-                $('#StartTime').val(result.StartTime);
-                $('#EndTime').val(result.EndTime);
-                $('#IsCanceled').val(result.IsCanceled);
-            }
+{
+    alert(Id);
+    $.ajax({
+        type:"POST",
+        url:"/VIP/AppointOrCancel",
+        date: { ID: Id},
+        success:function(result)
+        {
+            $('#Id').val(result.Id);
+            $('#Date').val(result.Date);
+            $('#StartTime').val(result.StartTime);
+            $('#EndTime').val(result.EndTime);
+            $('#IsCanceled').val(result.IsCanceled);
+        }
     }
-
+    //changes
+    )};
 
     function Update() {
         var empObj = {

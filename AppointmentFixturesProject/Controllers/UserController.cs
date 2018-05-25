@@ -52,6 +52,7 @@ namespace AppointmentFixturesProject.Controllers
         {
             var a = bllcompany.GetAllCompany();
             ViewBag.Company = a;
+          
             return View();
         }
 
@@ -70,6 +71,7 @@ namespace AppointmentFixturesProject.Controllers
             return Json(temp, JsonRequestBehavior.AllowGet);
         }
 
+
         public JsonResult loadDate(int Id)  //Id of VIP
         {
             var emails = bllVIP.GetAllVIP().Where(u => u.Id == Id).Select(x => new { x.Email }).SingleOrDefault();
@@ -83,6 +85,11 @@ namespace AppointmentFixturesProject.Controllers
                 barray.Add(ba);
             }
             var temp = bllAvailable.GetAllAvailableTiming().Where(u => u.VipId == Id && u.IsAvailable == true).Select(u => u.Date).Distinct().ToList();
+
+        public ActionResult loadDate(int Id)  //Id of VIP
+        {   
+           var temp = bllAvailable.GetAllAvailableTiming().Where(u => u.VipId == Id && u.IsAvailable==true).Distinct().OrderBy(x=>x.Date).ToList();
+           // var temp = bllAvailable.GetAllAvailableTiming().Where(u => u.VipId == Id && u.IsAvailable == true).Select(u => u.Date).Distinct().ToList();
             return Json(temp, JsonRequestBehavior.AllowGet);
         }
 
@@ -159,6 +166,7 @@ namespace AppointmentFixturesProject.Controllers
             int j = bllAppointment.CreateAppointment(bAppointment);
             if (j > 0)
             {
+                TempData["shortMessage"] = "MyMessage";
                 ViewBag.Appointment = "Successfully Created";
             }
             else

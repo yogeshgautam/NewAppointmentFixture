@@ -6,7 +6,7 @@
 @{
     ViewBag.Title = "ViewCompany";
     Layout = "~/Views/Shared/_SoftwareSharedView.cshtml";
-   int counter = 1;
+    int counter = 1 + ((Model.PageNumber - 1) * Model.PageSize);
 }
 <div class="container">
     <h2>List Of Company </h2>
