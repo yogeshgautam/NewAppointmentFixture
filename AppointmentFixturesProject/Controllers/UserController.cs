@@ -170,10 +170,6 @@ namespace AppointmentFixturesProject.Controllers
             return View(boVipViewModel);
         }
 
-        //public ActionResult EditUserAppointment()
-        //{
-
-        //}
 
 
         public ActionResult DeleteUserAppointment(int id)
