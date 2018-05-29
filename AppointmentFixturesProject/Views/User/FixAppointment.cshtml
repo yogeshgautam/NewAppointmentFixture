@@ -79,7 +79,7 @@
                     var s = '<option value="-1">Please Select Date</option>';
                    // alert(result);
                     for (var i = 0; i < result.length; i++) {
-                        alert(result[i].StartTime);
+                       // alert(result[i].StartTime);
                         s += '<option value="' + result[i].Id + ' ">' + result[i].StartTime + '--- ' + result[i].EndTime + '</option>';
                     }
                     $('#dropdownTime').html(s);
@@ -131,6 +131,7 @@
     });
 
     function intervals(startString, endString) {
+        debugger;
         var start = moment(startString, 'HH:mm a');
         var end = moment(endString, 'HH:mm a');
         start.minutes(Math.ceil(start.minutes() / 15) * 15);

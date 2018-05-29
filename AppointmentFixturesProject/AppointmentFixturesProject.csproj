@@ -292,6 +292,7 @@
     <Content Include="Scripts\CC\bootstrap-theme.min.css.map" />
     <Content Include="Scripts\CC\bootstrap.css.map" />
     <Content Include="Scripts\CC\bootstrap.min.css.map" />
+    <None Include="Properties\PublishProfiles\osn.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\CC\bootstrap-theme.css" />
     <Content Include="Scripts\CC\bootstrap-theme.min.css" />
@@ -411,10 +412,10 @@
     <Content Include="Views\ScheduleVIP\AppointmentDetails.cshtml" />
     <Content Include="Views\VIP\AppointmentDetails.cshtml" />
     <Content Include="Views\ScheduleVIP\FixAppointment.cshtml" />
-<!--<<<<<<< HEAD
+    <!--<<<<<<< HEAD
 =======-->
     <Content Include="Views\User\DetailsUserAppointment.cshtml" />
-<!-->>>>>>> 54fba7827821809c84c24d0e188a44472997d3dd-->
+    <!-->>>>>>> 54fba7827821809c84c24d0e188a44472997d3dd-->
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

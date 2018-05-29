@@ -68,10 +68,10 @@ namespace AppointmentFixturesProject.Controllers
 
 
         public JsonResult Add(BOAvailableTiming model)
-        {
+         {
             model.VipId = VIPID;
             int date = compareDate(model.Date);
-            int time = compareTime(model.EndTime, model.StartTime);
+            int time = compareTime(model.EndTime, model.StartTime,date);
 
             if (date <= 0 && time > 0)
             {
@@ -92,7 +92,7 @@ namespace AppointmentFixturesProject.Controllers
         {
             model.VipId = VIPID;
             int date = compareDate(model.Date);
-            int time = compareTime(model.EndTime, model.StartTime);
+            int time = compareTime(model.EndTime, model.StartTime,date);
             if (date <= 0 && time > 0)
             {
                 var appointment = available.UpdateAvailableTiming(model);
@@ -191,18 +191,27 @@ namespace AppointmentFixturesProject.Controllers
             return bdate;
         }
 
-        public int compareTime(string endTime, string startTime)
+        public int compareTime(string endTime, string startTime,int date)
         {
             DateTime utcTime = DateTime.UtcNow;
             TimeZoneInfo tzi = TimeZoneInfo.FindSystemTimeZoneById("Nepal Standard Time");
             DateTime localTime = TimeZoneInfo.ConvertTimeFromUtc(utcTime, tzi);
-
-            int results = DateTime.Compare(Convert.ToDateTime(startTime), Convert.ToDateTime(localTime));
+            int results = 0;
+            if (date==0)
+            {
+             results = DateTime.Compare(Convert.ToDateTime(startTime), Convert.ToDateTime(localTime));
             if (results >= 0)
             {
                 results = DateTime.Compare(Convert.ToDateTime(endTime), Convert.ToDateTime(startTime));
             }
             return results;
+            }
+            else
+            {
+                results = DateTime.Compare(Convert.ToDateTime(endTime), Convert.ToDateTime(startTime));
+              return results;
+            }
+           
         }
 
         
