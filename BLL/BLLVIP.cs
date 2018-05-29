@@ -76,6 +76,8 @@ namespace BLL
             return lst;
         }
 
+       
+
         public BOVIPTable GetVIPById(int id)
         {
             tblVIPUser model = _db.tblVIPUsers.Where(u => u.Id == id&&u.IsDeleted==false).FirstOrDefault();

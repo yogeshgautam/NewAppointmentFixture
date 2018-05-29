@@ -28,11 +28,9 @@ namespace AppointmentFixturesProject.Controllers
 
         public VIPController()
         {
-            string id = System.Web.HttpContext.Current.User.Identity.GetUserId();          
-                var vip = blvip.GetAllVIP().Where(u => u.UserId == id).FirstOrDefault();
-                VIPID = vip.Id;
-            
-           
+            string id = System.Web.HttpContext.Current.User.Identity.GetUserId();
+            var vip = blvip.GetAllVIP().Where(u => u.UserId == id).FirstOrDefault();
+            VIPID = vip.Id;
         }
 
         public ActionResult Index()
@@ -75,7 +73,6 @@ namespace AppointmentFixturesProject.Controllers
 
             if (date <= 0 && time > 0)
             {
-
                 int result = available.AddAvailableTiming(model);
                 return Json(result, JsonRequestBehavior.AllowGet);
             }
@@ -133,7 +130,7 @@ namespace AppointmentFixturesProject.Controllers
             {
                 model.VipId = VIPID;
                 available.AddAvailableTiming(model);
-
+    
             }
             return View();
 
@@ -144,8 +141,6 @@ namespace AppointmentFixturesProject.Controllers
         {
             string email = System.Web.HttpContext.Current.User.Identity.GetUserName();
             var temp = bllAppointment.getBookAppointmentByUser(email);
-
-
             return View(temp);
         }
 
@@ -214,16 +209,16 @@ namespace AppointmentFixturesProject.Controllers
            
         }
 
-        
+
         //yogesh part to add functionality to cancel appointment
 
 
 
-        public ActionResult ViewAppointmentDone(int ?page)
+        public ActionResult ViewAppointmentDone(int? page)
         {
-            
+
             var model = bllAppointment.getAppointmentByVIP(VIPID);
-            return View(model.ToPagedList(page??1,5));
+            return View(model.ToPagedList(page ?? 1, 5));
         }
 
         public ActionResult AppointmentDetails(int id)
@@ -246,11 +241,6 @@ namespace AppointmentFixturesProject.Controllers
             bllDateTime.UpdateDateTime(datetime);
             return RedirectToAction("ViewAppointmentDone");
         }
-
     }
-
-    
-    //test
-
 
 }

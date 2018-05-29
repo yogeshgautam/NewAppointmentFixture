@@ -1,36 +1,29 @@
 ﻿/// <reference path="jquery-1.9.1.intellisense.js" />
-var globalCurrentPage;
-$(document).ready(function () {
-    GetPageData(1);
-    GetVip();
-});
 
-//Load Data function
+$(document).ready(function () {
+
+    GetPageData(1);
+});
 function GetPageData(pageNum, pageSize) {
+    //After every trigger remove previous data and paging
     $(".tbody").empty();
     $("#paged").empty();
-    $.getJSON("/Company/GetPaggedDataa", { pageNumber: pageNum, pageSize: pageSize }, function (response) {
+    $.getJSON("/Company/GetPaggedData", { pageNumber: pageNum, pageSize: pageSize }, function (response) {
         var html = "";
 
         for (var i = 0; i < response.Data.length; i++) {
-            html = html + "<tr>"
-            html += '<td>' + response.Data[i].VipName + '</td>';
-            html += '<td>' + response.Data[i].Users + '</td><td>' + response.Data[i].StartTime + '</td>';
-            html += '<td>' + response.Data[i].EndTime + '</td>';
-            html += '<td>' + response.Data[i].Date + '</td>';
-            html += '<td><a href="#" class="btn btn-info" onclick="return getbyID(' + response.Data[i].ID + ')">Edit</a>    <a href="#" class="btn btn-danger" onclick="Delete(' + response.Data[i].ID + ')">Delete</a></td>';
+            html = html + '<tr><td>' + response.Data[i].Name + '</td><td>' + response.Data[i].HOD + '</td>';
+            html += '<td>' + response.Data[i].phone + '</td><td>' + response.Data[i].Email + '</td>';
+            html += '<td>' + response.Data[i].Details + '</td>';
+            html += '<td><a href="#" class="btn btn-info" onclick="return getbyID(' + response.Data[i].Id + ')">Edit</a>    <a href="#" class="btn btn-danger" onclick="Delete(' + response.Data[i].Id + ')">Delete</a></td>';
             html += "</tr>";
+
         }
 
         $(".tbody").html(html);
-        //var currentPage = response.currentPage;
-        //alert(response.currentPage);
-        //alert(response.totalPages);
         PaggingTemplate(response.TotalPages, response.CurrentPage);
-    }
-    );
+    });
 }
-//This is paging temlpate ,you should just copy paste
 function PaggingTemplate(totalPage, currentPage) {
     var template = "";
     var TotalPages = totalPage;
@@ -74,7 +67,6 @@ function PaggingTemplate(totalPage, currentPage) {
         GetPageData(1, $(this).val());
     });
 }
-
 function getbyID(MeetID) {
 
     $('#VIPuser').css('border-color', 'lightgrey');
@@ -83,18 +75,19 @@ function getbyID(MeetID) {
     $('#EndTime').css('border-color', 'lightgrey');
     $('#Date').css('border-color', 'lightgrey');
     $.ajax({
-        url: "/Company/GetByID/" + MeetID,
+        url: "/Company/GetbyIDDepartments/" + MeetID,
         type: "GET",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
+
             debugger;
-            $('#ID').val(result.ID);
-            $('#VIPuser').val(result.VIPuser);
-            $('#Users').val(result.Users);
-            $('#StartTime').val(result.StartTime);
-            $('#EndTime').val(result.EndTime);
-            $('#Date').val(result.Date);
+            $('#Id').val(result.Id);
+            $('#Name').val(result.Name);
+            $('#phone').val(result.phone);
+            $('#Email').val(result.Email);
+            $('#Details').val(result.Details);
+            $('#HOD').val(result.HOD);
 
             $('#myModal').modal('show')
             $('#btnUpdate').show();
@@ -110,43 +103,47 @@ function Delete(ID) {
     var ans = confirm("Are you sure you want to delete this Record?");
     if (ans) {
         $.ajax({
-            url: "/Company/Delete/" + ID,
+            url: "/Company/DeleteDepartments/" + ID,
             type: "POST",
             contentType: "application/json;charset=UTF-8",
             dataType: "json",
             success: function (result) {
+             swal("Good job!", "Deleted Succesfully", "success")
                 GetPageData();
             },
-            error: function (errormessage) {
+            error: function (result) {
                 alert(errormessage.responseText);
             }
         });
     }
 }
+
 function Add() {
     var res = validate();
-
     if (res == false) {
         return false;
     }
-
-    var meetObj =
-        {
-
-            VIPuser: $('#VIPuser').val(),
-            Users: $('#Users').val(),
-            StartTime: $('#StartTime').val(),
-            EndTime: $('#EndTime').val(),
-            Date: $('#Date').val()
-        };
+    var empObj = {
+        ID: $('#Id').val(),
+        Name: $('#Name').val(),
+        Phone: $('#phone').val(),
+        Email: $('#Email').val(),
+        HOD: $('#HOD').val(),
+        Details: $('#Details').val()
+    };
     $.ajax({
-        url: "/Company/Add",
-        data: JSON.stringify(meetObj),
+        url: "/Company/AddDepartments",
+        data: JSON.stringify(empObj),
         type: "POST",
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (result) {
-            GetPageData(1);
+            swal({
+                title: "Sweet!",
+                text: "New Department Inserted Succesfully",
+                imageUrl: 'thumbs-up.jpg'
+            });
+            GetPageData();
             $('#myModal').modal('hide');
             $('body').removeClass('modal-open');
             $('.modal-backdrop').remove();
@@ -158,49 +155,55 @@ function Add() {
 }
 
 function clearTextBox() {
-    $('#ID').val("");
-    $('#VIPuser').val("");
-    $('#Users').val("");
-    $('#StartTime').val("");
-    $('#EndTime').val("");
-    $('#Date').val("");
+    $('#Id').val("");
+    $('#Name').val("");
+    $('#phone').val("");
+    $('#Email').val("");
+    $('#Details').val("");
+    $('#HOD').val("");
     $('#btnUpdate').hide();
     $('#btnAdd').show();
-    $('#VIPuser').css('border-color', 'lightgrey');
-    $('#Users').css('border-color', 'lightgrey');
-    $('#StartTime').css('border-color', 'lightgrey');
-    $('#EndTime').css('border-color', 'lightgrey');
-    $('#Date').css('border-color', 'lightgrey');
+    $('#Id').css('border-color', 'lightgrey');
+    $('#phone').css('border-color', 'lightgrey');
+    $('#Email').css('border-color', 'lightgrey');
+    $('#Details').css('border-color', 'lightgrey');
+    $('#HOD').css('border-color', 'lightgrey');
+   
 }
 function Update() {
-    //var res = validate();
-    //if (res == false) {
-    //    return false;
-    //}
+    var res = validate();
+    if (res == false) {
+        return false;
+    }
     var empObj = {
-        ID: $('#ID').val(),
-        VIPuser: $('#VIPuser').val(),
-        Users: $('#Users').val(),
-        StartTime: $('#StartTime').val(),
-        EndTime: $('#EndTime').val(),
-        Date: $('#Date').val(),
+        Id: $('#Id').val(),
+        Name: $('#Name').val(),
+        phone: $('#phone').val(),
+        Email: $('#Email').val(),
+        Details: $('#Details').val(),
+        HOD: $('#HOD').val(),
     };
     $.ajax({
-        url: "/Company/UpdateMeetingOne",
+        url: "/Company/UpdateDepartments",
         data: JSON.stringify(empObj),
         type: "POST",
         contentType: "application/json;charset=utf-8",
         dataType: "json",
 
         success: function (result) {
+            swal({
+                title: "Sweet!",
+                text: "Department Updated Sucessfully",
+                imageUrl: 'thumbs-up.jpg'
+            });
             GetPageData(); debugger;
             $('#myModal').modal('hide');
-            $('#ID').val("");
-            $('#VIPuser').val("");
-            $('#Users').val("");
-            $('#StartTime').val("");
-            $('#EndTime').val("");
-            $('#Date').val("");
+            $('#Id').val("");
+            $('#Name').val("");
+            $('#phone').val("");
+            $('#Email').val("");
+            $('#Details').val("");
+            $('#HOD').val("");
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
@@ -208,81 +211,42 @@ function Update() {
     });
 }
 function validate() {
-
     var isValid = true;
-
-    //if ($('#VIPuser').val().trim() == "") {
-    //    $('#VIPuser').css('border-color', 'Red');
-    //    isValid = false;
-    //}
-    //else {
-    //    $('#VIPuser').css('border-color', 'lightgrey');
-    //}
-    if ($('#Users').val().trim() == "") {
-        $('#Users').css('border-color', 'Red');
+    if ($('#Name').val().trim() == "") {
+        $('#Name').css('border-color', 'Red');
         isValid = false;
     }
     else {
-        $('#Users').css('border-color', 'lightgrey');
+        $('#Name').css('border-color', 'lightgrey');
     }
-    if ($('#StartTime').val().trim() == "") {
-        $('#StartTime').css('border-color', 'Red');
+    if ($('#phone').val().trim() == "") {
+        $('#phone').css('border-color', 'Red');
         isValid = false;
     }
     else {
-        $('#StartTime').css('border-color', 'lightgrey');
+        $('#phone').css('border-color', 'lightgrey');
     }
-    if ($('#EndTime').val().trim() == "") {
-        $('#EndTime').css('border-color', 'Red');
+    if ($('#Email').val().trim() == "") {
+        $('#Email').css('border-color', 'Red');
         isValid = false;
     }
     else {
-        $('#EndTime').css('border-color', 'lightgrey');
+        $('#Email').css('border-color', 'lightgrey');
     }
-    if ($('#Date').val().trim() == "") {
-        $('#Date').css('border-color', 'Red');
+    if ($('#Details').val().trim() == "") {
+        $('#Details').css('border-color', 'Red');
         isValid = false;
     }
     else {
-        $('#Date').css('border-color', 'lightgrey');
+        $('#Details').css('border-color', 'lightgrey');
+    }
+    if ($('#HOD').val().trim() == "") {
+        $('#HOD').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#HOD').css('border-color', 'lightgrey');
     }
 
     return isValid;
 }
-
-function GetVip() {
-
-   
-
-    $.ajax({
-        url: "/Company/GetVip",
-
-        type: "GET",
-        contentType: "json",
-        dataType: "json",
-        success: function (result) {
-
-            var options = '';
-            options += '<select class="form-control"><option value="Select">Select</option>';
-
-            $.each(result, function (key, item) {
-                options += '<option value="' + item.Id + '">' + item.FullName + '</option>';
-            });
-            options += "</select>"
-
-            $('.select').html(options);
-
-        },
-
-        error: function (errormessage) {
-            alert(errormessage.responseText);
-            alert("ogesh");
-        }
-    })
-}
-
-
-
-
-
-

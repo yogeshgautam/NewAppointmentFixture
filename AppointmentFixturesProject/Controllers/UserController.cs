@@ -21,6 +21,10 @@ namespace AppointmentFixturesProject.Controllers
         BLLUser bllUser;
         BLLAppointmentDetails bllAppointment;
         public static string emailId;
+        public static string VipEmail;
+        public static string selectedDate;
+
+        public static List<BOAppointmentDetails> barray = new List<BOAppointmentDetails>();
 
         public UserController()
         {
@@ -32,7 +36,8 @@ namespace AppointmentFixturesProject.Controllers
             bllUser = new BLLUser();
             bllAppointment = new BLLAppointmentDetails();
             string id = System.Web.HttpContext.Current.User.Identity.GetUserName();
-            emailId = id;
+            emailId = id; // emailId of User
+
         }
 
         public static string endTime;
@@ -40,7 +45,6 @@ namespace AppointmentFixturesProject.Controllers
         // GET: User
         public ActionResult Index()
         {
-
             return View();
         }
 
@@ -53,7 +57,7 @@ namespace AppointmentFixturesProject.Controllers
         }
 
 
-        public ActionResult loadDepartment(int Id)
+        public JsonResult loadDepartment(int Id)
         {
             ViewBag.Company = bllcompany.GetAllCompany();
             var a = blldepartment.getDepartmentByCountryId(Id);
@@ -61,34 +65,54 @@ namespace AppointmentFixturesProject.Controllers
         }
 
 
-        public ActionResult loadVIP(int Id)  //Id of Department
+        public JsonResult loadVIP(int Id)  //Id of Department
         {
             var temp = bllVIP.GetAllVIPByDepartmentId(Id);
             return Json(temp, JsonRequestBehavior.AllowGet);
         }
 
+
+   
         public ActionResult loadDate(int Id)  //Id of VIP
         {
-            var temp = bllAvailable.GetAllAvailableTiming().Where(u => u.VipId == Id && u.IsAvailable == true).Distinct().OrderBy(x => x.Date).ToList();
-           // var temp = bllAvailable.GetAllAvailableTiming().Where(u => u.VipId == Id && u.IsAvailable == true).Select(u => u.Date).Distinct().ToList();
+            //var temp = bllAvailable.GetAllAvailableTiming().Where(u => u.VipId == Id && u.IsAvailable == true).Distinct().OrderBy(x => x.Date).ToList();
+           var temp = bllAvailable.GetAllAvailableTiming().Where(u => u.VipId == Id && u.IsAvailable == true).Select(x => x.Date).Distinct().ToList();
             return Json(temp, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult loadTime(string Id)
+        public JsonResult loadTime(string Id)
         {
-            var temp = bllAvailable.GetAllAvailableTiming().Where(u => u.Date==Id && u.IsAvailable==true).ToList();
+            selectedDate = Id;
+            var temp = bllAvailable.GetAllAvailableTiming().Where(u => u.Date == Id && u.IsAvailable == true).ToList();
             return Json(temp, JsonRequestBehavior.AllowGet);
         }
-
-
 
         public ActionResult loadFixedTime(int Id)
         {
             var temp = bllAvailable.GetAllAvailableTiming().Where(u => u.Id == Id).SingleOrDefault();
-            return Json(temp, JsonRequestBehavior.AllowGet);
+            var a = temp.StartTime;
+            var b = temp.EndTime;
+
+            DateTime StartDate = DateTime.Parse(a);
+            DateTime EndDate = DateTime.Parse(b);
+            int MinInterval = 15;
+
+            List<string> dateList = new List<string>();
+            while (StartDate <= EndDate)
+            {
+                dateList.Add(StartDate.ToString("HH:mm"));
+                StartDate = StartDate.AddMinutes(MinInterval);
+            }
+
+            var lstofDate = bllAppointment.getBookAppointmentByUser(VipEmail).Where(u => u.Date == Convert.ToDateTime(selectedDate) && u.IsCanceled == false).ToList();
+            List<string> dateList1 = new List<string>();
+            foreach (var items in lstofDate)
+            {
+                dateList1.Add(items.FromTime.ToString());
+            }
+            var listdistinct = dateList.Except(dateList1);
+            return Json(listdistinct, JsonRequestBehavior.AllowGet);
         }
-
-
 
         public ActionResult SaveEndInterval(string Id)
         {
@@ -104,17 +128,15 @@ namespace AppointmentFixturesProject.Controllers
             var companyId = fc["dropdownCompany"].ToString(); //CompanyId
             var vipId = fc["dropdownVIP"].ToString();   //VipId
             var dateId = fc["dropdownDate"].ToString();
-            var dateValue = bllAvailable.GetAllAvailableTiming().Where(u => u.Id == Convert.ToInt32(dateId)).SingleOrDefault().Date; ////date
 
-            bDateTime.Date = Convert.ToDateTime(dateValue);
-            //string resultString = Regex.Match(bDateTime.Date.ToString(), @"\d{4}-\d{2}-\d{2}").Value;
-            bDateTime.FromTime = fc["dropdownInterval"].ToString();
-            bDateTime.ToTime = endTime;
+            bDateTime.Date = Convert.ToDateTime(dateId);
+            bDateTime.FromTime = fc["dropdownInterval"].ToString().Trim();
+            bDateTime.ToTime = endTime.Trim();
             bDateTime.IsCanceled = false;
             int i = bllDateTime.CreateDateTime(bDateTime);
 
             bAppointment.DepartmentId = Convert.ToInt32(fc["dropdownDepartment"].ToString());
-            bAppointment.AppointmentFrom = emailId;
+            bAppointment.AppointmentFrom = emailId.Trim();
             bAppointment.AppointmentTo = bllVIP.GetAllVIP().Where(u => u.Id == Convert.ToInt32(vipId)).SingleOrDefault().Email;
             bAppointment.DateTimeId = bllDateTime.GetLastId();
             bAppointment.Details = fc["Details"].ToString();
@@ -139,16 +161,8 @@ namespace AppointmentFixturesProject.Controllers
             return View(boVipViewModel);
         }
 
-        //public ActionResult EditUserAppointment()
-        //{
-
-        //}
-
-
         public ActionResult DeleteUserAppointment(int id)
         {
-            //var boVipViewModal = bllAppointment.GetAllAppointment().Where(u=>user)
-            //return View(boVipViewModal);
             return View();
         }
 
@@ -169,10 +183,8 @@ namespace AppointmentFixturesProject.Controllers
 
         public ActionResult DetailsUserAppointment(int id)
         {
-
-
-            var model=bllAppointment.getAppointmentDetailsByUser(emailId);
-            return View(model.SingleOrDefault(u=>u.Id==id));
+            var model = bllAppointment.getAppointmentDetailsByUser(emailId);
+            return View(model.SingleOrDefault(u => u.Id == id));
         }
 
         public ActionResult ViewAppointmentList()
