@@ -13,6 +13,7 @@ namespace BO
         public Nullable<int> AppointmentId { get; set; }
 
         [Required]
+            [DisplayFormat(ApplyFormatInEditMode=true,DataFormatString="{0:dd-MM-yyyy}" )]
         public Nullable<System.DateTime> Date { get; set; }
 
         [Required]

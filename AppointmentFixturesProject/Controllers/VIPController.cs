@@ -117,7 +117,9 @@ namespace AppointmentFixturesProject.Controllers
         [HttpGet]
         public JsonResult GetNotifications()
         {
-            return Json(bllappointmentdetails.GetAllAppointment(), JsonRequestBehavior.AllowGet);
+            var vipdetails = blvip.GetVIPById(VIPID);
+            var temp = bllappointmentdetails.GetAllAppointment().Where(u => u.AppointmentTo == vipdetails.Email);
+            return Json(temp, JsonRequestBehavior.AllowGet);
         }
 
 
@@ -128,7 +130,7 @@ namespace AppointmentFixturesProject.Controllers
             {
                 model.VipId = VIPID;
                 available.AddAvailableTiming(model);
-
+    
             }
             return View();
 

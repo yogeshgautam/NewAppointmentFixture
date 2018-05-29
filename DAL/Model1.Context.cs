@@ -36,7 +36,7 @@ namespace DAL
         public virtual DbSet<tblCompanyDetail> tblCompanyDetails { get; set; }
         public virtual DbSet<tblDateTime> tblDateTimes { get; set; }
         public virtual DbSet<tblDepartment> tblDepartments { get; set; }
-        public virtual DbSet<tblVIPUser> tblVIPUsers { get; set; }
         public virtual DbSet<tblMeetingFirst> tblMeetingFirsts { get; set; }
+        public virtual DbSet<tblVIPUser> tblVIPUsers { get; set; }
     }
 }

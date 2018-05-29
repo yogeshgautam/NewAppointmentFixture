@@ -269,7 +269,7 @@ function PaggingTemplate(totalPage, currentPage) {
     template = template + numberingLoop + '<a href="#" onclick="GetPageData(' + ForwardOne + ')" ><i class="glyphicon glyphicon-forward"></i></a></li>' +
         '<li class="next"><a href="#" onclick="GetPageData(' + LastPage + ')">Last&nbsp;<i class="fa fa-fast-forward"></i></a></li></ul>';
     $("#paged").append(template);
-    $('#selectedId').change(function () {
+    $('#selectedId').change(function () {8
         GetPageData(1, $(this).val());
     });
 }

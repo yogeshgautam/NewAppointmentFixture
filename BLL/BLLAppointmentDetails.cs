@@ -49,6 +49,7 @@ namespace BLL
                 appointment.AppointmentTo = model.AppointmentTo;
                 appointment.DateTimeId = model.DateTimeId;
                 appointment.DepartmentId = model.DepartmentId;
+                appointment.Department = bldept.GetDepartmentById(appointment.DepartmentId.Value);
                 appointment.Details = model.Details;
                 lst.Add(appointment);
             }

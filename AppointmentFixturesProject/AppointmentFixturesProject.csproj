@@ -278,7 +278,6 @@
     <Content Include="Others\style.css" />
     <Content Include="Scripts\WordLeft.js" />
     <Content Include="Scripts\VIPScheduleByAdmin.js" />
-    <Content Include="Scripts\AppointmentSetOrCancel.js" />
     <Content Include="Scripts\bootstrap-datetimepicker.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
