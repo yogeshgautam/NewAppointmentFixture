@@ -59,7 +59,7 @@ namespace AppointmentFixturesProject.Controllers
         public ActionResult GetPaggedData(int pageNumber = 1, int pageSize = 5)
         {
 
-            var listData = bllDepartment.GetAllDepartment().OrderByDescending(u => u.Id).ToList();
+            var listData = bllDepartment.GetAllDepartment().Where(u=>u.CompanyId==companyId).OrderByDescending(u => u.Id).ToList();
             var pagedData = Pagination.PagedResult(listData, pageNumber, pageSize);
             return Json(pagedData, JsonRequestBehavior.AllowGet);
         }
@@ -286,10 +286,11 @@ namespace AppointmentFixturesProject.Controllers
         //NotificationFunction
         [HttpGet]
         public JsonResult GetNotifications()
-        {
+        { 
             BOAppointmentDetails lst=new BOAppointmentDetails();
             var temp = bllappointmentdetails.GetAllAppointment().Where(u=>u.Department.CompanyId==companyId);
             return Json(temp, JsonRequestBehavior.AllowGet);
+
         }
         //NotificationFunctionEnds
 
