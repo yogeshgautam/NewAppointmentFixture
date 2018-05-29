@@ -59,7 +59,7 @@ namespace AppointmentFixturesProject.Controllers
         public ActionResult GetPaggedData(int pageNumber = 1, int pageSize = 5)
         {
 
-            var listData = bllDepartment.GetAllDepartment().OrderByDescending(u => u.Id).ToList();
+            var listData = bllDepartment.GetAllDepartment().Where(u=>u.CompanyId==companyId).OrderByDescending(u => u.Id).ToList();
             var pagedData = Pagination.PagedResult(listData, pageNumber, pageSize);
             return Json(pagedData, JsonRequestBehavior.AllowGet);
         }
