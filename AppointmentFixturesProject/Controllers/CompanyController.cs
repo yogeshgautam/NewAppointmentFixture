@@ -286,10 +286,11 @@ namespace AppointmentFixturesProject.Controllers
         //NotificationFunction
         [HttpGet]
         public JsonResult GetNotifications()
-        {
+        { 
             BOAppointmentDetails lst=new BOAppointmentDetails();
             var temp = bllappointmentdetails.GetAllAppointment().Where(u=>u.Department.CompanyId==companyId);
             return Json(temp, JsonRequestBehavior.AllowGet);
+
         }
         //NotificationFunctionEnds
 
