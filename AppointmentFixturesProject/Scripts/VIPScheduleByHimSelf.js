@@ -1,22 +1,24 @@
 ﻿/// <reference path="jquery-1.9.1.intellisense.js" />
 //Load Data in Table when documents is ready
 var globalCurrentPage;
-$(document).ready(function () {
-   
-    GetPageData(1);
-});
 
+$(document).ready(function () {
+    GetPageData(1);
+
+});
 
 /////
 function GetPageData(pageNum, pageSize) {
-    //After every trigger remove previous data and paging
     $(".tbody").empty();
     $("#paged").empty();
+
+
     $.getJSON("/VIP/GetPaggedData", { pageNumber: pageNum, pageSize: pageSize }, function (response) {
         var html = "";
 
         for (var i = 0; i < response.Data.length; i++) {
-            html = html + '<tr><td>' + response.Data[i].Id + '</td><td>' + response.Data[i].Date + '</td>';
+            html = html + '<tr><td>' + (i+1) + '</td>';
+            html = html + '<td>' + response.Data[i].Id + '</td><td>' + response.Data[i].Date + '</td>';
             html += '<td>' + response.Data[i].StartTime + '</td><td>' + response.Data[i].EndTime + '</td>';
             html += '<td>' + response.Data[i].IsAvailable + '</td>';
             //  html = html + '<td>' + response.Date[i].EndTime + '</td><td>' + response.Data[i].IsAvailable + '</td>';
@@ -25,20 +27,15 @@ function GetPageData(pageNum, pageSize) {
         }
 
         $(".tbody").html(html);
-        //var currentPage = response.currentPage;
-        //alert(response.currentPage);
-        //alert(response.totalPages);
         PaggingTemplate(response.TotalPages, response.CurrentPage);
     }
     );
 }
-////
+
 
 function getbyID(EmpID) {
     $('#dateInvalidSummary').hide();
     $('#timeInvalidSummary').hide();
-
-
     $('#Date').css('border-color', 'lightgrey');
     $('#StartTime').css('border-color', 'lightgrey');
     $('#EndTime').css('border-color', 'lightgrey');
@@ -72,6 +69,7 @@ function getbyID(EmpID) {
 }
 
 function Delete(ID) {
+    debugger;
     var ans = confirm("Are you sure you want to delete this Record?");
 
     if (ans) {
@@ -81,6 +79,7 @@ function Delete(ID) {
             contentType: "application/json;charset=UTF-8",
             dataType: "json",
             success: function (result) {
+                swal("Good job!", "You clicked the button!", "success")
                 GetPageData(1);
             },
             error: function (errormessage) {
@@ -88,6 +87,9 @@ function Delete(ID) {
             }
         });
     }
+
+
+
 }
 
 function Add() {
@@ -116,20 +118,16 @@ function Add() {
         dataType: "json",
         success: function (result) {
             debugger;
-            
             if (result == -1) {
                 $('#dateInvalidSummary').show();
                 $('#timeInvalidSummary').show();
-
             }
             else {
-
                 GetPageData(1);
                 $('#myModal').modal('hide');
 
                 $('body').removeClass('modal-open');
                 $('.modal-backdrop').remove();
-
                 sweetAlert
                          ({
                              title: "Inserted!",
@@ -152,7 +150,6 @@ function clearTextBox() {
     $('#StartTime').val("");
     $('#EndTime').val("");
     $('#IsAvailable').val("");
-
     $('#Date').css('border-color', 'lightgrey');
     $('#StartTime').css('border-color', 'lightgrey');
     $('#EndTime').css('border-color', 'lightgrey');
@@ -237,18 +234,12 @@ function validate() {
     return isValid;
 }
 
-
-//////////////////
-//
 function PaggingTemplate(totalPage, currentPage) {
     var template = "";
     var TotalPages = totalPage;
     var CurrentPage = currentPage;
     var PageNumberArray = Array();
     window.globalCurrentPage = CurrentPage;
-
-
-
     var countIncr = 1;
     for (var i = currentPage; i <= totalPage; i++) {
         PageNumberArray[0] = currentPage;
@@ -285,6 +276,3 @@ function PaggingTemplate(totalPage, currentPage) {
         GetPageData(1, $(this).val());
     });
 }
-
-
-////////////////
