@@ -54,8 +54,8 @@
                 data: { Id: Id },
                 url: '@Url.Action("loadDate","User")',
                 success: function (result) {
-                    debugger;
-                    alert(result[0]);
+                   // debugger;
+                    //alert(result[0]);
                     var s = '<option value="-1">Please Select Date</option>';
                     for (var i = 0; i < result.length; i++) {
                         s += '<option value="' + result[i] + ' ">' + result[i] + '</option>';
