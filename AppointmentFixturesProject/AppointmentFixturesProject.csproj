@@ -361,7 +361,6 @@
     <Content Include="Views\Shared\_CompanySharedView.cshtml" />
     <Content Include="Views\Company\CreateDepartment.cshtml" />
     <Content Include="Views\Company\CreateVIP.cshtml" />
-    <Content Include="Views\Company\Index.cshtml" />
     <Content Include="Views\Company\VIP.cshtml" />
     <Content Include="Views\Company\DeleteVIP.cshtml" />
     <Content Include="Views\Company\EditVIP.cshtml" />
@@ -403,20 +402,17 @@
     <Content Include="Views\ScheduleVIP\EditAvailableTiming.cshtml" />
     <Content Include="Views\ScheduleVIP\AppointmentDetails.cshtml" />
     <Content Include="Views\VIP\AppointmentDetails.cshtml" />
-
     <Content Include="Views\ScheduleVIP\ViewAppointment.cshtml" />
     <Content Include="Views\ScheduleVIP\AppointmentDetails.cshtml" />
     <Content Include="Views\VIP\AppointmentDetails.cshtml" />
     <Content Include="Views\ScheduleVIP\FixAppointment.cshtml" />
     <Content Include="Views\User\DetailsUserAppointment.cshtml" />
-
     <Content Include="Views\ScheduleVIP\AppointmentDetails.cshtml" />
     <!--<Content Include="Views\VIP\AppointmentDetails.cshtml" />-->
     <!--<Content Include="Views\User\DetailsUserAppointment.cshtml" />-->
     <Content Include="Views\Company\Index.cshtml" />
     <!--<Content Include="Views\ScheduleVIP\FixAppointment.cshtml" />-->
     <Content Include="Views\ScheduleVIP\ViewAppointment.cshtml" />
-
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -70,7 +70,7 @@ namespace AppointmentFixturesProject.Controllers
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
 
-
+           
 
             if (!ModelState.IsValid)
             {
@@ -88,11 +88,21 @@ namespace AppointmentFixturesProject.Controllers
                 case SignInStatus.Success:
                     if ((UserManager.IsInRole(user.Id, "COMPANYVIP")))
                     {
-                        return RedirectToAction("Index", "VIP");
+                        BLL.BLLVIP blvip = new BLL.BLLVIP();
+                        if (blvip.GetAllVIP().Where(u => u.UserId == user.Id && u.IsDeleted == false).FirstOrDefault()!=null)
+                        {
+                            return RedirectToAction("Index", "VIP");
+                        }
+                        
                     }
                     else if((UserManager.IsInRole(user.Id, "CompanyMaster")))
                     {
-                        return RedirectToAction("Index", "Company");
+                        BLL.BLLCompany blcompany = new BLL.BLLCompany();
+                        if (blcompany.GetAllCompany().Where(u => u.UserId == user.Id && u.IsDeleted == false).FirstOrDefault() != null)
+                        {
+                            return RedirectToAction("Index", "Company");
+                        }
+                        
                     }
                     else if ((UserManager.IsInRole(user.Id, "Master")))
                     {
