@@ -276,10 +276,8 @@
     <Content Include="Others\js\plugins.js" />
     <Content Include="Others\js\popper.min.js" />
     <Content Include="Others\style.css" />
-    <Content Include="Scripts\UserScript\UserViewAppointment.js" />
     <Content Include="Scripts\WordLeft.js" />
     <Content Include="Scripts\VIPScheduleByAdmin.js" />
-    <Content Include="Scripts\AppointmentSetOrCancel.js" />
     <Content Include="Scripts\bootstrap-datetimepicker.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -400,6 +398,8 @@
     <Content Include="Views\ScheduleVIP\VIP.cshtml" />
     <Content Include="Views\ScheduleVIP\CreateTiming.cshtml" />
     <Content Include="Views\ScheduleVIP\EditAvailableTiming.cshtml" />
+    <Content Include="Views\ScheduleVIP\FixAppointment.cshtml" />
+    <Content Include="Views\ScheduleVIP\ViewAppointment.cshtml" />
     <Content Include="Views\ScheduleVIP\AppointmentDetails.cshtml" />
     <Content Include="Views\VIP\AppointmentDetails.cshtml" />
     <Content Include="Views\ScheduleVIP\ViewAppointment.cshtml" />
@@ -407,12 +407,15 @@
     <Content Include="Views\VIP\AppointmentDetails.cshtml" />
     <Content Include="Views\ScheduleVIP\FixAppointment.cshtml" />
     <Content Include="Views\User\DetailsUserAppointment.cshtml" />
+
     <Content Include="Views\ScheduleVIP\AppointmentDetails.cshtml" />
     <!--<Content Include="Views\VIP\AppointmentDetails.cshtml" />-->
     <!--<Content Include="Views\User\DetailsUserAppointment.cshtml" />-->
     <Content Include="Views\Company\Index.cshtml" />
     <!--<Content Include="Views\ScheduleVIP\FixAppointment.cshtml" />-->
     <Content Include="Views\ScheduleVIP\ViewAppointment.cshtml" />
+
+
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
