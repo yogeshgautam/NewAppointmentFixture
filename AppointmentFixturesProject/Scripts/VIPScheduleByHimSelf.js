@@ -182,7 +182,7 @@ function Update() {
                 $('#timeInvalidSummary').show();
             }
             else {
-                alert(globalCurrentPage);
+              //  alert(globalCurrentPage);
                 GetPageData(globalCurrentPage);
                 $('#myModal').modal('hide');
                 $('#AppointmentId').val("");
