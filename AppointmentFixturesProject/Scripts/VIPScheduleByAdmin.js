@@ -177,7 +177,7 @@ function Update() {
             }
             else {
                 //loadData();
-                alert(globalCurrentPage);
+                //alert(globalCurrentPage);
                 GetPageData(globalCurrentPage);
                 $('#myModal2').modal('hide');
                 $('#AppointmentId').val("");
